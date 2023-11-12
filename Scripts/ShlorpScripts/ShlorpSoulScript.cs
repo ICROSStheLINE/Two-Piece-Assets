@@ -6,6 +6,7 @@ public class ShlorpSoulScript : MonoBehaviour
 {
     GameObject player;
 	[SerializeField] GameObject laserBeam;
+	[SerializeField] GameObject laserSonicBoom;
 	Animator anim;
 	
 	readonly float shlorpSoulLaserAnimationSpeed = 1.417f / 2;
@@ -79,10 +80,15 @@ public class ShlorpSoulScript : MonoBehaviour
 	void ProduceLaser()
 	{
 		int amountOfLaserObjects = 25;
-		GameObject[] xue = new GameObject[amountOfLaserObjects];
+		GameObject[] laserBeamInstance = new GameObject[amountOfLaserObjects];
 		for (int i = 0; i < amountOfLaserObjects; i++)
 		{
-			xue[i] = Instantiate(laserBeam, transform.position + transform.right * ((i + 1) * 2), transform.rotation);
+			laserBeamInstance[i] = Instantiate(laserBeam, transform.position + transform.right * ((i + 1) * 2), transform.rotation);
+		}
+		for (int i = 0; i < amountOfLaserObjects; i++)
+		{
+			GameObject laserSonicBoomEffect = Instantiate(laserSonicBoom, laserBeamInstance[i].gameObject.transform.position, laserBeamInstance[i].gameObject.transform.rotation);
+			laserSonicBoomEffect.transform.parent = laserBeamInstance[i].gameObject.transform;
 		}
 	}
 

@@ -26,9 +26,7 @@ public class ShlorpSoulLaserBeamScript : MonoBehaviour
 	
 	void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.tag == "PlayerShieldHitbox")
-			Destroy(gameObject);
-		else if (collision.gameObject.tag == "Player")
+		if (collision.gameObject.tag == "Player")
 			healthScript.LoseHealthBy(1);
 		if (collision.gameObject.tag == "Floor or Wall")
 		{

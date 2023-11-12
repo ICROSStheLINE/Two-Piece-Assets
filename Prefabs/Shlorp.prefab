@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 64.68666, y: 64.68666, z: 64.68666}
+  m_LocalScale: {x: 52.481632, y: 52.481632, z: 52.481632}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7361219176380965199}
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 2489744173906443395}
   - component: {fileID: 1678899859878607277}
   - component: {fileID: 5298613564061808608}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shlorp
   m_TagString: Shlorp
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

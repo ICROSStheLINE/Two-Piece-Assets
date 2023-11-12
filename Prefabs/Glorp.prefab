@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 2542447369852767806}
   - component: {fileID: 8344317356530838496}
   - component: {fileID: 2213960617368583716}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Glorp
   m_TagString: Glorp
   m_Icon: {fileID: 0}
@@ -333,7 +333,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

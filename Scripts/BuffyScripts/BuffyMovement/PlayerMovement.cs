@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
 	float playerXScale;
 	public bool playerCanMove = true;
 	PlayerDashing playerDashing;
+	PlayerTeleporting playerTeleporting;
+	PlayerShielding playerShielding;
+	BuffyGravityFlip playerGravityFlip;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -22,7 +25,10 @@ public class PlayerMovement : MonoBehaviour
 		anim = GetComponent<Animator>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		playerXScale = gameObject.transform.localScale.x;
-		playerDashing = gameObject.GetComponent<PlayerDashing>();
+		playerDashing = GetComponent<PlayerDashing>();
+		playerTeleporting = GetComponent<PlayerTeleporting>();
+		playerShielding = GetComponent<PlayerShielding>();
+		playerGravityFlip = GetComponent<BuffyGravityFlip>();
     }
 
     // Use FixedUpdate instead of Update because FixedUpdate is more friendly with Rigidbody2D physics
@@ -30,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
     {
 		CheckNormalMovement();
 		BeginMovement();
+		
+		CheckIfFallingAndAnimateAccordingly();
     }
 
 	void CheckNormalMovement()
@@ -63,5 +71,13 @@ public class PlayerMovement : MonoBehaviour
 		anim.SetFloat("FORCE", Mathf.Abs(force));
 
 		force = 0;
+	}
+	
+	void CheckIfFallingAndAnimateAccordingly()
+	{
+		anim.SetFloat("verticalVelocity", Mathf.Abs(rb.velocity.y));
+		
+		if ((playerDashing.isDashing) || (playerGravityFlip.playerMidGravityShift) || (playerTeleporting.playerMidTeleport) || (playerShielding.playerMidShielding))
+			anim.SetFloat("verticalVelocity", 0f);
 	}
 }
