@@ -12,7 +12,7 @@ public class PlayerTracker : MonoBehaviour
 		if (isTrackingPlayer)
 		{
 			transform.position = new Vector3(playerObject.transform.position.x,gameObject.transform.position.y,gameObject.transform.position.z);
-			transform.position = Vector3.MoveTowards(transform.position, new Vector3(gameObject.transform.position.x,playerObject.transform.position.y + Mathf.Sign(playerObject.transform.localScale.y)*2,gameObject.transform.position.z), 50 * Time.deltaTime);
+			transform.position = Vector3.MoveTowards(transform.position, new Vector3(gameObject.transform.position.x,playerObject.transform.position.y + Mathf.Sign(playerObject.transform.localScale.y)*2,gameObject.transform.position.z), 70 * Time.deltaTime);
 			
 		}
     }
