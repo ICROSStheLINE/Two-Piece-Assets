@@ -5,8 +5,9 @@ using UnityEngine;
 public class TSOBasicAttack : MonoBehaviour
 {
     [SerializeField] GameObject theHitbox;
-    
+
 	Animator anim;
+
     void Start()
     {
          anim = GetComponent<Animator>();
