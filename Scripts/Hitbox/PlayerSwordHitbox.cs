@@ -8,7 +8,7 @@ public class PlayerSwordHitbox : MonoBehaviour
 	
     void Update()
     {
-        Invoke("KILLYOURSELF", 0.2f);
+        
     }
 
 	void OnTriggerEnter2D(Collider2D collision)
@@ -18,10 +18,5 @@ public class PlayerSwordHitbox : MonoBehaviour
 			shlorpNGlorpAnimator = collision.GetComponent<Animator>();
 			shlorpNGlorpAnimator.SetBool("isDying", true);
 		}
-	}
-	
-	void KILLYOURSELF()
-	{
-		Destroy(gameObject);
 	}
 }

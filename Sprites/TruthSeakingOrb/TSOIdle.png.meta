@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b0d8efdf9d3ebc546acef43ff35f6c02
+guid: 7547f87158828b444bdcc189e6c51c64
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,190 +110,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BuffyBasicAttack_0
+      name: TSOIdle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 15
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbec711a92e3a1441b855a320446c446
+      internalID: -1903632285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TSOIdle_1
       rect:
         serializedVersion: 2
         x: 50
-        y: 0
-        width: 50
-        height: 30
+        y: 15
+        width: 10
+        height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd7c0a0c2177cdd499ed3b2b350fb098
-      internalID: -2105198240
+      spriteID: 40e828fa8a8be8346b6c1aa35f39c61c
+      internalID: 954368359
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BuffyBasicAttack_1
+      name: TSOIdle_2
       rect:
         serializedVersion: 2
         x: 100
-        y: 0
-        width: 50
-        height: 30
+        y: 15
+        width: 10
+        height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1645b671e8b42eb40b306e1b380f4d03
-      internalID: -1916751544
+      spriteID: b2f3d32135b79b746a568468a6a22d63
+      internalID: -1782643960
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BuffyBasicAttack_2
+      name: TSOIdle_3
       rect:
         serializedVersion: 2
         x: 150
-        y: 0
-        width: 50
-        height: 30
+        y: 15
+        width: 10
+        height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cfb351e5ae079274fa2010fe450aca26
-      internalID: -988816999
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuffyBasicAttack_3
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 0
-        width: 50
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 438b0dbb3ac262d47a3aeada426fc09e
-      internalID: 1393708904
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuffyBasicAttack_4
-      rect:
-        serializedVersion: 2
-        x: 250
-        y: 0
-        width: 50
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 18cb06f9c7d5c35439fdab99ce22419e
-      internalID: 931130938
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuffyBasicAttack_5
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 0
-        width: 50
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cb3c651a164a133459a9f95b9ad0a93b
-      internalID: 293106629
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuffyBasicAttack_6
-      rect:
-        serializedVersion: 2
-        x: 350
-        y: 0
-        width: 50
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 30fc36c2e826d824eb1dab0b28eb5cd3
-      internalID: -1308458707
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuffyBasicAttack_7
-      rect:
-        serializedVersion: 2
-        x: 400
-        y: 0
-        width: 50
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 02660d2d7838e09418aef416059ff3e9
-      internalID: -1039997726
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuffyBasicAttack_8
-      rect:
-        serializedVersion: 2
-        x: 450
-        y: 0
-        width: 50
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: afd8ae8335ea26f4a9b6cc4b728b7426
-      internalID: 966887852
+      spriteID: c9575fbb1f0b18c4abf88fcf0130fa0b
+      internalID: 1257664503
       vertices: []
       indices: 
       edges: []
@@ -309,15 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BuffyBasicAttack_0: -2105198240
-      BuffyBasicAttack_1: -1916751544
-      BuffyBasicAttack_2: -988816999
-      BuffyBasicAttack_3: 1393708904
-      BuffyBasicAttack_4: 931130938
-      BuffyBasicAttack_5: 293106629
-      BuffyBasicAttack_6: -1308458707
-      BuffyBasicAttack_7: -1039997726
-      BuffyBasicAttack_8: 966887852
+      TSOIdle_0: -1903632285
+      TSOIdle_1: 954368359
+      TSOIdle_2: -1782643960
+      TSOIdle_3: 1257664503
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
