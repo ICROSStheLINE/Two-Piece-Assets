@@ -667,6 +667,8 @@ GameObject:
   - component: {fileID: 326250741}
   - component: {fileID: 326250740}
   - component: {fileID: 326250739}
+  - component: {fileID: 326250742}
+  - component: {fileID: 326250743}
   m_Layer: 0
   m_Name: TruthSeakingOrb
   m_TagString: Untagged
@@ -733,8 +735,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1078926541
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -1903632285, guid: 7547f87158828b444bdcc189e6c51c64, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -755,13 +757,39 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 326250738}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -58.011528, y: -9.971832, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -51.1144, y: 6.7665, z: 0}
+  m_LocalScale: {x: 0.86012757, y: 0.86012757, z: 0.86012757}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &326250742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326250738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af91237bd29f5434a8c72c7eaba77894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theHitbox: {fileID: 5673456162402560797, guid: 761904432acf3d64d86704df2ddfda6b, type: 3}
+  isTSOBasicAttacking: 0
+--- !u!114 &326250743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326250738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e2432e06293f504197c9abd174314cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &410691566
 GameObject:
   m_ObjectHideFlags: 0
@@ -1203,7 +1231,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b427e1e06d11b4e8c7e2d4bf46be50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerObject: {fileID: 1461396258492081772}
   isTrackingPlayer: 1
 --- !u!1 &713214046
 GameObject:
@@ -2520,8 +2547,8 @@ Transform:
   m_GameObject: {fileID: 1922118124}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -43.6621, y: -4.87, z: 0}
-  m_LocalScale: {x: 13.178659, y: 16.829838, z: 1}
+  m_LocalPosition: {x: -43.7163, y: -4.87, z: 0}
+  m_LocalScale: {x: 13.286945, y: 16.829838, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2976,7 +3003,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1461396258492081772}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0b2c37a5f3542d4b94273f4ec2492ac, type: 3}
   m_Name: 
@@ -3047,6 +3074,7 @@ SceneRoots:
   - {fileID: 1187022164}
   - {fileID: 1763502751}
   - {fileID: 324403537598370928}
+  - {fileID: 326250741}
   - {fileID: 2110624146}
   - {fileID: 8344542687117651184}
   - {fileID: 225521566}
@@ -3064,4 +3092,3 @@ SceneRoots:
   - {fileID: 410691569}
   - {fileID: 1737714907}
   - {fileID: 14398722}
-  - {fileID: 326250741}

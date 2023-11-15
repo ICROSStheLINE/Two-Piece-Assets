@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class PlayerTracker : MonoBehaviour
 {
-	[SerializeField] GameObject playerObject;
+	GameObject player;
 	[SerializeField] bool isTrackingPlayer = true;
+
+	void Start()
+	{
+		player = GameObject.FindWithTag("Player");
+	}
 
     void Update()
     {
 		if (isTrackingPlayer)
 		{
-			transform.position = new Vector3(playerObject.transform.position.x,gameObject.transform.position.y,gameObject.transform.position.z);
-			transform.position = Vector3.MoveTowards(transform.position, new Vector3(gameObject.transform.position.x,playerObject.transform.position.y + Mathf.Sign(playerObject.transform.localScale.y)*2,gameObject.transform.position.z), 70 * Time.deltaTime);
+			transform.position = new Vector3(player.transform.position.x,gameObject.transform.position.y,gameObject.transform.position.z);
+			transform.position = Vector3.MoveTowards(transform.position, new Vector3(gameObject.transform.position.x,player.transform.position.y + Mathf.Sign(player.transform.localScale.y)*2,gameObject.transform.position.z), 70 * Time.deltaTime);
 			
 		}
     }

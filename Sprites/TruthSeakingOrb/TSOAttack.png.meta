@@ -117,8 +117,8 @@ TextureImporter:
         y: 0
         width: 50
         height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.1, y: 0.8}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -138,8 +138,8 @@ TextureImporter:
         y: 0
         width: 50
         height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.1, y: 0.8}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,15 +152,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TSOAttack_2
+      name: TSOAttack_10
       rect:
         serializedVersion: 2
-        x: 100
+        x: 500
         y: 0
         width: 50
         height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.1, y: 0.8}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -173,15 +173,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TSOAttack_3
+      name: TSOAttack_11
       rect:
         serializedVersion: 2
-        x: 150
+        x: 550
         y: 0
         width: 50
         height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.1, y: 0.8}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -194,15 +194,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TSOAttack_4
+      name: TSOAttack_2
       rect:
         serializedVersion: 2
-        x: 200
+        x: 100
         y: 0
         width: 50
         height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.1, y: 0.8}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -215,15 +215,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TSOAttack_5
+      name: TSOAttack_3
       rect:
         serializedVersion: 2
-        x: 250
+        x: 150
         y: 0
         width: 50
         height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.1, y: 0.8}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -236,15 +236,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TSOAttack_6
+      name: TSOAttack_4
       rect:
         serializedVersion: 2
-        x: 300
+        x: 200
         y: 0
         width: 50
         height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.1, y: 0.8}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -257,15 +257,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TSOAttack_7
+      name: TSOAttack_5
       rect:
         serializedVersion: 2
-        x: 350
+        x: 250
         y: 0
         width: 50
         height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.1, y: 0.8}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -278,15 +278,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TSOAttack_8
+      name: TSOAttack_6
       rect:
         serializedVersion: 2
-        x: 400
+        x: 300
         y: 0
         width: 50
         height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.1, y: 0.8}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -299,15 +299,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TSOAttack_9
+      name: TSOAttack_7
       rect:
         serializedVersion: 2
-        x: 450
+        x: 350
         y: 0
         width: 50
         height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.1, y: 0.8}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -320,15 +320,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TSOAttack_10
+      name: TSOAttack_8
       rect:
         serializedVersion: 2
-        x: 500
+        x: 400
         y: 0
         width: 50
         height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.1, y: 0.8}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -341,15 +341,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TSOAttack_11
+      name: TSOAttack_9
       rect:
         serializedVersion: 2
-        x: 550
+        x: 450
         y: 0
         width: 50
         height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.1, y: 0.8}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -374,16 +374,16 @@ TextureImporter:
     nameFileIdTable:
       TSOAttack_0: -214896424
       TSOAttack_1: 74313372
-      TSOAttack_10: 2057894001
-      TSOAttack_11: -2088525033
-      TSOAttack_2: 1919682416
-      TSOAttack_3: 1749493516
-      TSOAttack_4: -1205359680
-      TSOAttack_5: -1789927564
-      TSOAttack_6: 1835437987
-      TSOAttack_7: 424598423
-      TSOAttack_8: -502671129
-      TSOAttack_9: -1880279821
+      TSOAttack_10: 1919682416
+      TSOAttack_11: 1749493516
+      TSOAttack_2: -1205359680
+      TSOAttack_3: -1789927564
+      TSOAttack_4: 1835437987
+      TSOAttack_5: 424598423
+      TSOAttack_6: -502671129
+      TSOAttack_7: -1880279821
+      TSOAttack_8: 2057894001
+      TSOAttack_9: -2088525033
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
