@@ -8,12 +8,13 @@ public class TSOBasicAttack : MonoBehaviour
 	//GameObject player;
 	Animator anim;
 
-	static readonly float attackAnimationDuration = 1;
+	static readonly float attackAnimationDurationSpeedMultiplier = 2;
+	static readonly float attackAnimationDuration = 1 / attackAnimationDurationSpeedMultiplier;
 	static readonly float attackAnimationFrames = 12;
 	static readonly float attackHitboxSpawn = (4 / attackAnimationFrames) * attackAnimationDuration;
 	static readonly float attackHitboxDespawn = (7 / attackAnimationFrames) * attackAnimationDuration;
 
-	public bool isTSOBasicAttacking = false;
+	[HideInInspector] public bool isTSOBasicAttacking = false;
 	bool isTSOBasicAttackOnCooldown = false;
 
     void Start()
