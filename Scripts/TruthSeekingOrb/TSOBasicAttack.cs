@@ -38,7 +38,7 @@ public class TSOBasicAttack : MonoBehaviour
 
 	void SpawnHitbox()
 	{
-		GameObject referenceObject = Instantiate(theHitbox, gameObject.transform.position + new Vector3(4f * Mathf.Sign(gameObject.transform.localScale.x),-2f,0), gameObject.transform.rotation);
+		GameObject referenceObject = Instantiate(theHitbox, gameObject.transform.position + new Vector3(2.5f * Mathf.Sign(gameObject.transform.localScale.x),-1f,0), gameObject.transform.rotation);
 		referenceObject.transform.parent = gameObject.transform;
 		referenceObject.transform.localScale += new Vector3(2.5f * Mathf.Sign(gameObject.transform.localScale.x),2,0);
 	}

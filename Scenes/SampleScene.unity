@@ -1078,7 +1078,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -69.47, y: 1.31, z: -10}
+  m_LocalPosition: {x: -47.7, y: 1.81, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2691,7 +2691,7 @@ Transform:
   m_GameObject: {fileID: 7757015839854483422}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -48.55, y: 5.17, z: 0}
+  m_LocalPosition: {x: -48, y: 5.6, z: 0}
   m_LocalScale: {x: 0.5245, y: 0.5245, z: 0.5245}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2824,8 +2824,8 @@ Transform:
   m_GameObject: {fileID: 8894325703715204667}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -50.86, y: 6.61, z: 0}
-  m_LocalScale: {x: 0.86012757, y: 0.86012757, z: 0.86012757}
+  m_LocalPosition: {x: -50.37, y: 7.09, z: 0}
+  m_LocalScale: {x: 0.5191933, y: 0.5191933, z: 0.5191933}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2937,6 +2937,7 @@ GameObject:
   - component: {fileID: 3215095932510167268}
   - component: {fileID: 7618458629145678794}
   - component: {fileID: 8670545154680268005}
+  - component: {fileID: 8670545154680268006}
   - component: {fileID: 7567590546923933506}
   - component: {fileID: 8406133145406446552}
   - component: {fileID: 4622931597931562872}
@@ -3046,6 +3047,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theHitbox: {fileID: 1036606011428823826, guid: fd6cc67ad511ed848a6e9dd8eca4c368, type: 3}
   playerMidShielding: 0
+--- !u!114 &8670545154680268006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7757015839854483422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56046a515763d7e4d82cf75e20d85b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMidKickingTSO: 0
 --- !u!1 &8894325703715204667
 GameObject:
   m_ObjectHideFlags: 0
@@ -3061,7 +3075,7 @@ GameObject:
   - component: {fileID: 7327888059467332113}
   m_Layer: 0
   m_Name: TruthSeakingOrb
-  m_TagString: Untagged
+  m_TagString: Truth Seeking Orb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -18,7 +18,7 @@ public class ShlorpSoulLaserBeamSonicBoomScript : MonoBehaviour
 
 	void MakeTranslucent()
 	{
-		spriteRenderer.color = new Color(0f,0f,0f,0.3f);
+		spriteRenderer.color = new Color(0f,0f,0f,0.1f);
 	}
 
 	void KILLYOURSELF()

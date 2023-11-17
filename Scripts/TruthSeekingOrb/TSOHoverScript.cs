@@ -22,8 +22,11 @@ public class TSOHoverScript : MonoBehaviour
 			CheckWherePlayerFacing();
 		// The following line has the ball constantly moving towards the player at an incredibly slow speed. 
 		// However, this speed increases multiplicitively when it's farther away from the player.
-		transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x - Mathf.Sign(wherePlayerWasFacing.x)*2,player.transform.position.y + Mathf.Sign(player.transform.localScale.y)*2,gameObject.transform.position.z), (5 + (Mathf.Abs(gameObject.transform.position.x - player.transform.position.x) * 5) + (Mathf.Abs(gameObject.transform.position.y - player.transform.position.y) * 5)) * Time.deltaTime);
-		transform.localScale = new Vector3(Mathf.Sign(wherePlayerWasFacing.x),Mathf.Sign(wherePlayerWasFacing.y),gameObject.transform.localScale.z);
+		
+		// write if statement that checks if player walking animation is being played, if so then set orb speed to infinite
+		
+		transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x - Mathf.Sign(wherePlayerWasFacing.x)*1,player.transform.position.y + Mathf.Sign(player.transform.localScale.y)*1,gameObject.transform.position.z), (10 + (Mathf.Abs(gameObject.transform.position.x - player.transform.position.x) * 5) + (Mathf.Abs(gameObject.transform.position.y - player.transform.position.y) * 5)) * Time.deltaTime);
+		transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * Mathf.Sign(wherePlayerWasFacing.x),Mathf.Abs(transform.localScale.y) * Mathf.Sign(wherePlayerWasFacing.y),gameObject.transform.localScale.z);
     }
 
 	void CheckWherePlayerFacing()
