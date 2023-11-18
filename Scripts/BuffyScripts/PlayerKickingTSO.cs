@@ -5,7 +5,11 @@ using UnityEngine;
 public class PlayerKickingTSO : MonoBehaviour
 {
 	Animator anim;
+	Rigidbody2D rb;
 	GameObject truthSeekingOrb;
+	[SerializeField] GameObject truthSeekingOrbPrefab;
+	GameObject tsoBeingKicked;
+	[SerializeField] GameObject tsoBeingKickedPrefab;
 	TSOBasicAttack tsoBasicAttack;
 	PlayerMovement playerMovement;
 	BuffyGravityFlip playerGravityFlip;
@@ -17,13 +21,18 @@ public class PlayerKickingTSO : MonoBehaviour
 	static readonly float kickingAnimationDuration = 0.833f / kickingAnimationDurationSpeedMultiplier;
 	static readonly float kickingAnimationFrames = 10;
 	static readonly float tsoProjectileSpawn = (5 / kickingAnimationFrames) * kickingAnimationDuration;
-	
+
+	static readonly float teleportingAnimationDurationSpeedMultiplier = 1;
+	static readonly float teleportingAnimationDuration = 0.667f / teleportingAnimationDurationSpeedMultiplier;
+//	static readonly float teleportingAnimationFrames = 8;
+
 	[HideInInspector] public bool playerMidKickingTSO = false;
-	bool actionOnCooldown = false;
+	bool ableToTeleport = false;
 
     void Start()
     {
 		anim = GetComponent<Animator>();
+		rb = GetComponent<Rigidbody2D>();
 		truthSeekingOrb = GameObject.FindWithTag("Truth Seeking Orb");
 		tsoBasicAttack = truthSeekingOrb.GetComponent<TSOBasicAttack>();
         playerMovement = GetComponent<PlayerMovement>();
@@ -36,32 +45,86 @@ public class PlayerKickingTSO : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetKeyDown("h")) && (!playerGravityFlip.playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerShielding.playerMidShielding) && (!tsoBasicAttack.isTSOBasicAttacking) && (!actionOnCooldown) && (!playerMidKickingTSO))
+		// Kick out ball
+        if ((Input.GetKeyDown("h")) && (!playerGravityFlip.playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerShielding.playerMidShielding) && (!tsoBasicAttack.isTSOBasicAttacking) && (anim.GetFloat("verticalVelocity") == 0f) && (!ableToTeleport) && (!playerMidKickingTSO))
 		{
-			// Kick out ball
+			// Cancel Movement
 			playerDashing.canDash = false;
 			playerDashing.ResetDashCooldown();
 			playerMovement.playerCanMove = false;
 			
 			playerMidKickingTSO = true;
-			actionOnCooldown = true;
 			
+			// Animate
 			anim.SetBool("kickingTSO", true);
+			Invoke("SpawnOrbProjectile", tsoProjectileSpawn);
+			Invoke("ResetAbilityToTPCooldown", tsoProjectileSpawn + 1f);
 			Invoke("ResetCooldown", kickingAnimationDuration);
 		}
-		else if ((Input.GetKeyDown("h")) && (!playerGravityFlip.playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerShielding.playerMidShielding) && (!tsoBasicAttack.isTSOBasicAttacking) && (!actionOnCooldown) && (playerMidKickingTSO))
+		// Teleport to ball
+		else if ((Input.GetKeyDown("h")) && (!playerGravityFlip.playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerShielding.playerMidShielding) && (!tsoBasicAttack.isTSOBasicAttacking) && (anim.GetFloat("verticalVelocity") == 0f) && (ableToTeleport))
 		{
-			// Teleport to ball
+			// Cancel Movement
+			playerDashing.canDash = false;
+			playerDashing.ResetDashCooldown();
+			playerMovement.playerCanMove = false;
+			
+			CancelInvoke("ResetCooldown");
+			CancelInvoke("ResetAbilityToTPCooldown");
+			ableToTeleport = false;
+			// Animate
+			anim.SetBool("kickingTSO", false);
+			anim.SetBool("kickingTSOP2", true);
+			
+			Invoke("ResetCooldown", teleportingAnimationDuration);
+			TeleportToBall();
+			FreezeConstraints();
+			Invoke("UnfreezeConstraints", teleportingAnimationDuration);
 		}
     }
-	
+
+
+	void UnfreezeConstraints()
+	{
+		rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+	}
+
+	void FreezeConstraints()
+	{
+		rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+	}
+
+	void TeleportToBall()
+	{
+		gameObject.transform.position = tsoBeingKicked.transform.position;
+		Destroy(tsoBeingKicked);
+	}
+
+	void SpawnOrbProjectile()
+	{
+		ableToTeleport = true;
+		if (Mathf.Sign(gameObject.transform.localScale.x) == 1)
+		{
+			tsoBeingKicked = Instantiate(tsoBeingKickedPrefab, (gameObject.transform.position + new Vector3(2,-0.37f,0)), Quaternion.Euler(0,0,0));
+		}
+		else
+		{
+			tsoBeingKicked = Instantiate(tsoBeingKickedPrefab, (gameObject.transform.position + new Vector3(-2,-0.37f,0)), Quaternion.Euler(0,0,180));
+		}
+	}
+
+	void ResetAbilityToTPCooldown()
+	{
+		ableToTeleport = false;
+	}
+
 	void ResetCooldown()
 	{
 		playerDashing.canDash = true;
 		playerMovement.playerCanMove = true;
 		
 		anim.SetBool("kickingTSO", false);
-		actionOnCooldown = false;
+		anim.SetBool("kickingTSOP2", false);
 		playerMidKickingTSO = false;
 	}
 }
