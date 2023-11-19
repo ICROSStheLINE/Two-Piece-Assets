@@ -26,7 +26,7 @@ public class PlayerKickingTSO : MonoBehaviour
 	static readonly float teleportingAnimationDuration = 0.667f / teleportingAnimationDurationSpeedMultiplier;
 //	static readonly float teleportingAnimationFrames = 8;
 
-	static readonly float ballAirtimeDuration = 0.3f;
+	static readonly float ballAirtimeDuration = 0.4f;
 
 	[HideInInspector] public bool playerMidKickingTSO = false;
 	bool ableToTeleport = false;
@@ -69,7 +69,7 @@ public class PlayerKickingTSO : MonoBehaviour
 			Invoke("ResetCooldown", kickingAnimationDuration);
 		}
 		// Teleport to ball
-		else if ((Input.GetKeyDown("h")) && (!playerGravityFlip.playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerShielding.playerMidShielding) && (!tsoBasicAttack.isTSOBasicAttacking) && (anim.GetFloat("verticalVelocity") == 0f) && (ableToTeleport))
+		else if ((Input.GetKeyDown("h")) && (!playerGravityFlip.playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerShielding.playerMidShielding) && (!tsoBasicAttack.isTSOBasicAttacking) && (anim.GetFloat("verticalVelocity") == 0f) && (ableToTeleport) && (tsoBeingKicked != null))
 		{
 			CancelInvoke("SpawnTSOPrefab");
 			// Cancel Movement
@@ -112,8 +112,7 @@ public class PlayerKickingTSO : MonoBehaviour
 		
 		gameObject.transform.position = tsoBeingKicked.transform.position;
 		rb.velocity = new Vector2(Mathf.Sign(gameObject.transform.localScale.x) * 10,0);
-		if (!tsoBeingKicked == null)
-			Destroy(tsoBeingKicked);
+		Destroy(tsoBeingKicked);
 	}
 
 	void SpawnOrbProjectile()

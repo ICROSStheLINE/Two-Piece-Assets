@@ -8,9 +8,10 @@ public class TSOBeingKicked : MonoBehaviour
 	SpriteRenderer spriteRenderer;
 	Animator shlorpNGlorpAnimator;
 	[SerializeField] GameObject trailPrefab;
+	[SerializeField] GameObject sonicBoom;
 	PlayerKickingTSO playerKickingTSO;
 	
-	static readonly float ballAirtimeDuration = 0.3f;
+	static readonly float ballAirtimeDuration = 0.4f;
 
 	float movementSpeed = 50f;
 
@@ -54,6 +55,7 @@ public class TSOBeingKicked : MonoBehaviour
 	void SpawnTrail()
 	{
 		Instantiate(trailPrefab, transform.position, transform.rotation);
+		Instantiate(sonicBoom, transform.position, transform.rotation);
 	}
 
 	void KILLYOURSELF()

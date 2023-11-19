@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trailPrefab: {fileID: 524076554867207531, guid: 669d46b6c01964041ad2fdd95886497e, type: 3}
+  sonicBoom: {fileID: 2490679914856900024, guid: d953c480c69f48544ab337f461cc99d5, type: 3}
 --- !u!212 &6607986518745356205
 SpriteRenderer:
   m_ObjectHideFlags: 0
