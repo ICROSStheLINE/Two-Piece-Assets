@@ -28,6 +28,7 @@ public class PlayerKickingTSO : MonoBehaviour
 
 	[HideInInspector] public bool playerMidKickingTSO = false;
 	bool ableToTeleport = false;
+	[HideInInspector] public bool playerMidKickingTSOButForTheCameraGameObject = false;
 
     void Start()
     {
@@ -48,6 +49,8 @@ public class PlayerKickingTSO : MonoBehaviour
 		// Kick out ball
         if ((Input.GetKeyDown("h")) && (!playerGravityFlip.playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerShielding.playerMidShielding) && (!tsoBasicAttack.isTSOBasicAttacking) && (anim.GetFloat("verticalVelocity") == 0f) && (!ableToTeleport) && (!playerMidKickingTSO))
 		{
+			playerMidKickingTSOButForTheCameraGameObject = true;
+			
 			// Cancel Movement
 			playerDashing.canDash = false;
 			playerDashing.ResetDashCooldown();
@@ -79,7 +82,7 @@ public class PlayerKickingTSO : MonoBehaviour
 			Invoke("ResetCooldown", teleportingAnimationDuration);
 			TeleportToBall();
 			FreezeConstraints();
-			Invoke("UnfreezeConstraints", teleportingAnimationDuration);
+			Invoke("UnfreezeConstraints", teleportingAnimationDuration + 0.2f);
 		}
     }
 
@@ -105,11 +108,11 @@ public class PlayerKickingTSO : MonoBehaviour
 		ableToTeleport = true;
 		if (Mathf.Sign(gameObject.transform.localScale.x) == 1)
 		{
-			tsoBeingKicked = Instantiate(tsoBeingKickedPrefab, (gameObject.transform.position + new Vector3(2,-0.37f,0)), Quaternion.Euler(0,0,0));
+			tsoBeingKicked = Instantiate(tsoBeingKickedPrefab, (gameObject.transform.position + new Vector3(2,0,0)), Quaternion.Euler(0,0,0));
 		}
 		else
 		{
-			tsoBeingKicked = Instantiate(tsoBeingKickedPrefab, (gameObject.transform.position + new Vector3(-2,-0.37f,0)), Quaternion.Euler(0,0,180));
+			tsoBeingKicked = Instantiate(tsoBeingKickedPrefab, (gameObject.transform.position + new Vector3(-2,0,0)), Quaternion.Euler(0,0,180));
 		}
 	}
 
@@ -126,5 +129,12 @@ public class PlayerKickingTSO : MonoBehaviour
 		anim.SetBool("kickingTSO", false);
 		anim.SetBool("kickingTSOP2", false);
 		playerMidKickingTSO = false;
+		
+		Invoke("ResetPlayerMidKickingTSOButForTheCameraGameObjectVariable", 0.2f);
+	}
+	
+	void ResetPlayerMidKickingTSOButForTheCameraGameObjectVariable()
+	{
+		playerMidKickingTSOButForTheCameraGameObject = false;
 	}
 }

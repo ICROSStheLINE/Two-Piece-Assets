@@ -3005,6 +3005,7 @@ MonoBehaviour:
   truthSeekingOrbPrefab: {fileID: 8345003436428967726, guid: 21ff2b2c7c793b84f963f07d818f5639, type: 3}
   tsoBeingKickedPrefab: {fileID: 3947705424321657882, guid: 4dcf749fb2dddc943befa3ad9fd2c44b, type: 3}
   playerMidKickingTSO: 0
+  playerMidKickingTSOButForTheCameraGameObject: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
