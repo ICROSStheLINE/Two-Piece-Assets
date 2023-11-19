@@ -11,6 +11,7 @@ public class BuffyGravityFlip : MonoBehaviour
 	PlayerDashing playerDashing;
 	PlayerTeleporting playerTeleporting;
 	PlayerShielding playerShielding;
+	PlayerKickingTSO playerKickingTSO;
 
 	[HideInInspector] public bool playerMidGravityShift = false;
 	
@@ -23,11 +24,12 @@ public class BuffyGravityFlip : MonoBehaviour
 		playerDashing = GetComponent<PlayerDashing>();
 		playerTeleporting = GetComponent<PlayerTeleporting>();
 		playerShielding = GetComponent<PlayerShielding>();
+		playerKickingTSO = GetComponent<PlayerKickingTSO>();
     }
 
     void Update()
     {
-		if ((Input.GetKeyDown("f")) && (!playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerShielding.playerMidShielding))
+		if ((Input.GetKeyDown("f")) && (!playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerShielding.playerMidShielding) && (!playerKickingTSO.playerMidKickingTSOButForTheCameraGameObject))
 		{
 			playerDashing.canDash = false;
 			playerDashing.ResetDashCooldown();

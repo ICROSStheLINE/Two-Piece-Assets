@@ -10,6 +10,7 @@ public class PlayerTeleporting : MonoBehaviour
 	BuffyGravityFlip playerGravityFlip;
 	PlayerMovement playerMovement;
 	PlayerShielding playerShielding;
+	PlayerKickingTSO playerKickingTSO;
 	
 	[HideInInspector] public bool playerMidTeleport = false;
 	[SerializeField] float teleportDistance;
@@ -22,11 +23,12 @@ public class PlayerTeleporting : MonoBehaviour
 		playerGravityFlip = GetComponent<BuffyGravityFlip>();
 		playerMovement = GetComponent<PlayerMovement>();
 		playerShielding = GetComponent<PlayerShielding>();
+		playerKickingTSO = GetComponent<PlayerKickingTSO>();
     }
 
     void FixedUpdate()
     {
-        if ((Input.GetKey("r")) && (!playerMidTeleport) && (playerGravityFlip.playerMidGravityShift == false) && (!playerShielding.playerMidShielding))
+        if ((Input.GetKey("r")) && (!playerMidTeleport) && (playerGravityFlip.playerMidGravityShift == false) && (!playerShielding.playerMidShielding) && (!playerKickingTSO.playerMidKickingTSOButForTheCameraGameObject))
 		{
 			playerDashing.canDash = false;
 			playerDashing.ResetDashCooldown();

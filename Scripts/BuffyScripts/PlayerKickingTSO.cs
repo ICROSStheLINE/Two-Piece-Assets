@@ -26,6 +26,8 @@ public class PlayerKickingTSO : MonoBehaviour
 	static readonly float teleportingAnimationDuration = 0.667f / teleportingAnimationDurationSpeedMultiplier;
 //	static readonly float teleportingAnimationFrames = 8;
 
+	static readonly float ballAirtimeDuration = 0.3f;
+
 	[HideInInspector] public bool playerMidKickingTSO = false;
 	bool ableToTeleport = false;
 	[HideInInspector] public bool playerMidKickingTSOButForTheCameraGameObject = false;
@@ -49,6 +51,8 @@ public class PlayerKickingTSO : MonoBehaviour
 		// Kick out ball
         if ((Input.GetKeyDown("h")) && (!playerGravityFlip.playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerShielding.playerMidShielding) && (!tsoBasicAttack.isTSOBasicAttacking) && (anim.GetFloat("verticalVelocity") == 0f) && (!ableToTeleport) && (!playerMidKickingTSO))
 		{
+			Destroy(truthSeekingOrb);
+			
 			playerMidKickingTSOButForTheCameraGameObject = true;
 			
 			// Cancel Movement
@@ -61,12 +65,13 @@ public class PlayerKickingTSO : MonoBehaviour
 			// Animate
 			anim.SetBool("kickingTSO", true);
 			Invoke("SpawnOrbProjectile", tsoProjectileSpawn);
-			Invoke("ResetAbilityToTPCooldown", tsoProjectileSpawn + 1f);
+			Invoke("ResetAbilityToTPCooldown", tsoProjectileSpawn + ballAirtimeDuration);
 			Invoke("ResetCooldown", kickingAnimationDuration);
 		}
 		// Teleport to ball
 		else if ((Input.GetKeyDown("h")) && (!playerGravityFlip.playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerShielding.playerMidShielding) && (!tsoBasicAttack.isTSOBasicAttacking) && (anim.GetFloat("verticalVelocity") == 0f) && (ableToTeleport))
 		{
+			CancelInvoke("SpawnTSOPrefab");
 			// Cancel Movement
 			playerDashing.canDash = false;
 			playerDashing.ResetDashCooldown();
@@ -86,6 +91,10 @@ public class PlayerKickingTSO : MonoBehaviour
 		}
     }
 
+	void SpawnTSOPrefab()
+	{
+		truthSeekingOrb = Instantiate(truthSeekingOrbPrefab, tsoBeingKicked.transform.position, Quaternion.Euler(0,0,0));
+	}
 
 	void UnfreezeConstraints()
 	{
@@ -94,13 +103,17 @@ public class PlayerKickingTSO : MonoBehaviour
 
 	void FreezeConstraints()
 	{
-		rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+		rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
 	}
 
 	void TeleportToBall()
 	{
+		SpawnTSOPrefab();
+		
 		gameObject.transform.position = tsoBeingKicked.transform.position;
-		Destroy(tsoBeingKicked);
+		rb.velocity = new Vector2(Mathf.Sign(gameObject.transform.localScale.x) * 10,0);
+		if (!tsoBeingKicked == null)
+			Destroy(tsoBeingKicked);
 	}
 
 	void SpawnOrbProjectile()
@@ -114,6 +127,7 @@ public class PlayerKickingTSO : MonoBehaviour
 		{
 			tsoBeingKicked = Instantiate(tsoBeingKickedPrefab, (gameObject.transform.position + new Vector3(-2,0,0)), Quaternion.Euler(0,0,180));
 		}
+		Invoke("SpawnTSOPrefab", ballAirtimeDuration);
 	}
 
 	void ResetAbilityToTPCooldown()
