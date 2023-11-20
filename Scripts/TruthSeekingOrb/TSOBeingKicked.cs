@@ -27,7 +27,7 @@ public class TSOBeingKicked : MonoBehaviour
 			spriteRenderer.flipY = !spriteRenderer.flipY;
 		}
 		
-		InvokeRepeating("SpawnTrail", 0.1f, 0.07f);
+		InvokeRepeating("SpawnTrail", 0.1f, 0.05f);
 		Invoke("KILLYOURSELF", ballAirtimeDuration);
     }
 
