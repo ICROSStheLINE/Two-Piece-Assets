@@ -2824,6 +2824,7 @@ GameObject:
   - component: {fileID: 7618458629145678794}
   - component: {fileID: 8670545154680268005}
   - component: {fileID: 8670545154680268006}
+  - component: {fileID: 8670545154680268007}
   - component: {fileID: 7567590546923933506}
   - component: {fileID: 8406133145406446552}
   - component: {fileID: 4622931597931562872}
@@ -3006,6 +3007,18 @@ MonoBehaviour:
   tsoBeingKickedPrefab: {fileID: 3947705424321657882, guid: 4dcf749fb2dddc943befa3ad9fd2c44b, type: 3}
   playerMidKickingTSO: 0
   playerMidKickingTSOButForTheCameraGameObject: 0
+--- !u!114 &8670545154680268007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7757015839854483422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5549d88288067bc489eb66aa3213275a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

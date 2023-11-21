@@ -31,6 +31,8 @@ public class PlayerKickingTSO : MonoBehaviour
 	[HideInInspector] public bool playerMidKickingTSO = false;
 	bool ableToTeleport = false;
 	[HideInInspector] public bool playerMidKickingTSOButForTheCameraGameObject = false;
+	bool touchingFloorOrWall = false;
+	float originalYPosMidTeleporting = 0;
 
     void Start()
     {
@@ -86,7 +88,9 @@ public class PlayerKickingTSO : MonoBehaviour
 			
 			Invoke("ResetCooldown", teleportingAnimationDuration);
 			TeleportToBall();
-			FreezeConstraints();
+			for (float i = 0; i < 0.2f; i += 0.01f)
+				Invoke("TPToOriginalPosVariable", i);
+			Invoke("FreezeConstraints", 0.19f);
 			Invoke("UnfreezeConstraints", teleportingAnimationDuration + 0.2f);
 		}
     }
@@ -111,7 +115,8 @@ public class PlayerKickingTSO : MonoBehaviour
 		SpawnTSOPrefab();
 		
 		gameObject.transform.position = tsoBeingKicked.transform.position;
-		rb.velocity = new Vector2(Mathf.Sign(gameObject.transform.localScale.x) * 10,0);
+		originalYPosMidTeleporting = gameObject.transform.position.y;
+		Invoke("GiveSomeVelocityAfterTeleporting", 0.1f);
 		Destroy(tsoBeingKicked);
 	}
 
@@ -149,5 +154,32 @@ public class PlayerKickingTSO : MonoBehaviour
 	void ResetPlayerMidKickingTSOButForTheCameraGameObjectVariable()
 	{
 		playerMidKickingTSOButForTheCameraGameObject = false;
+	}
+	
+	void GiveSomeVelocityAfterTeleporting()
+	{
+		if (touchingFloorOrWall)
+			rb.velocity = new Vector2(Mathf.Sign(gameObject.transform.localScale.x) * 13,0);
+		else
+			rb.velocity = new Vector2(Mathf.Sign(gameObject.transform.localScale.x) * 2,0);
+	}
+	
+	void OnCollisionStay2D(Collision2D collision)
+	{
+		if (collision.gameObject.tag == "Floor or Wall")
+			touchingFloorOrWall = true;
+		else
+			touchingFloorOrWall = false;
+	}
+	
+	void OnCollisionExit2D(Collision2D collision)
+	{
+		if (collision.gameObject.tag == "Floor or Wall")
+			touchingFloorOrWall = false;
+	}
+	
+	void TPToOriginalPosVariable()
+	{
+		gameObject.transform.position = new Vector3(transform.position.x, originalYPosMidTeleporting, transform.position.z);
 	}
 }
