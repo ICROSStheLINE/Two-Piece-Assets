@@ -32,6 +32,7 @@ public class PlayerKickingTSO : MonoBehaviour
 	bool ableToTeleport = false;
 	[HideInInspector] public bool playerMidKickingTSOButForTheCameraGameObject = false;
 	bool touchingFloorOrWall = false;
+	float originalYPosMidTeleporting = 0;
 
     void Start()
     {
@@ -87,7 +88,9 @@ public class PlayerKickingTSO : MonoBehaviour
 			
 			Invoke("ResetCooldown", teleportingAnimationDuration);
 			TeleportToBall();
-			Invoke("FreezeConstraints", 0.2f);
+			for (float i = 0; i < 0.2f; i += 0.01f)
+				Invoke("TPToOriginalPosVariable", i);
+			Invoke("FreezeConstraints", 0.19f);
 			Invoke("UnfreezeConstraints", teleportingAnimationDuration + 0.2f);
 		}
     }
@@ -112,6 +115,7 @@ public class PlayerKickingTSO : MonoBehaviour
 		SpawnTSOPrefab();
 		
 		gameObject.transform.position = tsoBeingKicked.transform.position;
+		originalYPosMidTeleporting = gameObject.transform.position.y;
 		Invoke("GiveSomeVelocityAfterTeleporting", 0.1f);
 		Destroy(tsoBeingKicked);
 	}
@@ -155,20 +159,27 @@ public class PlayerKickingTSO : MonoBehaviour
 	void GiveSomeVelocityAfterTeleporting()
 	{
 		if (touchingFloorOrWall)
-			rb.velocity = new Vector2(Mathf.Sign(gameObject.transform.localScale.x) * 10,0);
+			rb.velocity = new Vector2(Mathf.Sign(gameObject.transform.localScale.x) * 13,0);
 		else
 			rb.velocity = new Vector2(Mathf.Sign(gameObject.transform.localScale.x) * 2,0);
 	}
 	
-	void OnCollisionEnter2D(Collision2D collision)
+	void OnCollisionStay2D(Collision2D collision)
 	{
 		if (collision.gameObject.tag == "Floor or Wall")
 			touchingFloorOrWall = true;
+		else
+			touchingFloorOrWall = false;
 	}
 	
 	void OnCollisionExit2D(Collision2D collision)
 	{
 		if (collision.gameObject.tag == "Floor or Wall")
 			touchingFloorOrWall = false;
+	}
+	
+	void TPToOriginalPosVariable()
+	{
+		gameObject.transform.position = new Vector3(transform.position.x, originalYPosMidTeleporting, transform.position.z);
 	}
 }
