@@ -12,11 +12,16 @@ public class BuffyLeechBlast : MonoBehaviour
 	PlayerDashing playerDashing;
 	PlayerShielding playerShielding;
 	PlayerKickingTSO playerKickingTSO;
+	[SerializeField] GameObject projectilePrefab;
 
-	static readonly float animationDurationMultiplier = 1;
+	static readonly float animationDurationMultiplier = 1f;
 	static readonly float animationDuration = 2.25f / animationDurationMultiplier;
-	//static readonly float animationFrames = 27;
-	//static readonly float blastProjectileSpawn = 0;
+	static readonly float animationFrames = 27f;
+	static readonly float blastProjectileSpawn = (27f / animationFrames) * animationDuration;
+	static readonly float animationWDurationMultiplier = 1f;
+	static readonly float animationWDuration = 0f / animationDurationMultiplier;
+	static readonly float animationLDurationMultiplier = 1f;
+	static readonly float animationLDuration = 0f / animationDurationMultiplier;
 
 	[HideInInspector] public bool playerMidLeechBlast = false;
 
@@ -36,15 +41,55 @@ public class BuffyLeechBlast : MonoBehaviour
     {
         if ((Input.GetKeyDown("b")) && (!playerGravityFlip.playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerShielding.playerMidShielding) && (anim.GetFloat("verticalVelocity") == 0f) && (!playerKickingTSO.playerMidKickingTSO) && (!playerMidLeechBlast))
 		{
+			playerDashing.canDash = false;
+			playerDashing.ResetDashCooldown();
+			playerMovement.playerCanMove = false;
+			
 			playerMidLeechBlast = true;
 			anim.SetBool("isLeechBlasting", true);
-			Invoke("ResetCooldown", animationDuration);
+			
+			Invoke("SpawnProjectile", blastProjectileSpawn);
+			Invoke("StopAnimation", animationDuration);
 		}
     }
+	
+	void SpawnProjectile()
+	{
+		if (Mathf.Sign(gameObject.transform.localScale.x) == 1)
+		{
+			Instantiate(projectilePrefab, (gameObject.transform.position + new Vector3(0,0,0)), Quaternion.Euler(0,0,0));
+		}
+		else
+		{
+			Instantiate(projectilePrefab, (gameObject.transform.position + new Vector3(0,0,0)), Quaternion.Euler(0,0,180));
+		}
+	}
+
+	void StopAnimation()
+	{
+		anim.SetBool("isLeechBlasting", false);
+	}
+
+	void AnimateL()
+	{
+		anim.SetBool("isLeechBlastingL", true);
+		Invoke("ResetCooldown", animationLDuration);
+	}
+
+	void AnimateW()
+	{
+		anim.SetBool("isLeechBlastingW", true);
+		Invoke("ResetCooldown", animationWDuration);
+	}
 
 	void ResetCooldown()
 	{
+		playerDashing.canDash = true;
+		playerMovement.playerCanMove = true;
+		
 		playerMidLeechBlast = false;
 		anim.SetBool("isLeechBlasting", false);
+		anim.SetBool("isLeechBlastingW", false);
+		anim.SetBool("isLeechBlastingL", false);
 	}
 }

@@ -3019,6 +3019,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5549d88288067bc489eb66aa3213275a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 8422117185756245933, guid: 68bad78d98d3bab4f803c393e16c1618, type: 3}
+  playerMidLeechBlast: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
