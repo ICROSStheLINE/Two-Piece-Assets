@@ -19,9 +19,9 @@ public class BuffyLeechBlast : MonoBehaviour
 	static readonly float animationFrames = 27f;
 	static readonly float blastProjectileSpawn = (27f / animationFrames) * animationDuration;
 	static readonly float animationWDurationMultiplier = 1f;
-	static readonly float animationWDuration = 0f / animationDurationMultiplier;
+	static readonly float animationWDuration = 0.917f / animationDurationMultiplier;
 	static readonly float animationLDurationMultiplier = 1f;
-	static readonly float animationLDuration = 0f / animationDurationMultiplier;
+	static readonly float animationLDuration = 0.5f / animationDurationMultiplier;
 
 	[HideInInspector] public bool playerMidLeechBlast = false;
 
@@ -49,7 +49,7 @@ public class BuffyLeechBlast : MonoBehaviour
 			anim.SetBool("isLeechBlasting", true);
 			
 			Invoke("SpawnProjectile", blastProjectileSpawn);
-			Invoke("StopAnimation", animationDuration);
+
 		}
     }
 	
@@ -65,20 +65,17 @@ public class BuffyLeechBlast : MonoBehaviour
 		}
 	}
 
-	void StopAnimation()
-	{
-		anim.SetBool("isLeechBlasting", false);
-	}
-
 	void AnimateL()
 	{
 		anim.SetBool("isLeechBlastingL", true);
+		anim.SetBool("isLeechBlasting", false);
 		Invoke("ResetCooldown", animationLDuration);
 	}
 
 	void AnimateW()
 	{
 		anim.SetBool("isLeechBlastingW", true);
+		anim.SetBool("isLeechBlasting", false);
 		Invoke("ResetCooldown", animationWDuration);
 	}
 
