@@ -30,12 +30,13 @@ public class ShlorpDeathScript : MonoBehaviour
 			anim.SetInteger("teleportStage", 0);
 			anim.SetBool("isAttacking", false);
 			shlorpCombatScript.CancelInvoke();
+			shlorpCombatScript.Invoke("SetVisibleAgain", 0);
 			shlorpCombatScript.enabled = false;
 			boxCollider.excludeLayers = 11000000;
 			// LayerMasks are stupid.
 		}
     }
-	
+
 	void KILLYOURSELF()
 	{
 		Instantiate(shlorpSoul, transform.position, transform.rotation);
