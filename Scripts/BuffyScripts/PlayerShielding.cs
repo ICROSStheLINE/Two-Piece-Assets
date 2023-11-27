@@ -11,6 +11,7 @@ public class PlayerShielding : MonoBehaviour
 	PlayerTeleporting playerTeleporting;
 	PlayerDashing playerDashing;
 	PlayerKickingTSO playerKickingTSO;
+	BuffyLeechBlast buffyLeechBlast;
 
 	readonly float shieldingStageOneSpeed = (0.5f / 2);
 	readonly float shieldingStageTwoSpeed = (0.5f / 2);
@@ -26,11 +27,12 @@ public class PlayerShielding : MonoBehaviour
 		playerTeleporting = GetComponent<PlayerTeleporting>();
 		playerDashing = GetComponent<PlayerDashing>();
 		playerKickingTSO = GetComponent<PlayerKickingTSO>();
+		buffyLeechBlast = GetComponent<BuffyLeechBlast>();
     }
 
     void Update()
     {
-        if ((Input.GetKey("v")) && (!playerGravityFlip.playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerMidShielding) && (!playerKickingTSO.playerMidKickingTSOButForTheCameraGameObject))
+        if ((Input.GetKey("v")) && (!playerGravityFlip.playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerMidShielding) && (!playerKickingTSO.playerMidKickingTSOButForTheCameraGameObject) && (!buffyLeechBlast.playerMidLeechBlast))
 		{
 			playerDashing.canDash = false;
 			playerDashing.ResetDashCooldown();

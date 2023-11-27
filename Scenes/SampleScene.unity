@@ -2829,7 +2829,7 @@ GameObject:
   - component: {fileID: 8406133145406446552}
   - component: {fileID: 4622931597931562872}
   - component: {fileID: 6034235074044881290}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "b\u028Affy"
   m_TagString: Player
   m_Icon: {fileID: 0}

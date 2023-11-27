@@ -19,9 +19,9 @@ public class BuffyLeechBlast : MonoBehaviour
 	static readonly float animationFrames = 27f;
 	static readonly float blastProjectileSpawn = (27f / animationFrames) * animationDuration;
 	static readonly float animationWDurationMultiplier = 1f;
-	static readonly float animationWDuration = 0.917f / animationDurationMultiplier;
+	static readonly float animationWDuration = 0.917f / animationWDurationMultiplier;
 	static readonly float animationLDurationMultiplier = 1f;
-	static readonly float animationLDuration = 0.5f / animationDurationMultiplier;
+	static readonly float animationLDuration = 0.5f / animationLDurationMultiplier;
 
 	[HideInInspector] public bool playerMidLeechBlast = false;
 
