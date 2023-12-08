@@ -61,8 +61,8 @@ public class ShlorpCombatScript : MonoBehaviour
 		Invoke("SetTPStageTo0", (teleportStageOneSpeed * 2 + teleportStageTwoSpeed * 2));
 		// 3rd teleport
 		Invoke("SetTPStageTo1", (teleportStageOneSpeed * 2 + teleportStageTwoSpeed * 2));
-		if (Mathf.Sign(player.transform.localScale.y) == 1) // if player on ground, get on ground
-			Invoke("TeleportAbovePlayer", (teleportStageOneSpeed * 3 + teleportStageTwoSpeed * 2));
+		// if player on ground, get on ground
+		Invoke("IfOnGroundGetOnGround", (teleportStageOneSpeed * 3 + teleportStageTwoSpeed * 2));
 		Invoke("TeleportBehindPlayer", (teleportStageOneSpeed * 3 + teleportStageTwoSpeed * 2));
 		Invoke("SetTPStageTo2", (teleportStageOneSpeed * 3 + teleportStageTwoSpeed * 2));
 		Invoke("SetTPStageTo0", (teleportStageOneSpeed * 3 + teleportStageTwoSpeed * 3));
@@ -78,6 +78,12 @@ public class ShlorpCombatScript : MonoBehaviour
 		
 		gameObject.transform.position = new Vector3(player.transform.position.x + (10 * Mathf.Sign(player.transform.position.x - gameObject.transform.position.x)), gameObject.transform.position.y, gameObject.transform.position.z);
 		gameObject.transform.localScale = new Vector3(shlorpXScale * Mathf.Sign(player.transform.position.x - gameObject.transform.position.x), gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+	}
+
+	void IfOnGroundGetOnGround()
+	{
+		if (Mathf.Sign(player.transform.localScale.y) == 1)
+			TeleportAbovePlayer();
 	}
 
 	void TeleportAbovePlayer()

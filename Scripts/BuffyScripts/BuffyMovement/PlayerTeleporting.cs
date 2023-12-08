@@ -11,6 +11,7 @@ public class PlayerTeleporting : MonoBehaviour
 	PlayerMovement playerMovement;
 	PlayerShielding playerShielding;
 	PlayerKickingTSO playerKickingTSO;
+	BuffyLeechBlast buffyLeechBlast;
 	
 	[HideInInspector] public bool playerMidTeleport = false;
 	[SerializeField] float teleportDistance;
@@ -24,11 +25,12 @@ public class PlayerTeleporting : MonoBehaviour
 		playerMovement = GetComponent<PlayerMovement>();
 		playerShielding = GetComponent<PlayerShielding>();
 		playerKickingTSO = GetComponent<PlayerKickingTSO>();
+		buffyLeechBlast = GetComponent<BuffyLeechBlast>();
     }
 
     void FixedUpdate()
     {
-        if ((Input.GetKey("r")) && (!playerMidTeleport) && (playerGravityFlip.playerMidGravityShift == false) && (!playerShielding.playerMidShielding) && (!playerKickingTSO.playerMidKickingTSOButForTheCameraGameObject))
+        if ((Input.GetKey("r")) && (!playerMidTeleport) && (playerGravityFlip.playerMidGravityShift == false) && (!playerShielding.playerMidShielding) && (!playerKickingTSO.playerMidKickingTSOButForTheCameraGameObject) && (!buffyLeechBlast.playerMidLeechBlast))
 		{
 			playerDashing.canDash = false;
 			playerDashing.ResetDashCooldown();

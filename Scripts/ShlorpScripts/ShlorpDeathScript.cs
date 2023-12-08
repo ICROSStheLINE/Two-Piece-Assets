@@ -5,12 +5,17 @@ using UnityEngine;
 public class ShlorpDeathScript : MonoBehaviour
 {
     Animator anim;
+	BoxCollider2D boxCollider;
 	[SerializeField] GameObject shlorpSoul;
+	ShlorpCombatScript shlorpCombatScript;
+	
 	bool scheduledToDie = false;
 	
     void Start()
     {
         anim = GetComponent<Animator>();
+		shlorpCombatScript = GetComponent<ShlorpCombatScript>();
+		boxCollider = GetComponent<BoxCollider2D>();
     }
 
     void Update()
@@ -24,11 +29,14 @@ public class ShlorpDeathScript : MonoBehaviour
 			}
 			anim.SetInteger("teleportStage", 0);
 			anim.SetBool("isAttacking", false);
-			GetComponent<ShlorpCombatScript>().CancelInvoke();
-			GetComponent<ShlorpCombatScript>().enabled = false;
+			shlorpCombatScript.CancelInvoke();
+			shlorpCombatScript.Invoke("SetVisibleAgain", 0);
+			shlorpCombatScript.enabled = false;
+			boxCollider.excludeLayers = 11000000;
+			// LayerMasks are stupid.
 		}
     }
-	
+
 	void KILLYOURSELF()
 	{
 		Instantiate(shlorpSoul, transform.position, transform.rotation);

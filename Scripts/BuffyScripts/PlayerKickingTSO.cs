@@ -16,6 +16,7 @@ public class PlayerKickingTSO : MonoBehaviour
 	PlayerTeleporting playerTeleporting;
 	PlayerDashing playerDashing;
 	PlayerShielding playerShielding;
+	BuffyLeechBlast buffyLeechBlast;
 
 	static readonly float kickingAnimationDurationSpeedMultiplier = 1;
 	static readonly float kickingAnimationDuration = 0.833f / kickingAnimationDurationSpeedMultiplier;
@@ -45,13 +46,14 @@ public class PlayerKickingTSO : MonoBehaviour
 		playerTeleporting = GetComponent<PlayerTeleporting>();
 		playerDashing = GetComponent<PlayerDashing>();
 		playerShielding = GetComponent<PlayerShielding>();
+		buffyLeechBlast = GetComponent<BuffyLeechBlast>();
     }
 
 
     void Update()
     {
 		// Kick out ball
-        if ((Input.GetKeyDown("h")) && (!playerGravityFlip.playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerShielding.playerMidShielding) && (!tsoBasicAttack.isTSOBasicAttacking) && (anim.GetFloat("verticalVelocity") == 0f) && (!ableToTeleport) && (!playerMidKickingTSO))
+        if ((Input.GetKeyDown("h")) && (!playerGravityFlip.playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerShielding.playerMidShielding) && (!tsoBasicAttack.isTSOBasicAttacking) && (anim.GetFloat("verticalVelocity") == 0f) && (!ableToTeleport) && (!playerMidKickingTSO) && (!buffyLeechBlast.playerMidLeechBlast))
 		{
 			Destroy(truthSeekingOrb);
 			

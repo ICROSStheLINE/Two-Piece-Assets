@@ -5,10 +5,12 @@ using UnityEngine;
 public class GlorpDeathScript : MonoBehaviour
 {
     Animator anim;
+	BoxCollider2D boxCollider;
 	
     void Start()
     {
         anim = GetComponent<Animator>();
+		boxCollider = GetComponent<BoxCollider2D>();
     }
 
     void Update()
@@ -22,6 +24,7 @@ public class GlorpDeathScript : MonoBehaviour
 			GetComponent<GlorpAttackingScript>().enabled = false;
 			GetComponent<GlorpWalkingScript>().CancelInvoke();
 			GetComponent<GlorpWalkingScript>().enabled = false;
+			boxCollider.excludeLayers = 11000000;
 		}
     }
 	

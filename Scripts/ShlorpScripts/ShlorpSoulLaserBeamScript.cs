@@ -7,9 +7,9 @@ public class ShlorpSoulLaserBeamScript : MonoBehaviour
 	GameObject healthBar;
 	HealthScript healthScript;
 	NextSoulHitboxScript nextSoulLaserHitboxScript;
-	
+
 	readonly float laserAnimationTime = (0.25f / 0.5f);
-	
+
     void Start()
     {
 		healthBar = GameObject.FindWithTag("HealthBar");
@@ -18,12 +18,12 @@ public class ShlorpSoulLaserBeamScript : MonoBehaviour
 		
         Invoke("ShlorpSoulLaserShouldKILLYOURSELF", laserAnimationTime);
     }
-	
+
 	public void ShlorpSoulLaserShouldKILLYOURSELF()
 	{
 		Destroy(gameObject);
 	}
-	
+
 	void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.tag == "Player")
