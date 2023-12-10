@@ -19,6 +19,8 @@ public class EnterBossArena : MonoBehaviour
 		if (collision.gameObject.tag == "Ice Arena")
 		{
 			cameraPlayerTracker.Invoke("EnterIceArena", 0f);
+			cameraPlayerTracker.Invoke("ActivateCutsceneMode", 0f);
+			cameraPlayerTracker.Invoke("DeactivateCutsceneMode", 5f);
 		}
 	}
 

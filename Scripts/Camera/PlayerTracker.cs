@@ -7,6 +7,8 @@ public class PlayerTracker : MonoBehaviour
 	GameObject player;
 	[SerializeField] bool isTrackingPlayer = true;
 	PlayerKickingTSO playerKickingTSO;
+	PlayerMovement playerMovement;
+	PlayerDashing playerDashing;
 	Camera cam;
 	
 	float velocity = 0; // This variable exists for a stupid reason LOL
@@ -19,6 +21,8 @@ public class PlayerTracker : MonoBehaviour
 		cam.orthographicSize = targetZoom;
 		player = GameObject.FindWithTag("Player");
 		playerKickingTSO = player.GetComponent<PlayerKickingTSO>();
+		playerMovement = player.GetComponent<PlayerMovement>();
+		playerDashing = player.GetComponent<PlayerDashing>();
 	}
 
     void Update()
@@ -30,13 +34,26 @@ public class PlayerTracker : MonoBehaviour
 				transform.position = Vector3.MoveTowards(transform.position, new Vector3(gameObject.transform.position.x,player.transform.position.y + Mathf.Sign(player.transform.localScale.y)*2,gameObject.transform.position.z), 70 * Time.deltaTime);
 		}
 		else
-			transform.position = Vector3.MoveTowards(transform.position, targetPosition, 0.05f);
+			transform.position = Vector3.MoveTowards(transform.position, targetPosition, 0.01f);
 		
 		if (cam.orthographicSize != targetZoom)
 		{
 			cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, targetZoom, ref velocity, 1.2f);
 		}
     }
+	
+	void ActivateCutsceneMode()
+	{
+		playerDashing.canDash = false;
+		playerDashing.ResetDashCooldown();
+		playerMovement.playerCanMove = false;
+	}
+	
+	void DeactivateCutsceneMode()
+	{
+		playerDashing.canDash = true;
+		playerMovement.playerCanMove = true;
+	}
 
 	void EnterIceArena()
 	{
