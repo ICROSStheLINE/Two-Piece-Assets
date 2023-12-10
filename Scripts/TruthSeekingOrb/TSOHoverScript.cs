@@ -8,8 +8,8 @@ public class TSOHoverScript : MonoBehaviour
 	TSOBasicAttack tsoBasicAttack;
 
 	Vector3 wherePlayerWasFacing;
-	Vector3 velocity = Vector3.zero;
-	[SerializeField] float followSpeed = 0f;
+	Vector3 velocity = Vector3.zero; // This variable exists for a stupid reason LOL
+	float followSpeed = 0.1f;
 	[SerializeField] bool oldCode = true;
 
 	void Start()
