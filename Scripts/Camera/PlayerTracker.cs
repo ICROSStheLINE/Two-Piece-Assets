@@ -51,6 +51,7 @@ public class PlayerTracker : MonoBehaviour
 	
 	void DeactivateCutsceneMode()
 	{
+		CancelInvoke("ActivateCutsceneMode");
 		playerDashing.canDash = true;
 		playerMovement.playerCanMove = true;
 	}
