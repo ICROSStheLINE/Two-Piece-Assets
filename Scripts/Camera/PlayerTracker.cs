@@ -60,7 +60,7 @@ public class PlayerTracker : MonoBehaviour
 	{
 		isTrackingPlayer = false;
 		targetZoom = 15.8f;
-		Vector3 collidedObjectCoords = GameObject.FindWithTag("Ice Arena").transform.position;
+		Vector3 collidedObjectCoords = GameObject.FindWithTag("Ice Arena Fighting Zone").transform.position;
 		targetPosition = new Vector3(collidedObjectCoords.x, collidedObjectCoords.y, gameObject.transform.position.z);
 	}
 	

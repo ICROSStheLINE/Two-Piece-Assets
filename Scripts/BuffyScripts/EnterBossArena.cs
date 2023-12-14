@@ -23,6 +23,7 @@ public class EnterBossArena : MonoBehaviour
 			cameraPlayerTracker.CancelInvoke("TrackPlayerAgain");
 			if (!alreadyInIceArena)
 			{
+				collision.gameObject.transform.parent.GetComponent<IceArenaScript>().Invoke("CloseEntranceGate", 0f);
 				cameraPlayerTracker.InvokeRepeating("ActivateCutsceneMode", 0f, 0.1f);
 				cameraPlayerTracker.Invoke("DeactivateCutsceneMode", 5f);
 				alreadyInIceArena = true;
