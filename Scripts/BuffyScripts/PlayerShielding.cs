@@ -6,43 +6,41 @@ public class PlayerShielding : MonoBehaviour
 {
 	Animator anim;
 	[SerializeField] GameObject theHitbox;
-	PlayerMovement playerMovement;
-	BuffyGravityFlip playerGravityFlip;
-	PlayerTeleporting playerTeleporting;
-	PlayerDashing playerDashing;
+	PlayerStats playerStats;
+	
 	PlayerKickingTSO playerKickingTSO;
 	BuffyLeechBlast buffyLeechBlast;
+	PlayerTracker playerTracker;
 
 	readonly float shieldingStageOneSpeed = (0.5f / 2);
 	readonly float shieldingStageTwoSpeed = (0.5f / 2);
 
-	[HideInInspector] public bool playerMidShielding = false;
+	//[HideInInspector] public bool playerStats.playerMidShielding = false;
 	bool playerShieldIsUp = false;
 
     void Start()
     {
         anim = GetComponent<Animator>();
-		playerMovement = GetComponent<PlayerMovement>();
-		playerGravityFlip = GetComponent<BuffyGravityFlip>();
-		playerTeleporting = GetComponent<PlayerTeleporting>();
-		playerDashing = GetComponent<PlayerDashing>();
+		playerStats = GetComponent<PlayerStats>();
+		
 		playerKickingTSO = GetComponent<PlayerKickingTSO>();
 		buffyLeechBlast = GetComponent<BuffyLeechBlast>();
+		playerTracker = GameObject.FindWithTag("MainCamera").GetComponent<PlayerTracker>();
     }
 
     void Update()
     {
-        if ((Input.GetKey("v")) && (!playerGravityFlip.playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerMidShielding) && (!playerKickingTSO.playerMidKickingTSOButForTheCameraGameObject) && (!buffyLeechBlast.playerMidLeechBlast))
+		if ((Input.GetKey("v")) && (!playerStats.playerMidGravityShift) && (!playerStats.playerMidTeleport) && (!playerStats.playerMidShielding) && (!playerKickingTSO.playerMidKickingTSOButForTheCameraGameObject) && (!buffyLeechBlast.playerMidLeechBlast) && (!playerTracker.midCutscene))
 		{
-			playerDashing.canDash = false;
-			playerDashing.ResetDashCooldown();
-			playerMovement.playerCanMove = false;
+			playerStats.playerCanDash = false;
+			playerStats.ResetPlayerDashCooldown();
+			playerStats.playerCanMove = false;
 
 
 			ShieldStartup();
 			Invoke("ShieldMiddle", shieldingStageOneSpeed);
 		}
-		else if ((!Input.GetKey("v")) && (!playerGravityFlip.playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (playerShieldIsUp))
+		else if ((!Input.GetKey("v")) && (!playerStats.playerMidGravityShift) && (!playerStats.playerMidTeleport) && (playerShieldIsUp))
 		{
 			ShieldEnd();
 			Invoke("FinishShielding", shieldingStageTwoSpeed);
@@ -52,7 +50,7 @@ public class PlayerShielding : MonoBehaviour
 	void ShieldStartup()
 	{
 		anim.SetInteger("shieldingStage", 1);
-		playerMidShielding = true;
+		playerStats.playerMidShielding = true;
 	}
 
 	void ShieldMiddle()
@@ -72,10 +70,10 @@ public class PlayerShielding : MonoBehaviour
 
 	void FinishShielding()
 	{
-		playerDashing.canDash = true;
-		playerMovement.playerCanMove = true;
+		playerStats.playerCanDash = true;
+		playerStats.playerCanMove = true;
 
-		playerMidShielding = false;
+		playerStats.playerMidShielding = false;
 		anim.SetInteger("shieldingStage", 0);
 	}
 }

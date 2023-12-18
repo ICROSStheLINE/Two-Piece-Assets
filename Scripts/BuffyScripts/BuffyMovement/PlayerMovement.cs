@@ -7,14 +7,11 @@ public class PlayerMovement : MonoBehaviour
 	Rigidbody2D rb;
 	Animator anim;
 	SpriteRenderer spriteRenderer;
-	
-	[SerializeField] float movementSpeed = 7f;
+
 	float force = 0f;
 	float playerXScale;
-	public bool playerCanMove = true;
-	PlayerDashing playerDashing;
-	PlayerTeleporting playerTeleporting;
-	PlayerShielding playerShielding;
+	PlayerStats playerStats;
+	
 	BuffyGravityFlip playerGravityFlip;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -24,11 +21,11 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
-		playerXScale = gameObject.transform.localScale.x;
-		playerDashing = GetComponent<PlayerDashing>();
-		playerTeleporting = GetComponent<PlayerTeleporting>();
-		playerShielding = GetComponent<PlayerShielding>();
+		playerStats = GetComponent<PlayerStats>();
+		
 		playerGravityFlip = GetComponent<BuffyGravityFlip>();
+		
+		playerXScale = gameObject.transform.localScale.x;
     }
 
     // Use FixedUpdate instead of Update because FixedUpdate is more friendly with Rigidbody2D physics
@@ -42,20 +39,20 @@ public class PlayerMovement : MonoBehaviour
 
 	void CheckNormalMovement()
 	{
-		if (playerCanMove)
+		if (playerStats.playerCanMove)
 		{
 			if (Input.GetKey("d"))
 			{
-				force += movementSpeed * Time.deltaTime;
-				if (!playerDashing.isDashingButResets1MillisecondEarlier)
+				force += playerStats.playerMovementSpeed * Time.deltaTime;
+				if (!playerStats.playerIsDashingButResets1MillisecondEarlier)
 				{
 					gameObject.transform.localScale = new Vector3(playerXScale,gameObject.transform.localScale.y,playerXScale);
 				}
 			}
 			if (Input.GetKey("a"))
 			{
-				force -= movementSpeed * Time.deltaTime;
-				if (!playerDashing.isDashingButResets1MillisecondEarlier)
+				force -= playerStats.playerMovementSpeed * Time.deltaTime;
+				if (!playerStats.playerIsDashingButResets1MillisecondEarlier)
 				{
 					gameObject.transform.localScale = new Vector3(-playerXScale,gameObject.transform.localScale.y,playerXScale);
 				}
@@ -77,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		anim.SetFloat("verticalVelocity", Mathf.Abs(rb.velocity.y));
 		
-		if ((playerDashing.isDashing) || (playerGravityFlip.playerMidGravityShift) || (playerTeleporting.playerMidTeleport) || (playerShielding.playerMidShielding))
+		if ((playerStats.playerIsDashing) || (playerStats.playerMidGravityShift) || (playerStats.playerMidTeleport) || (playerStats.playerMidShielding))
 			anim.SetFloat("verticalVelocity", 0f);
 	}
 }

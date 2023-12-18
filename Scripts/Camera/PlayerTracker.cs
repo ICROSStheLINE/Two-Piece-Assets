@@ -7,13 +7,14 @@ public class PlayerTracker : MonoBehaviour
 	GameObject player;
 	[SerializeField] bool isTrackingPlayer = true;
 	PlayerKickingTSO playerKickingTSO;
-	PlayerMovement playerMovement;
-	PlayerDashing playerDashing;
+	PlayerStats playerStats;
 	Camera cam;
 	
 	float velocity = 0; // This variable exists for a stupid reason LOL
 	float targetZoom = 11.5f;
 	Vector3 targetPosition;
+	
+	[HideInInspector] public bool midCutscene = false;
 
 	void Start()
 	{
@@ -21,8 +22,7 @@ public class PlayerTracker : MonoBehaviour
 		cam.orthographicSize = targetZoom;
 		player = GameObject.FindWithTag("Player");
 		playerKickingTSO = player.GetComponent<PlayerKickingTSO>();
-		playerMovement = player.GetComponent<PlayerMovement>();
-		playerDashing = player.GetComponent<PlayerDashing>();
+		playerStats = player.GetComponent<PlayerStats>();
 	}
 
     void Update()
@@ -41,19 +41,21 @@ public class PlayerTracker : MonoBehaviour
 			cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, targetZoom, ref velocity, 1.2f);
 		}
     }
-	
+
 	void ActivateCutsceneMode()
 	{
-		playerDashing.canDash = false;
-		playerDashing.ResetDashCooldown();
-		playerMovement.playerCanMove = false;
+		playerStats.playerCanDash = false;
+		playerStats.ResetPlayerDashCooldown();
+		playerStats.playerCanMove = false;
+		midCutscene = true;
 	}
-	
+
 	void DeactivateCutsceneMode()
 	{
 		CancelInvoke("ActivateCutsceneMode");
-		playerDashing.canDash = true;
-		playerMovement.playerCanMove = true;
+		playerStats.playerCanDash = true;
+		playerStats.playerCanMove = true;
+		midCutscene = false;
 	}
 
 	void EnterIceArena()
@@ -63,7 +65,7 @@ public class PlayerTracker : MonoBehaviour
 		Vector3 collidedObjectCoords = GameObject.FindWithTag("Ice Arena Fighting Zone").transform.position;
 		targetPosition = new Vector3(collidedObjectCoords.x, collidedObjectCoords.y, gameObject.transform.position.z);
 	}
-	
+
 	void TrackPlayerAgain()
 	{
 		isTrackingPlayer = true;

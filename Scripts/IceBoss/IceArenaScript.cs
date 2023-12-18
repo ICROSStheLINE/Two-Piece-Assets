@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class IceArenaScript : MonoBehaviour
 {
-	GameObject[] arenaEntranceGates = new GameObject[4];
+	GameObject[] arenaEntranceGates = new GameObject[8];
 
 	bool gateMustBeClosed = false;
 	Vector3 gateCurrentPos;
 
-	Vector3[] gateTargetPoses = new Vector3[4];
+	Vector3[] gateTargetPoses = new Vector3[8];
 
     void Start()
     {
@@ -19,7 +19,7 @@ public class IceArenaScript : MonoBehaviour
 			gateTargetPoses[i] = arenaEntranceGates[i].transform.position + ((-arenaEntranceGates[i].transform.up) * 9);
 		}
     }
-
+	
 	void Update()
 	{
 		if (gateMustBeClosed)

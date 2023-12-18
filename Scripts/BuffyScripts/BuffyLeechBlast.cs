@@ -6,11 +6,8 @@ public class BuffyLeechBlast : MonoBehaviour
 {
 	Animator anim;
 	TSOBasicAttack tsoBasicAttack;
-	PlayerMovement playerMovement;
-	BuffyGravityFlip playerGravityFlip;
-	PlayerTeleporting playerTeleporting;
-	PlayerDashing playerDashing;
-	PlayerShielding playerShielding;
+	PlayerStats playerStats;
+
 	PlayerKickingTSO playerKickingTSO;
 	[SerializeField] GameObject projectilePrefab;
 
@@ -29,21 +26,18 @@ public class BuffyLeechBlast : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-		playerMovement = GetComponent<PlayerMovement>();
-		playerGravityFlip = GetComponent<BuffyGravityFlip>();
-		playerTeleporting = GetComponent<PlayerTeleporting>();
-		playerDashing = GetComponent<PlayerDashing>();
-		playerShielding = GetComponent<PlayerShielding>();
+		playerStats = GetComponent<PlayerStats>();
+		
 		playerKickingTSO = GetComponent<PlayerKickingTSO>();
     }
 
     void Update()
     {
-        if ((Input.GetKeyDown("b")) && (!playerGravityFlip.playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerShielding.playerMidShielding) && (anim.GetFloat("verticalVelocity") == 0f) && (!playerKickingTSO.playerMidKickingTSO) && (!playerMidLeechBlast))
+        if ((Input.GetKeyDown("b")) && (!playerStats.playerMidGravityShift) && (!playerStats.playerMidTeleport) && (!playerStats.playerMidShielding) && (anim.GetFloat("verticalVelocity") == 0f) && (!playerKickingTSO.playerMidKickingTSO) && (!playerMidLeechBlast))
 		{
-			playerDashing.canDash = false;
-			playerDashing.ResetDashCooldown();
-			playerMovement.playerCanMove = false;
+			playerStats.playerCanDash = false;
+			playerStats.ResetPlayerDashCooldown();
+			playerStats.playerCanMove = false;
 			
 			playerMidLeechBlast = true;
 			anim.SetBool("isLeechBlasting", true);
@@ -52,7 +46,7 @@ public class BuffyLeechBlast : MonoBehaviour
 
 		}
     }
-	
+
 	void SpawnProjectile()
 	{
 		if (Mathf.Sign(gameObject.transform.localScale.x) == 1)
@@ -81,8 +75,8 @@ public class BuffyLeechBlast : MonoBehaviour
 
 	void ResetCooldown()
 	{
-		playerDashing.canDash = true;
-		playerMovement.playerCanMove = true;
+		playerStats.playerCanDash = true;
+		playerStats.playerCanMove = true;
 		
 		playerMidLeechBlast = false;
 		anim.SetBool("isLeechBlasting", false);
