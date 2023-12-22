@@ -643,7 +643,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.17216206}
+  m_Offset: {x: 0, y: 0.19092798}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -654,7 +654,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.5, y: 6.3556757}
+  m_Size: {x: 3.5, y: 6.318144}
   m_EdgeRadius: 0
 --- !u!1 &157899946
 GameObject:
@@ -1334,7 +1334,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.37077236}
+  m_Offset: {x: 0, y: 0.4251114}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1345,7 +1345,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.5, y: 5.958455}
+  m_Size: {x: 3.5, y: 5.849777}
   m_EdgeRadius: 0
 --- !u!1 &336777734
 GameObject:
@@ -2129,7 +2129,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTrackingPlayer: 1
-  midCutscene: 0
 --- !u!61 &519420034
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3471,7 +3470,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.33790684}
+  m_Offset: {x: 0, y: 0.37976968}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3482,7 +3481,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.5, y: 6.024186}
+  m_Size: {x: 3.5, y: 5.94046}
   m_EdgeRadius: 0
 --- !u!1 &1313987826
 GameObject:
@@ -4683,7 +4682,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.3335384}
+  m_Offset: {x: 0, y: 0.34670556}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4694,7 +4693,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.5, y: 6.0329227}
+  m_Size: {x: 3.5, y: 6.006589}
   m_EdgeRadius: 0
 --- !u!1 &1922118124
 GameObject:
@@ -5155,7 +5154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cafb1c3371857649be56447566ecbf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMidTeleport: 0
   teleportDistance: 10
 --- !u!114 &3586227106769787878
 MonoBehaviour:
@@ -5326,7 +5324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f5914a8c0c5ec24a88e7f76a8d2ae16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMidGravityShift: 0
 --- !u!1 &7757015839854483422
 GameObject:
   m_ObjectHideFlags: 0
@@ -5515,8 +5512,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   truthSeekingOrbPrefab: {fileID: 8345003436428967726, guid: 21ff2b2c7c793b84f963f07d818f5639, type: 3}
   tsoBeingKickedPrefab: {fileID: 3947705424321657882, guid: 4dcf749fb2dddc943befa3ad9fd2c44b, type: 3}
-  playerMidKickingTSO: 0
-  playerMidKickingTSOButForTheCameraGameObject: 0
 --- !u!114 &8670545154680268007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5530,7 +5525,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 8422117185756245933, guid: 68bad78d98d3bab4f803c393e16c1618, type: 3}
-  playerMidLeechBlast: 0
 --- !u!114 &8670545154680268008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5560,6 +5554,14 @@ MonoBehaviour:
   playerIsDashing: 0
   playerIsDashingButResets1MillisecondEarlier: 0
   playerCanDash: 1
+  playerMidGravityShift: 0
+  playerMidTeleport: 0
+  playerMidShielding: 0
+  playerMidKickingTSO: 0
+  playerMidKickingTSOButForTheCameraGameObject: 0
+  playerMidLeechBlast: 0
+  midCutscene: 0
+  playerMidActionNoDash: 0
 --- !u!114 &8670545154680268010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5573,7 +5575,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theHitbox: {fileID: 1036606011428823826, guid: fd6cc67ad511ed848a6e9dd8eca4c368, type: 3}
-  playerMidShielding: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

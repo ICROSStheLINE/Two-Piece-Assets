@@ -14,7 +14,7 @@ public class PlayerTracker : MonoBehaviour
 	float targetZoom = 11.5f;
 	Vector3 targetPosition;
 	
-	[HideInInspector] public bool midCutscene = false;
+	//[HideInInspector] public bool midCutscene = false;
 
 	void Start()
 	{
@@ -30,7 +30,7 @@ public class PlayerTracker : MonoBehaviour
 		if (isTrackingPlayer)
 		{
 			transform.position = new Vector3(player.transform.position.x,gameObject.transform.position.y,gameObject.transform.position.z);
-			if (!playerKickingTSO.playerMidKickingTSOButForTheCameraGameObject)
+			if (!playerStats.playerMidKickingTSOButForTheCameraGameObject)
 				transform.position = Vector3.MoveTowards(transform.position, new Vector3(gameObject.transform.position.x,player.transform.position.y + Mathf.Sign(player.transform.localScale.y)*2,gameObject.transform.position.z), 70 * Time.deltaTime);
 		}
 		else
@@ -47,7 +47,7 @@ public class PlayerTracker : MonoBehaviour
 		playerStats.playerCanDash = false;
 		playerStats.ResetPlayerDashCooldown();
 		playerStats.playerCanMove = false;
-		midCutscene = true;
+		playerStats.midCutscene = true;
 	}
 
 	void DeactivateCutsceneMode()
@@ -55,7 +55,7 @@ public class PlayerTracker : MonoBehaviour
 		CancelInvoke("ActivateCutsceneMode");
 		playerStats.playerCanDash = true;
 		playerStats.playerCanMove = true;
-		midCutscene = false;
+		playerStats.midCutscene = false;
 	}
 
 	void EnterIceArena()

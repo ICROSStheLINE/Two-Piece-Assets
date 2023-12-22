@@ -8,9 +8,6 @@ public class PlayerTeleporting : MonoBehaviour
 	Animator anim;
 	PlayerStats playerStats;
 	
-	PlayerKickingTSO playerKickingTSO;
-	BuffyLeechBlast buffyLeechBlast;
-	
 	//[HideInInspector] public bool playerStats.playerMidTeleport = false;
 	[SerializeField] float teleportDistance;
 	
@@ -19,14 +16,11 @@ public class PlayerTeleporting : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 		playerStats = GetComponent<PlayerStats>();
-		
-		playerKickingTSO = GetComponent<PlayerKickingTSO>();
-		buffyLeechBlast = GetComponent<BuffyLeechBlast>();
     }
 
     void FixedUpdate()
     {
-        if ((Input.GetKey("r")) && (!playerStats.playerMidTeleport) && (playerStats.playerMidGravityShift == false) && (!playerStats.playerMidShielding) && (!playerKickingTSO.playerMidKickingTSOButForTheCameraGameObject) && (!buffyLeechBlast.playerMidLeechBlast))
+        if ((Input.GetKey("r")) && !playerStats.playerMidActionNoDash && !playerStats.midCutscene)
 		{
 			playerStats.playerCanDash = false;
 			playerStats.ResetPlayerDashCooldown();

@@ -7,8 +7,7 @@ public class BuffyLeechBlast : MonoBehaviour
 	Animator anim;
 	TSOBasicAttack tsoBasicAttack;
 	PlayerStats playerStats;
-
-	PlayerKickingTSO playerKickingTSO;
+	
 	[SerializeField] GameObject projectilePrefab;
 
 	static readonly float animationDurationMultiplier = 1f;
@@ -20,26 +19,24 @@ public class BuffyLeechBlast : MonoBehaviour
 	static readonly float animationLDurationMultiplier = 1f;
 	static readonly float animationLDuration = 0.5f / animationLDurationMultiplier;
 
-	[HideInInspector] public bool playerMidLeechBlast = false;
+	//[HideInInspector] public bool playerStats.playerMidLeechBlast = false;
 
 
     void Start()
     {
         anim = GetComponent<Animator>();
 		playerStats = GetComponent<PlayerStats>();
-		
-		playerKickingTSO = GetComponent<PlayerKickingTSO>();
     }
 
     void Update()
     {
-        if ((Input.GetKeyDown("b")) && (!playerStats.playerMidGravityShift) && (!playerStats.playerMidTeleport) && (!playerStats.playerMidShielding) && (anim.GetFloat("verticalVelocity") == 0f) && (!playerKickingTSO.playerMidKickingTSO) && (!playerMidLeechBlast))
+        if ((Input.GetKeyDown("b")) && (!playerStats.playerMidGravityShift) && (!playerStats.playerMidTeleport) && (!playerStats.playerMidShielding) && (anim.GetFloat("verticalVelocity") == 0f) && (!playerStats.playerMidKickingTSO) && (!playerStats.playerMidLeechBlast))
 		{
 			playerStats.playerCanDash = false;
 			playerStats.ResetPlayerDashCooldown();
 			playerStats.playerCanMove = false;
 			
-			playerMidLeechBlast = true;
+			playerStats.playerMidLeechBlast = true;
 			anim.SetBool("isLeechBlasting", true);
 			
 			Invoke("SpawnProjectile", blastProjectileSpawn);
@@ -78,7 +75,7 @@ public class BuffyLeechBlast : MonoBehaviour
 		playerStats.playerCanDash = true;
 		playerStats.playerCanMove = true;
 		
-		playerMidLeechBlast = false;
+		playerStats.playerMidLeechBlast = false;
 		anim.SetBool("isLeechBlasting", false);
 		anim.SetBool("isLeechBlastingW", false);
 		anim.SetBool("isLeechBlastingL", false);

@@ -5,7 +5,7 @@ using UnityEngine;
 public class TSOHoverScript : MonoBehaviour
 {
     GameObject player;
-	TSOBasicAttack tsoBasicAttack;
+	PlayerStats playerStats;
 
 	Vector3 wherePlayerWasFacing;
 	Vector3 velocity = Vector3.zero; // This variable exists for a stupid reason LOL
@@ -15,13 +15,13 @@ public class TSOHoverScript : MonoBehaviour
 	void Start()
 	{
 		player = GameObject.FindWithTag("Player");
-		tsoBasicAttack = GetComponent<TSOBasicAttack>();
+		playerStats = player.GetComponent<PlayerStats>();
 	}
 
     void FixedUpdate()
     {
 		// (If player is attacking, don't switch the direction of the orb, or else it'll switch the direction of its attack mid-way)
-		if (!tsoBasicAttack.isTSOBasicAttacking)
+		if (!playerStats.isTSOBasicAttacking)
 			CheckWherePlayerFacing();
 		// The following line has the ball constantly moving towards the player at an incredibly slow speed. 
 		// However, this speed increases multiplicitively when it's farther away from the player.

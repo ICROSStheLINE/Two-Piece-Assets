@@ -11,8 +11,6 @@ public class PlayerMovement : MonoBehaviour
 	float force = 0f;
 	float playerXScale;
 	PlayerStats playerStats;
-	
-	BuffyGravityFlip playerGravityFlip;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -22,8 +20,6 @@ public class PlayerMovement : MonoBehaviour
 		anim = GetComponent<Animator>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		playerStats = GetComponent<PlayerStats>();
-		
-		playerGravityFlip = GetComponent<BuffyGravityFlip>();
 		
 		playerXScale = gameObject.transform.localScale.x;
     }

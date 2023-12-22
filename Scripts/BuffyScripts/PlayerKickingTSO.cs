@@ -10,10 +10,7 @@ public class PlayerKickingTSO : MonoBehaviour
 	[SerializeField] GameObject truthSeekingOrbPrefab;
 	GameObject tsoBeingKicked;
 	[SerializeField] GameObject tsoBeingKickedPrefab;
-	TSOBasicAttack tsoBasicAttack;
 	PlayerStats playerStats;
-	
-	BuffyLeechBlast buffyLeechBlast;
 
 	static readonly float kickingAnimationDurationSpeedMultiplier = 1;
 	static readonly float kickingAnimationDuration = 0.833f / kickingAnimationDurationSpeedMultiplier;
@@ -26,9 +23,9 @@ public class PlayerKickingTSO : MonoBehaviour
 
 	static readonly float ballAirtimeDuration = 0.4f;
 
-	[HideInInspector] public bool playerMidKickingTSO = false;
+	//[HideInInspector] public bool playerStats.playerMidKickingTSO = false;
 	bool ableToTeleport = false;
-	[HideInInspector] public bool playerMidKickingTSOButForTheCameraGameObject = false;
+	//[HideInInspector] public bool playerStats.playerMidKickingTSOButForTheCameraGameObject = false;
 	bool touchingFloorOrWall = false;
 	float originalYPosMidTeleporting = 0;
 
@@ -37,28 +34,25 @@ public class PlayerKickingTSO : MonoBehaviour
 		anim = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D>();
 		truthSeekingOrb = GameObject.FindWithTag("Truth Seeking Orb");
-		tsoBasicAttack = truthSeekingOrb.GetComponent<TSOBasicAttack>();
 		playerStats = GetComponent<PlayerStats>();
-		
-		buffyLeechBlast = GetComponent<BuffyLeechBlast>();
     }
 
 
     void Update()
     {
 		// Kick out ball
-        if ((Input.GetKeyDown("h")) && (!playerStats.playerMidGravityShift) && (!playerStats.playerMidTeleport) && (!playerStats.playerMidShielding) && (!tsoBasicAttack.isTSOBasicAttacking) && (anim.GetFloat("verticalVelocity") == 0f) && (!ableToTeleport) && (!playerMidKickingTSO) && (!buffyLeechBlast.playerMidLeechBlast))
+        if ((Input.GetKeyDown("h")) && !playerStats.playerMidActionNoDash && !playerStats.midCutscene && !playerStats.isTSOBasicAttacking && (anim.GetFloat("verticalVelocity") == 0f) && (!ableToTeleport))
 		{
 			Destroy(truthSeekingOrb);
 			
-			playerMidKickingTSOButForTheCameraGameObject = true;
+			playerStats.playerMidKickingTSOButForTheCameraGameObject = true;
 			
 			// Cancel Movement
 			playerStats.playerCanDash = false;
 			playerStats.ResetPlayerDashCooldown();
 			playerStats.playerCanMove = false;
 			
-			playerMidKickingTSO = true;
+			playerStats.playerMidKickingTSO = true;
 			
 			// Animate
 			anim.SetBool("kickingTSO", true);
@@ -67,7 +61,7 @@ public class PlayerKickingTSO : MonoBehaviour
 			Invoke("ResetCooldown", kickingAnimationDuration);
 		}
 		// Teleport to ball
-		else if ((Input.GetKeyDown("h")) && (!playerStats.playerMidGravityShift) && (!playerStats.playerMidTeleport) && (!playerStats.playerMidShielding) && (!tsoBasicAttack.isTSOBasicAttacking) && (anim.GetFloat("verticalVelocity") == 0f) && (ableToTeleport) && (tsoBeingKicked != null))
+		else if ((Input.GetKeyDown("h")) && (!playerStats.playerMidGravityShift) && (!playerStats.playerMidTeleport) && (!playerStats.playerMidShielding) && (!playerStats.isTSOBasicAttacking) && (anim.GetFloat("verticalVelocity") == 0f) && (ableToTeleport) && (tsoBeingKicked != null))
 		{
 			CancelInvoke("SpawnTSOPrefab");
 			// Cancel Movement
@@ -142,16 +136,11 @@ public class PlayerKickingTSO : MonoBehaviour
 		
 		anim.SetBool("kickingTSO", false);
 		anim.SetBool("kickingTSOP2", false);
-		playerMidKickingTSO = false;
+		playerStats.playerMidKickingTSO = false;
 		
-		Invoke("ResetPlayerMidKickingTSOButForTheCameraGameObjectVariable", 0.2f);
+		playerStats.Invoke("ResetPlayerMidKickingTSOButForTheCameraGameObjectVariable", 0.2f);
 	}
-	
-	void ResetPlayerMidKickingTSOButForTheCameraGameObjectVariable()
-	{
-		playerMidKickingTSOButForTheCameraGameObject = false;
-	}
-	
+
 	void GiveSomeVelocityAfterTeleporting()
 	{
 		if (touchingFloorOrWall)

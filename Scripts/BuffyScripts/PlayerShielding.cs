@@ -7,9 +7,7 @@ public class PlayerShielding : MonoBehaviour
 	Animator anim;
 	[SerializeField] GameObject theHitbox;
 	PlayerStats playerStats;
-	
-	PlayerKickingTSO playerKickingTSO;
-	BuffyLeechBlast buffyLeechBlast;
+
 	PlayerTracker playerTracker;
 
 	readonly float shieldingStageOneSpeed = (0.5f / 2);
@@ -22,15 +20,13 @@ public class PlayerShielding : MonoBehaviour
     {
         anim = GetComponent<Animator>();
 		playerStats = GetComponent<PlayerStats>();
-		
-		playerKickingTSO = GetComponent<PlayerKickingTSO>();
-		buffyLeechBlast = GetComponent<BuffyLeechBlast>();
+
 		playerTracker = GameObject.FindWithTag("MainCamera").GetComponent<PlayerTracker>();
     }
 
     void Update()
     {
-		if ((Input.GetKey("v")) && (!playerStats.playerMidGravityShift) && (!playerStats.playerMidTeleport) && (!playerStats.playerMidShielding) && (!playerKickingTSO.playerMidKickingTSOButForTheCameraGameObject) && (!buffyLeechBlast.playerMidLeechBlast) && (!playerTracker.midCutscene))
+		if ((Input.GetKey("v")) && !playerStats.playerMidActionNoDash && !playerStats.midCutscene)
 		{
 			playerStats.playerCanDash = false;
 			playerStats.ResetPlayerDashCooldown();

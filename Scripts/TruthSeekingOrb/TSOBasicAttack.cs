@@ -5,8 +5,9 @@ using UnityEngine;
 public class TSOBasicAttack : MonoBehaviour
 {
     [SerializeField] GameObject theHitbox;
-	//GameObject player;
+	GameObject player;
 	Animator anim;
+	PlayerStats playerStats;
 
 	static readonly float attackAnimationDurationSpeedMultiplier = 2;
 	static readonly float attackAnimationDuration = 1 / attackAnimationDurationSpeedMultiplier;
@@ -14,21 +15,22 @@ public class TSOBasicAttack : MonoBehaviour
 	static readonly float attackHitboxSpawn = (4 / attackAnimationFrames) * attackAnimationDuration;
 	static readonly float attackHitboxDespawn = (7 / attackAnimationFrames) * attackAnimationDuration;
 
-	[HideInInspector] public bool isTSOBasicAttacking = false;
+	//[HideInInspector] public bool isTSOBasicAttacking = false;
 	bool isTSOBasicAttackOnCooldown = false;
 
     void Start()
     {
-		//player = GameObject.FindWithTag("Player");
+		player = GameObject.FindWithTag("Player");
         anim = GetComponent<Animator>();
+		playerStats = player.GetComponent<PlayerStats>();
     }
 
     void Update()
     {
-        if ((Input.GetKeyDown("g")) && (!isTSOBasicAttacking) && (!isTSOBasicAttackOnCooldown))
+        if ((Input.GetKeyDown("g")) && (!playerStats.isTSOBasicAttacking) && (!isTSOBasicAttackOnCooldown))
 		{
 			anim.SetBool("basicAttacking", true);
-			isTSOBasicAttacking = true;
+			playerStats.isTSOBasicAttacking = true;
 			isTSOBasicAttackOnCooldown = true;
 			Invoke("SpawnHitbox", attackHitboxSpawn);
 			Invoke("DespawnHitbox", attackHitboxDespawn);
@@ -51,7 +53,7 @@ public class TSOBasicAttack : MonoBehaviour
 
 	void ResetAttackCooldown()
 	{
-		isTSOBasicAttacking = false;
+		playerStats.isTSOBasicAttacking = false;
 		isTSOBasicAttackOnCooldown = false;
 		anim.SetBool("basicAttacking", false);
 	}

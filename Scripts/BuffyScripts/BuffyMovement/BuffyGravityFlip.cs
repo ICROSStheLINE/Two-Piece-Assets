@@ -9,23 +9,17 @@ public class BuffyGravityFlip : MonoBehaviour
 	Animator anim;
 	PlayerStats playerStats;
 	
-	PlayerKickingTSO playerKickingTSO;
-	BuffyLeechBlast buffyLeechBlast;
-	
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		anim = GetComponent<Animator>();
 		playerStats = GetComponent<PlayerStats>();
-		
-		playerKickingTSO = GetComponent<PlayerKickingTSO>();
-		buffyLeechBlast = GetComponent<BuffyLeechBlast>();
     }
 
     void Update()
     {
-		if ((Input.GetKeyDown("f")) && (!playerStats.playerMidGravityShift) && (!playerStats.playerMidTeleport) && (!playerStats.playerMidShielding) && (!playerKickingTSO.playerMidKickingTSOButForTheCameraGameObject) && (!buffyLeechBlast.playerMidLeechBlast))
+		if (Input.GetKeyDown("f") && !playerStats.playerMidActionNoDash && !playerStats.midCutscene)
 		{
 			playerStats.playerCanDash = false;
 			playerStats.ResetPlayerDashCooldown();
