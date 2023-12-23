@@ -30,7 +30,7 @@ public class BuffyLeechBlast : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetKeyDown("b")) && (!playerStats.playerMidGravityShift) && (!playerStats.playerMidTeleport) && (!playerStats.playerMidShielding) && (anim.GetFloat("verticalVelocity") == 0f) && (!playerStats.playerMidKickingTSO) && (!playerStats.playerMidLeechBlast))
+        if ((Input.GetKeyDown("b")) && !playerStats.playerMidActionNoDash && (anim.GetFloat("verticalVelocity") == 0f))
 		{
 			playerStats.playerCanDash = false;
 			playerStats.ResetPlayerDashCooldown();
@@ -40,7 +40,6 @@ public class BuffyLeechBlast : MonoBehaviour
 			anim.SetBool("isLeechBlasting", true);
 			
 			Invoke("SpawnProjectile", blastProjectileSpawn);
-
 		}
     }
 
