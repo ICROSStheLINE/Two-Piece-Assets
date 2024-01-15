@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class IceArenaScript : MonoBehaviour
 {
-	GameObject[] arenaEntranceGates = new GameObject[8];
+	GameObject[] arenaEntranceGates = new GameObject[9];
 
 	bool gateMustBeClosed = false;
 	Vector3 gateCurrentPos;
 
-	Vector3[] gateTargetPoses = new Vector3[8];
+	Vector3[] gateTargetPoses = new Vector3[9];
 
     void Start()
     {
@@ -31,8 +31,9 @@ public class IceArenaScript : MonoBehaviour
 			}
 		}
 	}
-
-    void CloseEntranceGate()
+	
+	// Used by "EnterBossArena.cs" script
+    public void CloseIceArenaEntranceGate()
 	{
 		gateMustBeClosed = true;
 	}

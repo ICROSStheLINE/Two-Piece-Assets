@@ -41,7 +41,7 @@ public class PlayerTracker : MonoBehaviour
 			cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, targetZoom, ref velocity, 1.2f);
 		}
     }
-
+	// Used in "EnterBossArena.cs" script
 	void ActivateCutsceneMode()
 	{
 		playerStats.playerCanDash = false;
@@ -49,7 +49,7 @@ public class PlayerTracker : MonoBehaviour
 		playerStats.playerCanMove = false;
 		playerStats.midCutscene = true;
 	}
-
+	// Used in "EnterBossArena.cs" script
 	void DeactivateCutsceneMode()
 	{
 		CancelInvoke("ActivateCutsceneMode");
@@ -57,7 +57,7 @@ public class PlayerTracker : MonoBehaviour
 		playerStats.playerCanMove = true;
 		playerStats.midCutscene = false;
 	}
-
+	// Used in "EnterBossArena.cs" script
 	void EnterIceArena()
 	{
 		isTrackingPlayer = false;
@@ -65,7 +65,7 @@ public class PlayerTracker : MonoBehaviour
 		Vector3 collidedObjectCoords = GameObject.FindWithTag("Ice Arena Fighting Zone").transform.position;
 		targetPosition = new Vector3(collidedObjectCoords.x, collidedObjectCoords.y, gameObject.transform.position.z);
 	}
-
+	// Used in "EnterBossArena.cs" script
 	void TrackPlayerAgain()
 	{
 		isTrackingPlayer = true;

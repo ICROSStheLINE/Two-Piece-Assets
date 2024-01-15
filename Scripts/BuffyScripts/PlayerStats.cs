@@ -36,7 +36,7 @@ public class PlayerStats : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
 	}
-	
+
 	void Update()
 	{
 		if (playerMidGravityShift || playerMidTeleport || playerMidShielding || playerMidKickingTSO || playerMidLeechBlast || playerMidKickingTSOButForTheCameraGameObject)
@@ -44,7 +44,7 @@ public class PlayerStats : MonoBehaviour
 		else
 			playerMidActionNoDash = false;
 	}
-	
+
 	// PlayerDashing
     public void ResetPlayerDashCooldown()
 	{
