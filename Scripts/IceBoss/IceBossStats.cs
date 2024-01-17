@@ -6,8 +6,10 @@ public class IceBossStats : MonoBehaviour
 {
 	IceBossBehaviour iceBossBehaviour;
 	IceBossJaw iceBossJaw;
+	GameObject bossHead;
 
-	public bool iceBossShouldMoveAround = false;
+
+	public bool iceBossIsAwake = false;
 	public bool iceBossIdling = true;
 	
 	public bool iceBossAttemptAttack = false;
@@ -17,12 +19,21 @@ public class IceBossStats : MonoBehaviour
     {
         iceBossBehaviour = GetComponentInChildren<IceBossBehaviour>();
 		iceBossJaw = GetComponentInChildren<IceBossJaw>();
+		bossHead = transform.GetChild(0).gameObject;
     }
-	
+
 	// Used in "EnterBossArena.cs" script
 	public void WakeUpIceBoss()
 	{
+		iceBossIsAwake = true;
+		InvokeRepeating("ActivateAttack", 6f, 1.8f);
 		// Activate cutscene
 		// Activate aggro
 	}
+
+	void ActivateAttack()
+	{
+		iceBossAttemptAttack = true;
+	}
+
 }

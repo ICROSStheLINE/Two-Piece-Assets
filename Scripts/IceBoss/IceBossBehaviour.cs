@@ -9,6 +9,8 @@ public class IceBossBehaviour : MonoBehaviour
 	GameObject player;
 	GameObject fightingZone;
 	PlayerStats playerStats;
+	GameObject bossSclera;
+	GameObject bossEye;
 
 	Vector3 nextPosition;
 
@@ -19,6 +21,8 @@ public class IceBossBehaviour : MonoBehaviour
 	
 	// Attacking Variables
 	Vector3 attackingTarget;
+	
+	[SerializeField] GameObject retardedPrefab;
 
 
     void Start()
@@ -28,6 +32,8 @@ public class IceBossBehaviour : MonoBehaviour
 		player = GameObject.FindWithTag("Player");
 		fightingZone = GameObject.FindWithTag("Ice Arena Fighting Zone");
 		playerStats = player.GetComponent<PlayerStats>();
+		bossSclera = transform.GetChild(0).gameObject;
+		bossEye = bossSclera.transform.GetChild(0).gameObject;
 		
 		
 		SetNewIdlePositionPoints(transform.position, new Vector3(0,2,0), new Vector3(0,0,0));
@@ -38,22 +44,25 @@ public class IceBossBehaviour : MonoBehaviour
 		if (iceBossStats.iceBossAttemptAttack && !iceBossStats.iceBossMidAttack)
 			AttackStart();
 		else if (iceBossStats.iceBossMidAttack)
-			Invoke("AttackMiddle", 1f);
+			Invoke("AttackMiddle", 0.5f);
 		else if (iceBossStats.iceBossIdling && !iceBossStats.iceBossMidAttack)
 			Idling();
+		
 		
         transform.position = nextPosition;
     }
 
 	void Idling()
 	{
-		nextPosition = Vector3.MoveTowards(transform.position, idleTargetPosition, 2 * Time.deltaTime);
+		nextPosition = Vector3.MoveTowards(transform.position, idleTargetPosition, 3 * Time.deltaTime);
 		
 		if (transform.position == idleTargetPosition)
 		{
 			idlePositionIndex = Mathf.Abs(idlePositionIndex - 1);
 			idleTargetPosition = idleTargetPositionPoints[idlePositionIndex]; // Switch the idle bobbing destination
 		}
+		
+		
 	}
 
 	void AttackStart()
@@ -63,11 +72,14 @@ public class IceBossBehaviour : MonoBehaviour
 		iceBossStats.iceBossMidAttack = true;
 		
 		SetNewIdlePositionPoints(attackingTarget, new Vector3(0,Mathf.Sign(player.transform.localScale.y)*6,0), new Vector3(0,Mathf.Sign(player.transform.localScale.y)*6 - 2,0));
+		
+		IceBossEyeStare();
+		//SpawnAttackIndicator();
 	}
-	
+
 	void AttackMiddle()
 	{
-		nextPosition = Vector3.MoveTowards(transform.position, attackingTarget, 300 * Time.deltaTime);
+		nextPosition = Vector3.MoveTowards(transform.position, attackingTarget, 450 * Time.deltaTime);
 		if (transform.position == attackingTarget)
 		{
 			iceBossStats.iceBossMidAttack = false;
@@ -75,9 +87,23 @@ public class IceBossBehaviour : MonoBehaviour
 			CancelInvoke("AttackMiddle");
 			
 			iceBossStats.iceBossIdling = true;
+			bossEye.transform.position = bossSclera.transform.position;
 		}
 	}
-	
+
+	public void IceBossEyeStare()
+	{
+		bossEye.transform.position += new Vector3(Vector3.Normalize(player.transform.position - bossEye.transform.position).x, Vector3.Normalize(player.transform.position - bossEye.transform.position).y/2, Vector3.Normalize(player.transform.position - bossEye.transform.position).z);
+	}
+
+	/*void SpawnAttackIndicator()
+	{
+		Instantiate(retardedPrefab, transform.position + new Vector3(4,0,0), Quaternion.Euler(0,0,0));
+		Instantiate(retardedPrefab, transform.position + new Vector3(-4,0,0), Quaternion.Euler(0,0,0));
+		Instantiate(retardedPrefab, transform.position + new Vector3(0,4,0), Quaternion.Euler(0,0,0));
+		Instantiate(retardedPrefab, transform.position + new Vector3(0,-4,0), Quaternion.Euler(0,0,0));
+	}*/
+
 	void SetNewIdlePositionPoints(Vector3 position_, Vector3 offset1, Vector3 offset2)
 	{
 		idleTargetPositionPoints[0] = position_ + offset1;
@@ -98,6 +124,9 @@ public class IceBossBehaviour : MonoBehaviour
 		Vector3 arenaStartPos = fightingZone.transform.position - new Vector3(fightingZone.transform.localScale.x/2,0,0);
 		return (playerPos - arenaStartPos); // If returns (0,y,z) then the player is at the leftmost side of the arena
 	}
+	
+	
+
 }
 
 /* Curved Movement Code
