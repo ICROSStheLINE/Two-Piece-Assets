@@ -8,6 +8,7 @@ public class IceBossStats : MonoBehaviour
 	IceBossJaw iceBossJaw;
 	GameObject bossHead;
 
+	public int iceBossHP = 4;
 
 	public bool iceBossIsAwake = false;
 	public bool iceBossIdling = true;
