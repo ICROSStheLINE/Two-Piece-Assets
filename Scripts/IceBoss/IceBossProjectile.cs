@@ -1,0 +1,61 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class IceBossProjectile : MonoBehaviour
+{
+    Rigidbody2D rb;
+	SpriteRenderer spriteRenderer;
+	GameObject healthBar;
+	HealthScript healthScript;
+	[SerializeField] GameObject projectileTrail;
+	GameObject trail;
+	
+	float movementSpeed = 5f;
+	
+    void Start()
+    {
+		healthBar = GameObject.FindWithTag("HealthBar");
+		healthScript = healthBar.GetComponent<HealthScript>();
+        rb = GetComponent<Rigidbody2D>();
+		spriteRenderer = GetComponent<SpriteRenderer>();
+		
+		if (gameObject.transform.rotation.z != 0)
+		{
+			movementSpeed = movementSpeed * -1;
+			spriteRenderer.flipY = !spriteRenderer.flipY;
+		}
+		
+		trail = Instantiate(projectileTrail, transform.position, transform.rotation);
+		trail.GetComponent<IceBossProjectileTrail>().iceBossProjectileTrailParent = gameObject;
+    }
+
+    void FixedUpdate()
+    {
+		rb.position += new Vector2(movementSpeed * Time.deltaTime,0);
+    }
+	
+	void KILLYOURSELF()
+	{
+		Destroy(trail);
+		Destroy(gameObject);
+	}
+	
+	void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.gameObject.tag == "PlayerShieldHitbox")
+		{
+			KILLYOURSELF();
+		}
+		else if (collision.gameObject.tag == "Player")
+		{
+			healthScript.LoseHealthBy(1);
+			KILLYOURSELF();
+		}
+		else if (collision.gameObject.tag == "Floor or Wall")
+		{
+			KILLYOURSELF();
+		}
+	}
+}
