@@ -8,13 +8,16 @@ public class IceBossStats : MonoBehaviour
 	IceBossJaw iceBossJaw;
 	GameObject bossHead;
 
-	public int iceBossHP = 4;
-
 	public bool iceBossIsAwake = false;
-	public bool iceBossIdling = true;
+	[HideInInspector] public bool iceBossIdling = true;
 	
 	public bool iceBossAttemptAttack = false;
-	public bool iceBossMidAttack = false;
+	[HideInInspector] public bool iceBossMidAttack = false;
+	
+	public bool iceBossAttemptLaser = false;
+	
+	public bool iceBossAttemptOrb = false;
+	
 
     void Start()
     {
@@ -36,5 +39,20 @@ public class IceBossStats : MonoBehaviour
 	{
 		iceBossAttemptAttack = true;
 	}
+	
+	void ActivateLaser()
+	{
+		iceBossAttemptLaser = true;
+	}
+	
+	void ActivateOrb()
+	{
+		iceBossAttemptOrb = true;
+	}
 
+	void Update()
+	{
+		if (Input.GetKeyDown("m"))
+			ActivateLaser();
+	}
 }

@@ -12,7 +12,7 @@ public class IceBossProjectile : MonoBehaviour
 	[SerializeField] GameObject projectileTrail;
 	GameObject trail;
 	
-	float movementSpeed = 5f;
+	float movementSpeed = 35f;
 	
     void Start()
     {

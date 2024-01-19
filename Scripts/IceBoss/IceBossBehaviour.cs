@@ -22,7 +22,11 @@ public class IceBossBehaviour : MonoBehaviour
 	// Attacking Variables
 	Vector3 attackingTarget;
 	
-	[SerializeField] GameObject retardedPrefab;
+	// Laser Variables
+	[SerializeField] GameObject laserPrefab;
+	
+	// Energy Orb Variables
+	[SerializeField] GameObject energyOrbPrefab;
 
 
     void Start()
@@ -45,6 +49,10 @@ public class IceBossBehaviour : MonoBehaviour
 			AttackStart();
 		else if (iceBossStats.iceBossMidAttack)
 			Invoke("AttackMiddle", 0.5f);
+		else if (iceBossStats.iceBossAttemptLaser)
+			Laser();
+		else if (iceBossStats.iceBossAttemptOrb)
+			ChargeEnergyOrb();
 		else if (iceBossStats.iceBossIdling && !iceBossStats.iceBossMidAttack)
 			Idling();
 		
@@ -74,7 +82,6 @@ public class IceBossBehaviour : MonoBehaviour
 		SetNewIdlePositionPoints(attackingTarget, new Vector3(0,Mathf.Sign(player.transform.localScale.y)*6,0), new Vector3(0,Mathf.Sign(player.transform.localScale.y)*6 - 2,0));
 		
 		IceBossEyeStare();
-		//SpawnAttackIndicator();
 	}
 
 	void AttackMiddle()
@@ -91,18 +98,26 @@ public class IceBossBehaviour : MonoBehaviour
 		}
 	}
 
+	void Laser()
+	{
+		Instantiate(laserPrefab, player.transform.position, Quaternion.Euler(0,0,0));
+		iceBossStats.iceBossAttemptLaser = false;
+	}
+	
+	void ChargeEnergyOrb()
+	{
+		
+	}
+	
+	void FireEnergyOrb()
+	{
+		
+	}
+
 	public void IceBossEyeStare()
 	{
 		bossEye.transform.position += new Vector3(Vector3.Normalize(player.transform.position - bossEye.transform.position).x, Vector3.Normalize(player.transform.position - bossEye.transform.position).y/2, Vector3.Normalize(player.transform.position - bossEye.transform.position).z);
 	}
-
-	/*void SpawnAttackIndicator()
-	{
-		Instantiate(retardedPrefab, transform.position + new Vector3(4,0,0), Quaternion.Euler(0,0,0));
-		Instantiate(retardedPrefab, transform.position + new Vector3(-4,0,0), Quaternion.Euler(0,0,0));
-		Instantiate(retardedPrefab, transform.position + new Vector3(0,4,0), Quaternion.Euler(0,0,0));
-		Instantiate(retardedPrefab, transform.position + new Vector3(0,-4,0), Quaternion.Euler(0,0,0));
-	}*/
 
 	void SetNewIdlePositionPoints(Vector3 position_, Vector3 offset1, Vector3 offset2)
 	{
