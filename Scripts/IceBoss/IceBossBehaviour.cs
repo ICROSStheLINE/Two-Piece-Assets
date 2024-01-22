@@ -27,6 +27,7 @@ public class IceBossBehaviour : MonoBehaviour
 	
 	// Energy Orb Variables
 	[SerializeField] GameObject energyOrbPrefab;
+	GameObject chargedOrb;
 
 
     void Start()
@@ -45,15 +46,18 @@ public class IceBossBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
-		if (iceBossStats.iceBossAttemptAttack && !iceBossStats.iceBossMidAttack)
+		if (iceBossStats.iceBossAttemptAttack && !iceBossStats.iceBossMidAttack && !iceBossStats.iceBossMidOrb && !iceBossStats.iceBossAttemptOrb)
 			AttackStart();
-		else if (iceBossStats.iceBossMidAttack)
+		else if (iceBossStats.iceBossMidAttack && !iceBossStats.iceBossAttemptOrb)
 			Invoke("AttackMiddle", 0.5f);
 		else if (iceBossStats.iceBossAttemptLaser)
 			Laser();
 		else if (iceBossStats.iceBossAttemptOrb)
+		{
 			ChargeEnergyOrb();
-		else if (iceBossStats.iceBossIdling && !iceBossStats.iceBossMidAttack)
+			AttackFinish();
+		}
+		else if (iceBossStats.iceBossIdling && !iceBossStats.iceBossMidAttack && !iceBossStats.iceBossMidOrb && !iceBossStats.iceBossAttemptOrb)
 			Idling();
 		
 		
@@ -62,7 +66,7 @@ public class IceBossBehaviour : MonoBehaviour
 
 	void Idling()
 	{
-		nextPosition = Vector3.MoveTowards(transform.position, idleTargetPosition, 3 * Time.deltaTime);
+		nextPosition = Vector3.MoveTowards(transform.position, idleTargetPosition, 6 * Time.deltaTime);
 		
 		if (transform.position == idleTargetPosition)
 		{
@@ -79,8 +83,6 @@ public class IceBossBehaviour : MonoBehaviour
 		attackingTarget = player.transform.position + new Vector3(0,3,0);
 		iceBossStats.iceBossMidAttack = true;
 		
-		SetNewIdlePositionPoints(attackingTarget, new Vector3(0,Mathf.Sign(player.transform.localScale.y)*6,0), new Vector3(0,Mathf.Sign(player.transform.localScale.y)*6 - 2,0));
-		
 		IceBossEyeStare();
 	}
 
@@ -89,29 +91,46 @@ public class IceBossBehaviour : MonoBehaviour
 		nextPosition = Vector3.MoveTowards(transform.position, attackingTarget, 450 * Time.deltaTime);
 		if (transform.position == attackingTarget)
 		{
-			iceBossStats.iceBossMidAttack = false;
-			iceBossStats.iceBossAttemptAttack = false;
-			CancelInvoke("AttackMiddle");
-			
-			iceBossStats.iceBossIdling = true;
-			bossEye.transform.position = bossSclera.transform.position;
+			AttackFinish();
 		}
+	}
+	
+	void AttackFinish()
+	{
+		iceBossStats.iceBossMidAttack = false;
+		iceBossStats.iceBossAttemptAttack = false;
+		CancelInvoke("AttackMiddle");
+		
+		SetNewIdlePositionPoints(transform.position, new Vector3(0,Mathf.Sign(player.transform.localScale.y)*6,0), new Vector3(0,Mathf.Sign(player.transform.localScale.y)*6 - 2,0));
+		
+		iceBossStats.iceBossIdling = true;
+		bossEye.transform.position = bossSclera.transform.position;
 	}
 
 	void Laser()
 	{
-		Instantiate(laserPrefab, player.transform.position, Quaternion.Euler(0,0,0));
+		Instantiate(laserPrefab, new Vector3(player.transform.position.x,11.27313f,0), Quaternion.Euler(0,0,0));
 		iceBossStats.iceBossAttemptLaser = false;
 	}
 	
 	void ChargeEnergyOrb()
 	{
+		int angleOfOrb = 0;
+		if (Mathf.Sign(player.transform.position.x - transform.position.x) == -1)
+			angleOfOrb = 180;
+		chargedOrb = Instantiate(energyOrbPrefab, transform.position - new Vector3(0,5,0), Quaternion.Euler(0,0,angleOfOrb));
+		Invoke("FireEnergyOrb", 1.25f);
 		
+		iceBossStats.iceBossMidOrb = true;
+		iceBossStats.iceBossAttemptOrb = false;
 	}
 	
 	void FireEnergyOrb()
 	{
+		if (chargedOrb != null)
+			chargedOrb.GetComponent<IceBossProjectile>().enabled = true;
 		
+		iceBossStats.iceBossMidOrb = false;
 	}
 
 	public void IceBossEyeStare()

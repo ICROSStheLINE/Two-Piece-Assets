@@ -41,7 +41,7 @@ public class IceBossProjectile : MonoBehaviour
 		Destroy(trail);
 		Destroy(gameObject);
 	}
-	
+
 	void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.tag == "PlayerShieldHitbox")
@@ -55,7 +55,7 @@ public class IceBossProjectile : MonoBehaviour
 		}
 		else if (collision.gameObject.tag == "Floor or Wall")
 		{
-			KILLYOURSELF();
+			Invoke("KILLYOURSELF", 0.2f);
 		}
 	}
 }

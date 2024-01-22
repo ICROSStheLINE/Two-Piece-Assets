@@ -18,15 +18,49 @@ public class IceBossJaw : MonoBehaviour
 
     void Update()
     {
-		Vector3 targetPosition = bossHead.transform.position - new Vector3(0,6,0);
+		
+		Vector3 targetPosition = bossHead.transform.position - new Vector3(0,6.5f,0);
 		
 		if (targetPosition.x - transform.position.x < -1) // If the target position is to the LEFT of this gameobjects position
-			transform.rotation = Quaternion.Euler(0,0,30);
+			TiltLeft();
 		else if (targetPosition.x - transform.position.x > 1) // If the target position is to the RIGHT of this gameobjects position
-			transform.rotation = Quaternion.Euler(0,0,330);
-		else
-			transform.rotation = Quaternion.Euler(0,0,0);
+			TiltRight();
+		else if (!iceBossStats.iceBossMidOrb)
+			TiltReset();
 		
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, followSpeed);
+		transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, followSpeed);
+		
+		
+		if (iceBossStats.iceBossAttemptOrb && !iceBossStats.iceBossMidOrb)
+		{
+			
+			//ShakeRetardedly();
+		}
     }
+	
+	/*void ShakeRetardedly()
+	{
+		Invoke("TiltRight", 0.15f);
+		Invoke("TiltLeft", 0.3f);
+		Invoke("TiltRight", 0.45f);
+		Invoke("TiltLeft", 0.6f);
+		Invoke("TiltRight", 0.75f);
+		Invoke("TiltLeft", 0.9f);
+		Invoke("TiltReset", 1f);
+	}*/
+	
+	void TiltRight()
+	{
+		transform.rotation = Quaternion.Euler(0,0,330);
+	}
+	
+	void TiltLeft()
+	{
+		transform.rotation = Quaternion.Euler(0,0,30);
+	}
+	
+	void TiltReset()
+	{
+		transform.rotation = Quaternion.Euler(0,0,0);
+	}
 }

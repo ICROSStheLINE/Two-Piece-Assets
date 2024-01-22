@@ -17,7 +17,8 @@ public class IceBossStats : MonoBehaviour
 	public bool iceBossAttemptLaser = false;
 	
 	public bool iceBossAttemptOrb = false;
-	
+	[HideInInspector] public bool iceBossMidOrb = false;
+
 
     void Start()
     {
@@ -54,5 +55,8 @@ public class IceBossStats : MonoBehaviour
 	{
 		if (Input.GetKeyDown("m"))
 			ActivateLaser();
+		
+		if (Input.GetKeyDown("n"))
+			ActivateOrb();
 	}
 }
