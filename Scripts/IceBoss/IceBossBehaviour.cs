@@ -81,6 +81,7 @@ public class IceBossBehaviour : MonoBehaviour
 	{
 		iceBossStats.iceBossIdling = false;
 		attackingTarget = player.transform.position + new Vector3(0,3,0);
+		
 		iceBossStats.iceBossMidAttack = true;
 		
 		IceBossEyeStare();
@@ -88,7 +89,7 @@ public class IceBossBehaviour : MonoBehaviour
 
 	void AttackMiddle()
 	{
-		nextPosition = Vector3.MoveTowards(transform.position, attackingTarget, 450 * Time.deltaTime);
+		nextPosition = Vector3.MoveTowards(transform.position, attackingTarget, 550 * Time.deltaTime);
 		if (transform.position == attackingTarget)
 		{
 			AttackFinish();
@@ -101,8 +102,8 @@ public class IceBossBehaviour : MonoBehaviour
 		iceBossStats.iceBossAttemptAttack = false;
 		CancelInvoke("AttackMiddle");
 		
-		SetNewIdlePositionPoints(transform.position, new Vector3(0,Mathf.Sign(player.transform.localScale.y)*6,0), new Vector3(0,Mathf.Sign(player.transform.localScale.y)*6 - 2,0));
-		
+		SetNewIdlePositionPoints(transform.position, new Vector3(0,Mathf.Sign(BossPositionInArena().y * -1)*6,0), new Vector3(0,Mathf.Sign(BossPositionInArena().y * -1)*6 - 2,0));
+
 		iceBossStats.iceBossIdling = true;
 		bossEye.transform.position = bossSclera.transform.position;
 	}
