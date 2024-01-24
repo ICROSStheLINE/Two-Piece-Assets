@@ -31,7 +31,7 @@ public class IceBossStats : MonoBehaviour
 	public void WakeUpIceBoss()
 	{
 		iceBossIsAwake = true;
-		InvokeRepeating("ActivateAttack", 6f, 1.8f);
+		// InvokeRepeating("ActivateAttack", 6f, 1.8f);
 		// Activate cutscene
 		// Activate aggro
 	}

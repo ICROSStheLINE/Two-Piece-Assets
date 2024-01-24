@@ -46,12 +46,11 @@ public class IceBossBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
+		// Checking Attack Variables
 		if (iceBossStats.iceBossAttemptAttack && !iceBossStats.iceBossMidAttack && !iceBossStats.iceBossMidOrb && !iceBossStats.iceBossAttemptOrb)
 			AttackStart();
 		else if (iceBossStats.iceBossMidAttack && !iceBossStats.iceBossAttemptOrb)
 			Invoke("AttackMiddle", 0.5f);
-		else if (iceBossStats.iceBossAttemptLaser)
-			Laser();
 		else if (iceBossStats.iceBossAttemptOrb)
 		{
 			ChargeEnergyOrb();
@@ -60,8 +59,13 @@ public class IceBossBehaviour : MonoBehaviour
 		else if (iceBossStats.iceBossIdling && !iceBossStats.iceBossMidAttack && !iceBossStats.iceBossMidOrb && !iceBossStats.iceBossAttemptOrb)
 			Idling();
 		
+		if (iceBossStats.iceBossAttemptLaser)
+			Laser();
 		
-        transform.position = nextPosition;
+		
+		// Movement
+		if (iceBossStats.iceBossIsAwake)
+			transform.position = nextPosition;
     }
 
 	void Idling()
@@ -159,8 +163,39 @@ public class IceBossBehaviour : MonoBehaviour
 		return (playerPos - arenaStartPos); // If returns (0,y,z) then the player is at the leftmost side of the arena
 	}
 	
+	// Attack Patterns
 	
-
+	void PatternOne()
+	{
+		
+	}
+	
+	void PatternTwo()
+	{
+		
+	}
+	
+	void PatternThree()
+	{
+		
+	}
+	
+	
+	void ActivateAttack()
+	{
+		iceBossStats.iceBossAttemptAttack = true;
+	}
+	
+	void ActivateLaser()
+	{
+		iceBossStats.iceBossAttemptLaser = true;
+	}
+	
+	void ActivateOrb()
+	{
+		iceBossStats.iceBossAttemptOrb = true;
+	}
+	
 }
 
 /* Curved Movement Code
