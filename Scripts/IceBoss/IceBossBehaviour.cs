@@ -128,9 +128,8 @@ public class IceBossBehaviour : MonoBehaviour
 	
 	void FireEnergyOrb()
 	{
-		if (chargedOrb != null)
-			chargedOrb.GetComponent<IceBossProjectile>().enabled = true;
-		
+		// Orb now fires itself
+		// Code is in the "IceBossProjectile" script
 		iceBossStats.iceBossMidOrb = false;
 	}
 

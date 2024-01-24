@@ -56,7 +56,7 @@ public class IceBossStats : MonoBehaviour
 		if (Input.GetKeyDown("m"))
 			ActivateLaser();
 		
-		if (Input.GetKeyDown("n"))
+		if (Input.GetKey("n"))
 			ActivateOrb();
 	}
 }

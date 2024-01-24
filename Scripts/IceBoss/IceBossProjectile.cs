@@ -9,6 +9,8 @@ public class IceBossProjectile : MonoBehaviour
 	SpriteRenderer spriteRenderer;
 	GameObject healthBar;
 	HealthScript healthScript;
+	BoxCollider2D boxCollider;
+	
 	[SerializeField] GameObject projectileTrail;
 	GameObject trail;
 	
@@ -20,20 +22,21 @@ public class IceBossProjectile : MonoBehaviour
 		healthScript = healthBar.GetComponent<HealthScript>();
         rb = GetComponent<Rigidbody2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
+		boxCollider = GetComponent<BoxCollider2D>();
 		
 		if (gameObject.transform.rotation.z != 0)
 		{
 			movementSpeed = movementSpeed * -1;
 			spriteRenderer.flipY = !spriteRenderer.flipY;
 		}
-		
-		trail = Instantiate(projectileTrail, transform.position, transform.rotation);
-		trail.GetComponent<IceBossProjectileTrail>().iceBossProjectileTrailParent = gameObject;
+
+		Invoke("Fire", 1.25f);
     }
 
     void FixedUpdate()
     {
-		rb.position += new Vector2(movementSpeed * Time.deltaTime,0);
+		if (boxCollider.enabled)
+			rb.position += new Vector2(movementSpeed * Time.deltaTime,0);
     }
 	
 	void KILLYOURSELF()
@@ -55,7 +58,14 @@ public class IceBossProjectile : MonoBehaviour
 		}
 		else if (collision.gameObject.tag == "Floor or Wall")
 		{
-			Invoke("KILLYOURSELF", 0.2f);
+			KILLYOURSELF();
 		}
+	}
+	
+	void Fire()
+	{
+		trail = Instantiate(projectileTrail, transform.position, transform.rotation);
+		trail.GetComponent<IceBossProjectileTrail>().iceBossProjectileTrailParent = gameObject;
+		boxCollider.enabled = true;
 	}
 }
