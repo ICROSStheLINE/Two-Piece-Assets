@@ -10,6 +10,8 @@ public class IceBossProjectile : MonoBehaviour
 	GameObject healthBar;
 	HealthScript healthScript;
 	BoxCollider2D boxCollider;
+	IceBossStats iceBossStats;
+	GameObject iceBossHead;
 	
 	[SerializeField] GameObject projectileTrail;
 	GameObject trail;
@@ -23,6 +25,8 @@ public class IceBossProjectile : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		boxCollider = GetComponent<BoxCollider2D>();
+		iceBossStats = GameObject.FindWithTag("Ice Boss").GetComponent<IceBossStats>();
+		iceBossHead = GameObject.FindWithTag("Ice Boss").transform.GetChild(0).gameObject;
 		
 		if (gameObject.transform.rotation.z != 0)
 		{
@@ -30,13 +34,15 @@ public class IceBossProjectile : MonoBehaviour
 			spriteRenderer.flipY = !spriteRenderer.flipY;
 		}
 
-		Invoke("Fire", 1.25f);
+		Invoke("Fire", iceBossStats.iceBossOrbChargeTime);
     }
 
     void FixedUpdate()
     {
 		if (boxCollider.enabled)
 			rb.position += new Vector2(movementSpeed * Time.deltaTime,0);
+		else
+			transform.position = iceBossHead.transform.position - new Vector3(0,5,0);
     }
 	
 	void KILLYOURSELF()

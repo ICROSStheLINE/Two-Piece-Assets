@@ -8,16 +8,27 @@ public class IceBossStats : MonoBehaviour
 	IceBossJaw iceBossJaw;
 	GameObject bossHead;
 
+	// Basic Stats
+	public float iceBossTimeBetweenPatterns = 1.6f;
+	public float iceBossOrbChargeTime = 1.25f;
+	
+	// Idle Variables
 	public bool iceBossIsAwake = false;
 	[HideInInspector] public bool iceBossIdling = true;
 	
-	public bool iceBossAttemptAttack = false;
+	// Basic Attack Variables
 	[HideInInspector] public bool iceBossMidAttack = false;
 	
+	// Laser Variables
 	public bool iceBossAttemptLaser = false;
 	
+	// Energy Orb Variables
 	public bool iceBossAttemptOrb = false;
 	[HideInInspector] public bool iceBossMidOrb = false;
+	
+	// Pattern Variables
+	public bool iceBossPerformingPattern = false;
+	
 
 
     void Start()
@@ -36,27 +47,22 @@ public class IceBossStats : MonoBehaviour
 		// Activate aggro
 	}
 
-	void ActivateAttack()
-	{
-		iceBossAttemptAttack = true;
-	}
-	
-	void ActivateLaser()
-	{
-		iceBossAttemptLaser = true;
-	}
-	
-	void ActivateOrb()
-	{
-		iceBossAttemptOrb = true;
-	}
 
 	void Update()
 	{
 		if (Input.GetKeyDown("m"))
-			ActivateLaser();
+			iceBossBehaviour.Invoke("ActivateLaser", 0f);
 		
-		if (Input.GetKey("n"))
-			ActivateOrb();
+		if (Input.GetKeyDown("n"))
+			iceBossBehaviour.Invoke("ActivateOrb", 0f);
+		
+		if (Input.GetKeyDown("l"))
+			iceBossBehaviour.Invoke("PatternOne", 0f);
+		
+		if (Input.GetKeyDown("k"))
+			iceBossBehaviour.Invoke("PatternTwo", 0f);
+		
+		if (Input.GetKeyDown("j"))
+			iceBossBehaviour.Invoke("PatternThree", 0f);
 	}
 }

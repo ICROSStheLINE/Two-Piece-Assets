@@ -21,6 +21,7 @@ public class IceBossBehaviour : MonoBehaviour
 	
 	// Attacking Variables
 	Vector3 attackingTarget;
+	string[] queuedAttack = new string[3];
 	
 	// Laser Variables
 	[SerializeField] GameObject laserPrefab;
@@ -47,16 +48,14 @@ public class IceBossBehaviour : MonoBehaviour
     void FixedUpdate()
     {
 		// Checking Attack Variables
-		if (iceBossStats.iceBossAttemptAttack && !iceBossStats.iceBossMidAttack && !iceBossStats.iceBossMidOrb && !iceBossStats.iceBossAttemptOrb)
-			AttackStart();
-		else if (iceBossStats.iceBossMidAttack && !iceBossStats.iceBossAttemptOrb)
-			Invoke("AttackMiddle", 0.5f);
+		if (iceBossStats.iceBossMidAttack && !iceBossStats.iceBossAttemptOrb)
+			Invoke("AttackMiddle", 0.4f);
 		else if (iceBossStats.iceBossAttemptOrb)
 		{
 			ChargeEnergyOrb();
 			AttackFinish();
 		}
-		else if (iceBossStats.iceBossIdling && !iceBossStats.iceBossMidAttack && !iceBossStats.iceBossMidOrb && !iceBossStats.iceBossAttemptOrb)
+		else if (iceBossStats.iceBossIdling && !iceBossStats.iceBossMidAttack && !iceBossStats.iceBossAttemptOrb)
 			Idling();
 		
 		if (iceBossStats.iceBossAttemptLaser)
@@ -77,8 +76,6 @@ public class IceBossBehaviour : MonoBehaviour
 			idlePositionIndex = Mathf.Abs(idlePositionIndex - 1);
 			idleTargetPosition = idleTargetPositionPoints[idlePositionIndex]; // Switch the idle bobbing destination
 		}
-		
-		
 	}
 
 	void AttackStart()
@@ -93,20 +90,33 @@ public class IceBossBehaviour : MonoBehaviour
 
 	void AttackMiddle()
 	{
-		nextPosition = Vector3.MoveTowards(transform.position, attackingTarget, 550 * Time.deltaTime);
+		nextPosition = Vector3.MoveTowards(transform.position, attackingTarget, 600 * Time.deltaTime);
 		if (transform.position == attackingTarget)
 		{
 			AttackFinish();
+			
+			// Checks if any attacks were queued up and activates the next queued attack
+			if (queuedAttack[0] == "Attack")
+				ActivateAttack();
+			else if (queuedAttack[0] == "Orb")
+				ActivateOrb();
+			else if (queuedAttack[0] == "ResetPatternVar")
+				ResetPatternVar();
+			
+			// Corrects the order of the queued attacks (Moves the order down by 1)
+			for (int i = 0; i < queuedAttack.Length - 1; i += 1)
+				queuedAttack[i] = queuedAttack[i + 1];
+			queuedAttack[2] = null;
+			
 		}
 	}
-	
+
 	void AttackFinish()
 	{
 		iceBossStats.iceBossMidAttack = false;
-		iceBossStats.iceBossAttemptAttack = false;
 		CancelInvoke("AttackMiddle");
 		
-		SetNewIdlePositionPoints(transform.position, new Vector3(0,Mathf.Sign(BossPositionInArena().y * -1)*6,0), new Vector3(0,Mathf.Sign(BossPositionInArena().y * -1)*6 - 2,0));
+		SetNewIdlePositionPoints(transform.position, new Vector3(0,Mathf.Sign(BossPositionInArena().y * -1)*4,0), new Vector3(0,Mathf.Sign(BossPositionInArena().y * -1)*4 - 2,0));
 
 		iceBossStats.iceBossIdling = true;
 		bossEye.transform.position = bossSclera.transform.position;
@@ -117,24 +127,37 @@ public class IceBossBehaviour : MonoBehaviour
 		Instantiate(laserPrefab, new Vector3(player.transform.position.x,11.27313f,0), Quaternion.Euler(0,0,0));
 		iceBossStats.iceBossAttemptLaser = false;
 	}
-	
+
 	void ChargeEnergyOrb()
 	{
 		int angleOfOrb = 0;
 		if (Mathf.Sign(player.transform.position.x - transform.position.x) == -1)
 			angleOfOrb = 180;
 		chargedOrb = Instantiate(energyOrbPrefab, transform.position - new Vector3(0,5,0), Quaternion.Euler(0,0,angleOfOrb));
-		Invoke("FireEnergyOrb", 1.25f);
+		
+		Invoke("FireEnergyOrb", iceBossStats.iceBossOrbChargeTime);
 		
 		iceBossStats.iceBossMidOrb = true;
 		iceBossStats.iceBossAttemptOrb = false;
 	}
-	
+
 	void FireEnergyOrb()
 	{
-		// Orb now fires itself
-		// Code is in the "IceBossProjectile" script
+		// Orb now fires itself (Code is in the "IceBossProjectile" script)
 		iceBossStats.iceBossMidOrb = false;
+		
+		// Checks if any attacks were queued up and activates the next queued attack
+			if (queuedAttack[0] == "Attack")
+				ActivateAttack();
+			else if (queuedAttack[0] == "Orb")
+				ActivateOrb();
+			else if (queuedAttack[0] == "ResetPatternVar")
+				ResetPatternVar();
+			
+			// Corrects the order of the queued attacks (Moves the order down by 1)
+			for (int i = 0; i < queuedAttack.Length - 1; i += 1)
+				queuedAttack[i] = queuedAttack[i + 1];
+			queuedAttack[2] = null;
 	}
 
 	public void IceBossEyeStare()
@@ -162,40 +185,72 @@ public class IceBossBehaviour : MonoBehaviour
 		Vector3 arenaStartPos = fightingZone.transform.position - new Vector3(fightingZone.transform.localScale.x/2,0,0);
 		return (playerPos - arenaStartPos); // If returns (0,y,z) then the player is at the leftmost side of the arena
 	}
-	
+
 	// Attack Patterns
-	
+
 	void PatternOne()
 	{
-		
+		// Just charging at the player
+		if (!iceBossStats.iceBossPerformingPattern)
+		{
+			iceBossStats.iceBossPerformingPattern = true;
+			
+			ActivateAttack();
+			queuedAttack[0] = "Attack";
+			queuedAttack[1] = "Attack";
+			queuedAttack[2] = "ResetPatternVar";
+		}
 	}
-	
+
 	void PatternTwo()
 	{
-		
+		// Charging twice then energy orb
+		if (!iceBossStats.iceBossPerformingPattern)
+		{
+			iceBossStats.iceBossPerformingPattern = true;
+			
+			ActivateAttack();
+			queuedAttack[0] = "Attack";
+			queuedAttack[1] = "Orb";
+			queuedAttack[2] = "ResetPatternVar";
+		}
 	}
-	
+
 	void PatternThree()
 	{
-		
+		if (!iceBossStats.iceBossPerformingPattern)
+		{
+			iceBossStats.iceBossPerformingPattern = true;
+			
+			ActivateAttack();
+			queuedAttack[0] = "Orb";
+			queuedAttack[1] = "Attack";
+			queuedAttack[2] = "ResetPatternVar";
+		}
 	}
-	
-	
+
+
 	void ActivateAttack()
 	{
-		iceBossStats.iceBossAttemptAttack = true;
+		if (!iceBossStats.iceBossMidAttack && !iceBossStats.iceBossMidOrb && !iceBossStats.iceBossAttemptOrb)
+			AttackStart();
 	}
-	
+
 	void ActivateLaser()
 	{
 		iceBossStats.iceBossAttemptLaser = true;
 	}
-	
+
 	void ActivateOrb()
 	{
 		iceBossStats.iceBossAttemptOrb = true;
 	}
-	
+
+	void ResetPatternVar()
+	{
+		iceBossStats.iceBossPerformingPattern = false;
+	}
+
 }
 
 /* Curved Movement Code
