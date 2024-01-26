@@ -1551,7 +1551,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.019348145, y: -0.34825516}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1562,7 +1562,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6.2, y: 8.8}
+  m_Size: {x: 4.420044, y: 5.0465775}
   m_EdgeRadius: 0
 --- !u!50 &379560465
 Rigidbody2D:
@@ -2223,12 +2223,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc231a5a6e60bd04990e4e8b41dc93e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iceBossTimeBetweenPatterns: 1.6
+  iceBossOrbChargeTime: 1.25
   iceBossIsAwake: 0
   iceBossIdling: 1
-  iceBossAttemptAttack: 0
   iceBossMidAttack: 0
-  iceBossAttemptLaser: 0
   iceBossAttemptOrb: 0
+  iceBossMidOrb: 0
+  iceBossPerformingPattern: 0
+  iceBossSpecialPattern: 0
+  iceBossSpecialPatternStage: 0
 --- !u!1 &630694434
 GameObject:
   m_ObjectHideFlags: 0
@@ -5485,7 +5489,7 @@ Transform:
   m_GameObject: {fileID: 7757015839854483422}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 98.1, y: 3.1, z: 0}
+  m_LocalPosition: {x: 83.9, y: 3.18, z: 0}
   m_LocalScale: {x: 0.5245, y: 0.5245, z: 0.5245}
   m_ConstrainProportionsScale: 0
   m_Children: []

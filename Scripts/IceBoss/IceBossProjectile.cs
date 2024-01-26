@@ -18,6 +18,15 @@ public class IceBossProjectile : MonoBehaviour
 	
 	float movementSpeed = 35f;
 	
+	float chargeTime;
+	
+	
+	void Awake()
+	{
+		iceBossStats = GameObject.FindWithTag("Ice Boss").GetComponent<IceBossStats>();
+		chargeTime = iceBossStats.iceBossOrbChargeTime;
+	}
+	
     void Start()
     {
 		healthBar = GameObject.FindWithTag("HealthBar");
@@ -25,7 +34,6 @@ public class IceBossProjectile : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		boxCollider = GetComponent<BoxCollider2D>();
-		iceBossStats = GameObject.FindWithTag("Ice Boss").GetComponent<IceBossStats>();
 		iceBossHead = GameObject.FindWithTag("Ice Boss").transform.GetChild(0).gameObject;
 		
 		if (gameObject.transform.rotation.z != 0)
@@ -34,7 +42,7 @@ public class IceBossProjectile : MonoBehaviour
 			spriteRenderer.flipY = !spriteRenderer.flipY;
 		}
 
-		Invoke("Fire", iceBossStats.iceBossOrbChargeTime);
+		Invoke("Fire", chargeTime);
     }
 
     void FixedUpdate()

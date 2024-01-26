@@ -10,7 +10,7 @@ public class IceBossStats : MonoBehaviour
 
 	// Basic Stats
 	public float iceBossTimeBetweenPatterns = 1.6f;
-	public float iceBossOrbChargeTime = 1.25f;
+	public float iceBossOrbChargeTime = 1f;
 	
 	// Idle Variables
 	public bool iceBossIsAwake = false;
@@ -19,15 +19,14 @@ public class IceBossStats : MonoBehaviour
 	// Basic Attack Variables
 	[HideInInspector] public bool iceBossMidAttack = false;
 	
-	// Laser Variables
-	public bool iceBossAttemptLaser = false;
-	
 	// Energy Orb Variables
 	public bool iceBossAttemptOrb = false;
 	[HideInInspector] public bool iceBossMidOrb = false;
 	
 	// Pattern Variables
-	public bool iceBossPerformingPattern = false;
+	[HideInInspector] public bool iceBossPerformingPattern = false;
+	[HideInInspector] public int iceBossSpecialPattern = 0;
+	[HideInInspector] public float iceBossSpecialPatternStage = 0;
 	
 
 
@@ -63,6 +62,6 @@ public class IceBossStats : MonoBehaviour
 			iceBossBehaviour.Invoke("PatternTwo", 0f);
 		
 		if (Input.GetKeyDown("j"))
-			iceBossBehaviour.Invoke("PatternThree", 0f);
+			iceBossBehaviour.Invoke("SpecialPatternOne", 0f);
 	}
 }
