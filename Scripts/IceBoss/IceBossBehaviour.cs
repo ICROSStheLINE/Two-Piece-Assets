@@ -20,14 +20,15 @@ public class IceBossBehaviour : MonoBehaviour
 	Vector3 idleTargetPosition;
 	Vector3[] idleTargetPositionPoints = new Vector3[2];
 	int idlePositionIndex = 0;
-	
+
 	// Attacking Variables
 	Vector3 attackingTarget;
 	string[] queuedAttack = new string[6];
-	
+
 	// Laser Variables
 	[SerializeField] GameObject laserPrefab;
-	
+	readonly float laserYPosition = 11.27313f;
+
 	// Energy Orb Variables
 	[SerializeField] GameObject energyOrbPrefab;
 	GameObject chargedOrb;
@@ -123,9 +124,12 @@ public class IceBossBehaviour : MonoBehaviour
 			iceBossStats.iceBossSpecialPatternStage += 0.5f;
 	}
 
-	void Laser()
+	void Laser(Vector3 customTarget = default(Vector3))
 	{
-		Instantiate(laserPrefab, new Vector3(player.transform.position.x,11.27313f,0), Quaternion.Euler(0,0,0));
+		if (customTarget == default(Vector3))
+			Instantiate(laserPrefab, new Vector3(player.transform.position.x,laserYPosition,0), Quaternion.Euler(0,0,0));
+		else
+			Instantiate(laserPrefab, customTarget, Quaternion.Euler(0,0,0));
 	}
 
 	void ChargeEnergyOrb(float customChargeTime = default(float))
@@ -231,7 +235,7 @@ public class IceBossBehaviour : MonoBehaviour
 		}
 	}
 
-	
+
 	void SpecialPatternOne()
 	{
 		if (!iceBossStats.iceBossPerformingPattern)
@@ -240,28 +244,28 @@ public class IceBossBehaviour : MonoBehaviour
 			
 			if (iceBossStats.iceBossSpecialPatternStage == 0)
 			{	
-				AttackStart(player.transform.position + new Vector3(0,Mathf.Sign(PlayerPositionInArena().y * -1)*9,0));
+				AttackStart(player.transform.position + new Vector3(0,Mathf.Sign(PlayerPositionInArena().y * -1)*11,0));
 				iceBossStats.iceBossSpecialPatternStage += 0.5f;
 			}
 			else if (iceBossStats.iceBossSpecialPatternStage == 0.5f)
 				Invoke("AttackMiddle", 0.05f);
 			else if (iceBossStats.iceBossSpecialPatternStage == 1)
 			{
-				AttackStart(player.transform.position + new Vector3(0,Mathf.Sign(PlayerPositionInArena().y * -1)*9,0));
+				AttackStart(player.transform.position + new Vector3(0,Mathf.Sign(PlayerPositionInArena().y * -1)*11,0));
 				iceBossStats.iceBossSpecialPatternStage += 0.5f;
 			}
 			else if (iceBossStats.iceBossSpecialPatternStage == 1.5f)
 				Invoke("AttackMiddle", 0.05f);
 			else if (iceBossStats.iceBossSpecialPatternStage == 2)
 			{
-				AttackStart(player.transform.position + new Vector3(0,Mathf.Sign(PlayerPositionInArena().y * -1)*9,0));
+				AttackStart(player.transform.position + new Vector3(0,Mathf.Sign(PlayerPositionInArena().y * -1)*11,0));
 				iceBossStats.iceBossSpecialPatternStage += 0.5f;
 			}
 			else if (iceBossStats.iceBossSpecialPatternStage == 2.5f)
 				Invoke("AttackMiddle", 0.05f);
 			else if (iceBossStats.iceBossSpecialPatternStage == 3)
 			{
-				AttackStart(player.transform.position + new Vector3(0,Mathf.Sign(PlayerPositionInArena().y * -1)*9,0));
+				AttackStart(player.transform.position + new Vector3(0,Mathf.Sign(PlayerPositionInArena().y * -1)*11,0));
 				iceBossStats.iceBossSpecialPatternStage += 0.5f;
 			}
 			else if (iceBossStats.iceBossSpecialPatternStage == 3.5f)
@@ -276,7 +280,7 @@ public class IceBossBehaviour : MonoBehaviour
 			else if (iceBossStats.iceBossSpecialPatternStage == 5) // Fly to the right side of arena
 			{
 				Vector3 endOfArena = fightingZone.transform.position + new Vector3(fightingZone.transform.localScale.x/2,0,0);
-				nextPosition = Vector3.MoveTowards(transform.position, endOfArena, 45 * Time.deltaTime);
+				nextPosition = Vector3.MoveTowards(transform.position, endOfArena + new Vector3(1.5f,0,0), 45 * Time.deltaTime);
 				if (transform.position == nextPosition)
 					iceBossStats.iceBossSpecialPatternStage += 0.5f;
 			}
@@ -288,6 +292,36 @@ public class IceBossBehaviour : MonoBehaviour
 					nextPosition = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, player.transform.position.y + 5, transform.position.z), 35 * Time.deltaTime);
 			}
 			else if (iceBossStats.iceBossSpecialPatternStage == 8)
+			{
+				Vector3 middleOfArena = fightingZone.transform.position;
+				nextPosition = Vector3.MoveTowards(transform.position, middleOfArena + new Vector3(7,0,0), 45 * Time.deltaTime);
+				if (transform.position == nextPosition)
+					iceBossStats.iceBossSpecialPatternStage += 0.5f;
+				Laser(new Vector3(transform.position.x, laserYPosition, 0f));
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 8.5f)
+			{
+				Vector3 startOfArena = fightingZone.transform.position - new Vector3(fightingZone.transform.localScale.x/2,0,0);
+				nextPosition = Vector3.MoveTowards(transform.position, startOfArena - new Vector3(1.5f,0,0), 45 * Time.deltaTime);
+				if (transform.position == nextPosition)
+					iceBossStats.iceBossSpecialPatternStage += 0.5f;
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage > 8.5f && iceBossStats.iceBossSpecialPatternStage < 12)
+			{
+				if (!iceBossStats.iceBossMidOrb)
+					ChargeEnergyOrb(0.3f);
+				else // This else statement makes the boss track the player a bit
+					nextPosition = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, player.transform.position.y + 5, transform.position.z), 35 * Time.deltaTime);
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 12)
+			{
+				Vector3 middleOfArena = fightingZone.transform.position;
+				nextPosition = Vector3.MoveTowards(transform.position, middleOfArena - new Vector3(7,0,0), 45 * Time.deltaTime);
+				if (transform.position == nextPosition)
+					iceBossStats.iceBossSpecialPatternStage += 0.5f;
+				Laser(new Vector3(transform.position.x, laserYPosition, 0f));
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 12.5)
 			{
 				SetNewIdlePositionPoints(transform.position, new Vector3(0,Mathf.Sign(BossPositionInArena().y * -1)*3,0), new Vector3(0,Mathf.Sign(BossPositionInArena().y * -1)*3 - 2,0));
 				iceBossStats.iceBossSpecialPattern = 0;
@@ -317,7 +351,7 @@ public class IceBossBehaviour : MonoBehaviour
 	{
 		iceBossStats.iceBossPerformingPattern = false;
 	}
-	
+
 	void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.tag == "Player" && iceBossStats.iceBossMidAttack)
@@ -325,7 +359,7 @@ public class IceBossBehaviour : MonoBehaviour
 			healthScript.LoseHealthBy(1);
 		}
 	}
-	
+
 }
 
 /* Curved Movement Code
