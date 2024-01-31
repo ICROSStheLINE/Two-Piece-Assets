@@ -14,6 +14,7 @@ public class IceBossProjectile : MonoBehaviour
 	GameObject iceBossHead;
 	
 	[SerializeField] GameObject projectileTrail;
+	[SerializeField] GameObject projectileSonicBoom;
 	GameObject trail;
 	
 	float movementSpeed = 35f;
@@ -43,6 +44,7 @@ public class IceBossProjectile : MonoBehaviour
 		}
 
 		Invoke("Fire", chargeTime);
+		InvokeRepeating("SpawnSonicBoom", chargeTime, 0.2f);
     }
 
     void FixedUpdate()
@@ -55,6 +57,7 @@ public class IceBossProjectile : MonoBehaviour
 	
 	void KILLYOURSELF()
 	{
+		CancelInvoke("SpawnSonicBoom");
 		Destroy(trail);
 		Destroy(gameObject);
 	}
@@ -81,5 +84,10 @@ public class IceBossProjectile : MonoBehaviour
 		trail = Instantiate(projectileTrail, transform.position, transform.rotation);
 		trail.GetComponent<IceBossProjectileTrail>().iceBossProjectileTrailParent = gameObject;
 		boxCollider.enabled = true;
+	}
+	
+	void SpawnSonicBoom()
+	{
+		Instantiate(projectileSonicBoom, transform.position + new Vector3(Mathf.Sign(movementSpeed),0,0), transform.rotation);
 	}
 }

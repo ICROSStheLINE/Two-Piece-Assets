@@ -13,6 +13,7 @@ public class PlayerTracker : MonoBehaviour
 	float velocity = 0; // This variable exists for a stupid reason LOL
 	float targetZoom = 11.5f;
 	Vector3 targetPosition;
+	[SerializeField] float speed = 7f;
 	
 	//[HideInInspector] public bool midCutscene = false;
 
@@ -34,7 +35,7 @@ public class PlayerTracker : MonoBehaviour
 				transform.position = Vector3.MoveTowards(transform.position, new Vector3(gameObject.transform.position.x,player.transform.position.y + Mathf.Sign(player.transform.localScale.y)*2,gameObject.transform.position.z), 70 * Time.deltaTime);
 		}
 		else
-			transform.position = Vector3.MoveTowards(transform.position, targetPosition, 0.01f);
+			transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 		
 		if (cam.orthographicSize != targetZoom)
 		{

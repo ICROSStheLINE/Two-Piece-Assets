@@ -16,6 +16,8 @@ public class IceBossBehaviour : MonoBehaviour
 
 	Vector3 nextPosition;
 
+	string[] queuedAttack = new string[6];
+
 	// Idling Variables
 	Vector3 idleTargetPosition;
 	Vector3[] idleTargetPositionPoints = new Vector3[2];
@@ -23,11 +25,17 @@ public class IceBossBehaviour : MonoBehaviour
 
 	// Attacking Variables
 	Vector3 attackingTarget;
-	string[] queuedAttack = new string[6];
+	[SerializeField] float speed = 200f;
 
 	// Laser Variables
 	[SerializeField] GameObject laserPrefab;
 	readonly float laserYPosition = 11.27313f;
+	
+	// Ground Slam Variables
+	Vector3 slamTarget;
+	[SerializeField] GameObject slamSpike;
+	float spikePosition = 0;
+	bool spikeGoesBackwards = false;
 
 	// Energy Orb Variables
 	[SerializeField] GameObject energyOrbPrefab;
@@ -57,6 +65,8 @@ public class IceBossBehaviour : MonoBehaviour
 			// Checking Attack Variables
 			if (iceBossStats.iceBossMidAttack && !iceBossStats.iceBossAttemptOrb)
 				Invoke("AttackMiddle", 0.4f);
+			else if (iceBossStats.iceBossMidSlam)
+				Invoke("GroundSlamMiddle", 0.4f);
 			else if (iceBossStats.iceBossAttemptOrb)
 			{
 				ChargeEnergyOrb();
@@ -69,6 +79,11 @@ public class IceBossBehaviour : MonoBehaviour
 		}
 		else if (iceBossStats.iceBossSpecialPattern == 1)
 			SpecialPatternOne();
+		
+		if (iceBossStats.iceBossSlamDown == true)
+			GroundSlamStart();
+		else if (iceBossStats.iceBossSlamUp == true)
+			GroundSlamStart("Upwards");
 		
 		// Movement
 		if (iceBossStats.iceBossIsAwake)
@@ -101,7 +116,7 @@ public class IceBossBehaviour : MonoBehaviour
 
 	void AttackMiddle()
 	{
-		nextPosition = Vector3.MoveTowards(transform.position, attackingTarget, 600 * Time.deltaTime);
+		nextPosition = Vector3.MoveTowards(transform.position, attackingTarget, speed * Time.deltaTime);
 		if (transform.position == attackingTarget)
 		{
 			AttackFinish();
@@ -160,6 +175,73 @@ public class IceBossBehaviour : MonoBehaviour
 		CheckAttackQueue();
 	}
 
+	void GroundSlamStart(string customDirection = default(string))
+	{
+		iceBossStats.iceBossIdling = false;
+		iceBossStats.iceBossMidSlam = true;
+		iceBossStats.iceBossSlamDown = false;
+		iceBossStats.iceBossSlamUp = false;
+		
+		if (customDirection == default(string) || customDirection == "Downwards")
+		{
+			Vector3 arenaBottom = fightingZone.transform.position - new Vector3(0,fightingZone.transform.localScale.y/2,0);
+			slamTarget = arenaBottom;
+		}
+		else if (customDirection == "Upwards")
+		{
+			Vector3 arenaTop = fightingZone.transform.position + new Vector3(0,fightingZone.transform.localScale.y/2,0);
+			slamTarget = arenaTop;
+		}
+		
+		
+		IceBossEyeStare(slamTarget);
+	}
+	
+	void GroundSlamMiddle()
+	{
+		nextPosition = Vector3.MoveTowards(transform.position, slamTarget, speed * Time.deltaTime);
+		if (transform.position == slamTarget)
+		{
+			GroundSlamFinish();
+			
+			CheckAttackQueue();
+		}
+	}
+
+	void GroundSlamFinish()
+	{
+		CancelInvoke("GroundSlamMiddle");
+		iceBossStats.iceBossIdling = true;
+		iceBossStats.iceBossMidSlam = false;
+		
+		for (float i = 0; i < 0.5f; i += 0.011f)
+		{
+			Invoke("SpawnIceSpike", i);
+		}
+		Invoke("ResetSpikePositionVar", 0.81f);
+		bossEye.transform.position = bossSclera.transform.position;
+	}
+
+	void SpawnIceSpike()
+	{
+		if (spikeGoesBackwards)
+			spikePosition *= -1;
+	
+		Vector3 arenaBottom = fightingZone.transform.position - new Vector3(0,fightingZone.transform.localScale.y/2,0);
+		if (slamTarget == arenaBottom)
+			Instantiate(slamSpike, slamTarget + new Vector3(spikePosition,0f,0), Quaternion.Euler(0,0,180));
+		else
+			Instantiate(slamSpike, slamTarget - new Vector3(spikePosition,0f,0), Quaternion.Euler(0,0,0));
+		
+		spikePosition = Mathf.Abs(spikePosition) + 0.6f;
+		spikeGoesBackwards = !spikeGoesBackwards;
+	}
+	
+	void ResetSpikePositionVar()
+	{
+		spikePosition = 0;
+	}
+
 	void CheckAttackQueue()
 	{
 		// Checks if any attacks were queued up and activates the next queued attack
@@ -167,6 +249,10 @@ public class IceBossBehaviour : MonoBehaviour
 			ActivateAttack();
 		else if (queuedAttack[0] == "Orb")
 			ActivateOrb();
+		else if (queuedAttack[0] == "CeilingSlam")
+			GroundSlamStart("Upwards");
+		else if (queuedAttack[0] == "GroundSlam")
+			GroundSlamStart("Downwards");
 		else if (queuedAttack[0] == "ResetPatternVar")
 			ResetPatternVar();
 		
@@ -181,7 +267,7 @@ public class IceBossBehaviour : MonoBehaviour
 		if (customTarget == default(Vector3)) // If no parameters were given, stare at the player
 			bossEye.transform.position += new Vector3(Vector3.Normalize(player.transform.position - bossEye.transform.position).x, Vector3.Normalize(player.transform.position - bossEye.transform.position).y/2, 0);
 		else // Otherwise, stare at the custom target (Obviously)
-			bossEye.transform.position += new Vector3(Vector3.Normalize(customTarget - bossEye.transform.position).x/2, 0, 0);
+			bossEye.transform.position += new Vector3(Vector3.Normalize(customTarget - bossEye.transform.position).x/2, Vector3.Normalize(customTarget - bossEye.transform.position).y/2, 0);
 	}
 
 	void SetNewIdlePositionPoints(Vector3 position_, Vector3 offset1, Vector3 offset2)

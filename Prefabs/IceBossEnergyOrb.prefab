@@ -194,3 +194,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileTrail: {fileID: 4848040549956244133, guid: 6f5d0e9d7769a5a49b11921b435ec598, type: 3}
+  projectileSonicBoom: {fileID: 5405237389310735927, guid: e74b062cfaba2d5428f9b62ce0a39e78, type: 3}
