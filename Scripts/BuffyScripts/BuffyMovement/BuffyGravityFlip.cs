@@ -7,41 +7,29 @@ public class BuffyGravityFlip : MonoBehaviour
 	Rigidbody2D rb;
 	SpriteRenderer spriteRenderer;
 	Animator anim;
-	PlayerMovement playerMovement;
-	PlayerDashing playerDashing;
-	PlayerTeleporting playerTeleporting;
-	PlayerShielding playerShielding;
-	PlayerKickingTSO playerKickingTSO;
-	BuffyLeechBlast buffyLeechBlast;
-
-	[HideInInspector] public bool playerMidGravityShift = false;
+	PlayerStats playerStats;
 	
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		anim = GetComponent<Animator>();
-		playerMovement = GetComponent<PlayerMovement>();
-		playerDashing = GetComponent<PlayerDashing>();
-		playerTeleporting = GetComponent<PlayerTeleporting>();
-		playerShielding = GetComponent<PlayerShielding>();
-		playerKickingTSO = GetComponent<PlayerKickingTSO>();
-		buffyLeechBlast = GetComponent<BuffyLeechBlast>();
+		playerStats = GetComponent<PlayerStats>();
     }
 
     void Update()
     {
-		if ((Input.GetKeyDown("f")) && (!playerMidGravityShift) && (!playerTeleporting.playerMidTeleport) && (!playerShielding.playerMidShielding) && (!playerKickingTSO.playerMidKickingTSOButForTheCameraGameObject) && (!buffyLeechBlast.playerMidLeechBlast))
+		if (Input.GetKeyDown("f") && !playerStats.playerMidActionNoDash && !playerStats.midCutscene)
 		{
-			playerDashing.canDash = false;
-			playerDashing.ResetDashCooldown();
-			playerMidGravityShift = true;
-			playerMovement.playerCanMove = false;
+			playerStats.playerCanDash = false;
+			playerStats.ResetPlayerDashCooldown();
+			playerStats.playerMidGravityShift = true;
+			playerStats.playerCanMove = false;
 			Invoke("GravityInverse", 0.375f);
 			Invoke("ResetCooldown", 0.75f);
 		}
 
-		anim.SetBool("isGravityShifting", playerMidGravityShift);
+		anim.SetBool("isGravityShifting", playerStats.playerMidGravityShift);
     }
 
 	void GravityInverse()
@@ -59,9 +47,9 @@ public class BuffyGravityFlip : MonoBehaviour
 
 	void ResetCooldown()
 	{
-		playerMidGravityShift = false;
+		playerStats.playerMidGravityShift = false;
 		spriteRenderer.flipY = !spriteRenderer.flipY;
-		playerMovement.playerCanMove = true;
-		playerDashing.canDash = true;
+		playerStats.playerCanMove = true;
+		playerStats.playerCanDash = true;
 	}
 }

@@ -9,6 +9,7 @@ public class LeechBlastProjectile : MonoBehaviour
 	BuffyLeechBlast buffyLeechBlast;
 	SpriteRenderer spriteRenderer;
 	Animator shlorpNGlorpAnimator;
+	IceBossStats iceBossStats;
 
 	static readonly float airtimeDuration = 0.7f;
 
@@ -20,6 +21,7 @@ public class LeechBlastProjectile : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
 		player = GameObject.FindWithTag("Player");
 		buffyLeechBlast = player.GetComponent<BuffyLeechBlast>();
+		iceBossStats = GameObject.FindWithTag("Ice Boss").GetComponent<IceBossStats>();
 		
         if (gameObject.transform.rotation.z != 0)
 		{
@@ -50,7 +52,14 @@ public class LeechBlastProjectile : MonoBehaviour
 			shlorpNGlorpAnimator.SetBool("isDying", true);
 			Destroy(gameObject);
 		}
+		else if ((collision.gameObject.tag == "Ice Boss Head") || (collision.gameObject.tag == "Ice Boss Jaw"))
+		{
+			iceBossStats.IceBossLoseHealthBy(1);
+			CancelInvoke("KILLYOURSELF");
+			Destroy(gameObject);
+		}
 	}
+	
 
 	void KILLYOURSELF()
 	{

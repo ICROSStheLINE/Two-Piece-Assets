@@ -6,41 +6,31 @@ public class PlayerTeleporting : MonoBehaviour
 {
 	Rigidbody2D rb;
 	Animator anim;
-	PlayerDashing playerDashing;
-	BuffyGravityFlip playerGravityFlip;
-	PlayerMovement playerMovement;
-	PlayerShielding playerShielding;
-	PlayerKickingTSO playerKickingTSO;
-	BuffyLeechBlast buffyLeechBlast;
+	PlayerStats playerStats;
 	
-	[HideInInspector] public bool playerMidTeleport = false;
+	//[HideInInspector] public bool playerStats.playerMidTeleport = false;
 	[SerializeField] float teleportDistance;
 	
     void Start()
     {
 		rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-		playerDashing = GetComponent<PlayerDashing>();
-		playerGravityFlip = GetComponent<BuffyGravityFlip>();
-		playerMovement = GetComponent<PlayerMovement>();
-		playerShielding = GetComponent<PlayerShielding>();
-		playerKickingTSO = GetComponent<PlayerKickingTSO>();
-		buffyLeechBlast = GetComponent<BuffyLeechBlast>();
+		playerStats = GetComponent<PlayerStats>();
     }
 
     void FixedUpdate()
     {
-        if ((Input.GetKey("r")) && (!playerMidTeleport) && (playerGravityFlip.playerMidGravityShift == false) && (!playerShielding.playerMidShielding) && (!playerKickingTSO.playerMidKickingTSOButForTheCameraGameObject) && (!buffyLeechBlast.playerMidLeechBlast))
+        if ((Input.GetKey("r")) && !playerStats.playerMidActionNoDash && !playerStats.midCutscene)
 		{
-			playerDashing.canDash = false;
-			playerDashing.ResetDashCooldown();
-			playerMidTeleport = true;
-			playerMovement.playerCanMove = false;
+			playerStats.playerCanDash = false;
+			playerStats.ResetPlayerDashCooldown();
+			playerStats.playerMidTeleport = true;
+			playerStats.playerCanMove = false;
 			Invoke("Teleport", (0.75f/2));
 			Invoke("ResetCooldown", (1.083f/2));
 		}
 
-		anim.SetBool("isTeleporting", playerMidTeleport);
+		anim.SetBool("isTeleporting", playerStats.playerMidTeleport);
     }
 	
 	void Teleport()
@@ -51,8 +41,8 @@ public class PlayerTeleporting : MonoBehaviour
 	
 	void ResetCooldown()
 	{
-		playerMidTeleport = false;
-		playerMovement.playerCanMove = true;
-		playerDashing.canDash = true;
+		playerStats.playerMidTeleport = false;
+		playerStats.playerCanMove = true;
+		playerStats.playerCanDash = true;
 	}
 }

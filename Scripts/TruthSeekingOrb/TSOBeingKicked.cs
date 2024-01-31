@@ -10,6 +10,8 @@ public class TSOBeingKicked : MonoBehaviour
 	[SerializeField] GameObject trailPrefab;
 	[SerializeField] GameObject sonicBoom;
 	PlayerKickingTSO playerKickingTSO;
+	GameObject iceBoss;
+	IceBossStats iceBossStats;
 	
 	static readonly float ballAirtimeDuration = 0.4f;
 
@@ -20,6 +22,9 @@ public class TSOBeingKicked : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		playerKickingTSO = GameObject.FindWithTag("Player").GetComponent<PlayerKickingTSO>();
+		iceBoss = GameObject.FindWithTag("Ice Boss");
+		iceBossStats = iceBoss.GetComponent<IceBossStats>();
+		
 		
         if (gameObject.transform.rotation.z != 0)
 		{
@@ -49,6 +54,10 @@ public class TSOBeingKicked : MonoBehaviour
 		{
 			shlorpNGlorpAnimator = collision.GetComponent<Animator>();
 			shlorpNGlorpAnimator.SetBool("isDying", true);
+		}
+		else if ((collision.gameObject.tag == "Ice Boss Head") || (collision.gameObject.tag == "Ice Boss Jaw"))
+		{
+			iceBossStats.IceBossLoseHealthBy(1);
 		}
 	}
 
