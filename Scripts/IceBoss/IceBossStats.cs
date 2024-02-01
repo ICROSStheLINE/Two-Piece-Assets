@@ -75,7 +75,7 @@ public class IceBossStats : MonoBehaviour
 			iceBossBehaviour.Invoke("PatternTwo", 0f);
 		
 		if (Input.GetKeyDown("j"))
-			iceBossBehaviour.Invoke("SpecialPatternOne", 0f);
+			iceBossBehaviour.Invoke("SpecialPatternThree", 0f);
 		
 	}
 	
