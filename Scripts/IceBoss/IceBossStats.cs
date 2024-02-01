@@ -75,7 +75,7 @@ public class IceBossStats : MonoBehaviour
 			iceBossBehaviour.Invoke("PatternTwo", 0f);
 		
 		if (Input.GetKeyDown("j"))
-			iceBossBehaviour.Invoke("SpecialPatternThree", 0f);
+			iceBossBehaviour.Invoke("SpecialPatternOne", 0f);
 		
 	}
 	
@@ -125,5 +125,9 @@ public class IceBossStats : MonoBehaviour
 	{
 		headSpriteRenderer.color = new Color(1f,1f,1f,1f);
 		jawSpriteRenderer.color = new Color(1f,1f,1f,1f);
+	}
+
+	public GameObject getIceBossJaw {
+		get { return bossJaw; }
 	}
 }

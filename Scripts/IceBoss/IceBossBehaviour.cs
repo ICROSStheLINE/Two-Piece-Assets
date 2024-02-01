@@ -35,6 +35,7 @@ public class IceBossBehaviour : MonoBehaviour
 	Vector3 slamTarget;
 	Vector3 postSlamTarget;
 	[SerializeField] GameObject slamSpike;
+	[SerializeField] GameObject glintOfLight;
 	float spikePosition = 0;
 	bool spikeGoesBackwards = false;
 	[SerializeField] float slamSpeed = 350f;
@@ -56,7 +57,7 @@ public class IceBossBehaviour : MonoBehaviour
 		player = GameObject.FindWithTag("Player");
 		fightingZone = GameObject.FindWithTag("Ice Arena Fighting Zone");
 		Vector3 arenaStartPos = fightingZone.transform.position - new Vector3(fightingZone.transform.localScale.x/2,0,0);
-		fleeingDestination = new Vector3(arenaStartPos.x + fightingZone.transform.localScale.x/3,fightingZone.transform.position.y,fightingZone.transform.position.z);
+		fleeingDestination = new Vector3(arenaStartPos.x + fightingZone.transform.localScale.x/3,fightingZone.transform.position.y + 2,fightingZone.transform.position.z);
 		playerStats = player.GetComponent<PlayerStats>();
 		bossSclera = transform.GetChild(0).gameObject;
 		bossEye = bossSclera.transform.GetChild(0).gameObject;
@@ -189,6 +190,8 @@ public class IceBossBehaviour : MonoBehaviour
 		if (customDirection == default(string) || customDirection == "Downwards")
 		{
 			Vector3 arenaBottom = fightingZone.transform.position - new Vector3(0,fightingZone.transform.localScale.y/2,0);
+			GameObject lightGlint = Instantiate(glintOfLight, iceBossStats.getIceBossJaw.transform.position - new Vector3(0,2.7f,0), Quaternion.Euler(0,0,0));
+			lightGlint.transform.parent = iceBossStats.getIceBossJaw.transform;
 			slamTarget = arenaBottom;
 		}
 		else if (customDirection == "Upwards")
@@ -222,7 +225,7 @@ public class IceBossBehaviour : MonoBehaviour
 		{
 			Invoke("SpawnIceSpike", i);
 		}
-		Invoke("ResetSpikePositionVar", 0.81f);
+		Invoke("ResetSpikePositionVar", 0.51f);
 		bossEye.transform.position = bossSclera.transform.position;
 		
 		if (iceBossStats.iceBossSpecialPattern != 0)
@@ -442,10 +445,10 @@ public class IceBossBehaviour : MonoBehaviour
 			{
 				if ((player.transform.position.x <= fleeingDestination.x + 5) && (player.transform.position.x >= fleeingDestination.x - 5))
 				{
-					if (fleeingDestination == new Vector3(arenaStartPos.x + fightingZone.transform.localScale.x/3,fightingZone.transform.position.y,fightingZone.transform.position.z))
-						fleeingDestination = new Vector3(arenaStartPos.x + fightingZone.transform.localScale.x*2/3,fightingZone.transform.position.y,fightingZone.transform.position.z);
+					if (fleeingDestination == new Vector3(arenaStartPos.x + fightingZone.transform.localScale.x/3,fightingZone.transform.position.y + 2,fightingZone.transform.position.z))
+						fleeingDestination = new Vector3(arenaStartPos.x + fightingZone.transform.localScale.x*2/3,fightingZone.transform.position.y + 2,fightingZone.transform.position.z);
 					else
-						fleeingDestination = new Vector3(arenaStartPos.x + fightingZone.transform.localScale.x/3,fightingZone.transform.position.y,fightingZone.transform.position.z);
+						fleeingDestination = new Vector3(arenaStartPos.x + fightingZone.transform.localScale.x/3,fightingZone.transform.position.y + 2,fightingZone.transform.position.z);
 				}
 				nextPosition = Vector3.MoveTowards(transform.position, fleeingDestination, 100 * Time.deltaTime);
 			}
