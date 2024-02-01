@@ -126,4 +126,8 @@ public class IceBossStats : MonoBehaviour
 		headSpriteRenderer.color = new Color(1f,1f,1f,1f);
 		jawSpriteRenderer.color = new Color(1f,1f,1f,1f);
 	}
+
+	public GameObject getIceBossJaw {
+		get { return bossJaw; }
+	}
 }

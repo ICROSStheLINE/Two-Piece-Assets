@@ -33,13 +33,19 @@ public class IceBossBehaviour : MonoBehaviour
 	
 	// Ground Slam Variables
 	Vector3 slamTarget;
+	Vector3 postSlamTarget;
 	[SerializeField] GameObject slamSpike;
+	[SerializeField] GameObject glintOfLight;
 	float spikePosition = 0;
 	bool spikeGoesBackwards = false;
+	[SerializeField] float slamSpeed = 350f;
 
 	// Energy Orb Variables
 	[SerializeField] GameObject energyOrbPrefab;
 	GameObject chargedOrb;
+	
+	// Pattern Variables
+	Vector3 fleeingDestination;
 
 
     void Start()
@@ -50,6 +56,8 @@ public class IceBossBehaviour : MonoBehaviour
         iceBossStats = transform.parent.GetComponent<IceBossStats>();
 		player = GameObject.FindWithTag("Player");
 		fightingZone = GameObject.FindWithTag("Ice Arena Fighting Zone");
+		Vector3 arenaStartPos = fightingZone.transform.position - new Vector3(fightingZone.transform.localScale.x/2,0,0);
+		fleeingDestination = new Vector3(arenaStartPos.x + fightingZone.transform.localScale.x/3,fightingZone.transform.position.y + 2,fightingZone.transform.position.z);
 		playerStats = player.GetComponent<PlayerStats>();
 		bossSclera = transform.GetChild(0).gameObject;
 		bossEye = bossSclera.transform.GetChild(0).gameObject;
@@ -79,11 +87,10 @@ public class IceBossBehaviour : MonoBehaviour
 		}
 		else if (iceBossStats.iceBossSpecialPattern == 1)
 			SpecialPatternOne();
-		
-		if (iceBossStats.iceBossSlamDown == true)
-			GroundSlamStart();
-		else if (iceBossStats.iceBossSlamUp == true)
-			GroundSlamStart("Upwards");
+		else if (iceBossStats.iceBossSpecialPattern == 2)
+			SpecialPatternTwo();
+		else if (iceBossStats.iceBossSpecialPattern == 3)
+			SpecialPatternThree();
 		
 		// Movement
 		if (iceBossStats.iceBossIsAwake)
@@ -179,12 +186,12 @@ public class IceBossBehaviour : MonoBehaviour
 	{
 		iceBossStats.iceBossIdling = false;
 		iceBossStats.iceBossMidSlam = true;
-		iceBossStats.iceBossSlamDown = false;
-		iceBossStats.iceBossSlamUp = false;
 		
 		if (customDirection == default(string) || customDirection == "Downwards")
 		{
 			Vector3 arenaBottom = fightingZone.transform.position - new Vector3(0,fightingZone.transform.localScale.y/2,0);
+			GameObject lightGlint = Instantiate(glintOfLight, iceBossStats.getIceBossJaw.transform.position - new Vector3(0,2.7f,0), Quaternion.Euler(0,0,0));
+			lightGlint.transform.parent = iceBossStats.getIceBossJaw.transform;
 			slamTarget = arenaBottom;
 		}
 		else if (customDirection == "Upwards")
@@ -193,13 +200,12 @@ public class IceBossBehaviour : MonoBehaviour
 			slamTarget = arenaTop;
 		}
 		
-		
 		IceBossEyeStare(slamTarget);
 	}
 	
 	void GroundSlamMiddle()
 	{
-		nextPosition = Vector3.MoveTowards(transform.position, slamTarget, speed * Time.deltaTime);
+		nextPosition = Vector3.MoveTowards(transform.position, slamTarget, slamSpeed * Time.deltaTime);
 		if (transform.position == slamTarget)
 		{
 			GroundSlamFinish();
@@ -213,13 +219,17 @@ public class IceBossBehaviour : MonoBehaviour
 		CancelInvoke("GroundSlamMiddle");
 		iceBossStats.iceBossIdling = true;
 		iceBossStats.iceBossMidSlam = false;
+		postSlamTarget = slamTarget;
 		
 		for (float i = 0; i < 0.5f; i += 0.011f)
 		{
 			Invoke("SpawnIceSpike", i);
 		}
-		Invoke("ResetSpikePositionVar", 0.81f);
+		Invoke("ResetSpikePositionVar", 0.51f);
 		bossEye.transform.position = bossSclera.transform.position;
+		
+		if (iceBossStats.iceBossSpecialPattern != 0)
+			iceBossStats.iceBossSpecialPatternStage += 0.5f;
 	}
 
 	void SpawnIceSpike()
@@ -228,10 +238,10 @@ public class IceBossBehaviour : MonoBehaviour
 			spikePosition *= -1;
 	
 		Vector3 arenaBottom = fightingZone.transform.position - new Vector3(0,fightingZone.transform.localScale.y/2,0);
-		if (slamTarget == arenaBottom)
-			Instantiate(slamSpike, slamTarget + new Vector3(spikePosition,0f,0), Quaternion.Euler(0,0,180));
+		if (postSlamTarget == arenaBottom)
+			Instantiate(slamSpike, postSlamTarget + new Vector3(spikePosition,0f,0), Quaternion.Euler(0,0,180));
 		else
-			Instantiate(slamSpike, slamTarget - new Vector3(spikePosition,0f,0), Quaternion.Euler(0,0,0));
+			Instantiate(slamSpike, postSlamTarget - new Vector3(spikePosition,0f,0), Quaternion.Euler(0,0,0));
 		
 		spikePosition = Mathf.Abs(spikePosition) + 0.6f;
 		spikeGoesBackwards = !spikeGoesBackwards;
@@ -321,8 +331,9 @@ public class IceBossBehaviour : MonoBehaviour
 		}
 	}
 
+	
 
-	void SpecialPatternOne()
+	void SpecialPatternOne() // Cancer
 	{
 		if (!iceBossStats.iceBossPerformingPattern)
 		{
@@ -416,6 +427,135 @@ public class IceBossBehaviour : MonoBehaviour
 		}
 	}
 
+	void SpecialPatternTwo() // Lightning Barrage
+	{
+		if (!iceBossStats.iceBossPerformingPattern)
+		{
+			iceBossStats.iceBossSpecialPattern = 2; // Set this variable to 2 so the Update() function only does this shit
+			Vector3 arenaStartPos = fightingZone.transform.position - new Vector3(fightingZone.transform.localScale.x/2,0,0);
+			
+			if (iceBossStats.iceBossSpecialPatternStage == 0)
+			{
+				InvokeRepeating("ActivateLaser", 0.5f, 0.5f);
+				iceBossStats.iceBossSpecialPatternStage++;
+				
+				Invoke("IncreasePatternStage", 10f); // Sets up the pattern stage increase for the next attack
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 1)
+			{
+				if ((player.transform.position.x <= fleeingDestination.x + 5) && (player.transform.position.x >= fleeingDestination.x - 5))
+				{
+					if (fleeingDestination == new Vector3(arenaStartPos.x + fightingZone.transform.localScale.x/3,fightingZone.transform.position.y + 2,fightingZone.transform.position.z))
+						fleeingDestination = new Vector3(arenaStartPos.x + fightingZone.transform.localScale.x*2/3,fightingZone.transform.position.y + 2,fightingZone.transform.position.z);
+					else
+						fleeingDestination = new Vector3(arenaStartPos.x + fightingZone.transform.localScale.x/3,fightingZone.transform.position.y + 2,fightingZone.transform.position.z);
+				}
+				nextPosition = Vector3.MoveTowards(transform.position, fleeingDestination, 100 * Time.deltaTime);
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 2)
+			{
+				CancelInvoke("ActivateLaser");
+				SetNewIdlePositionPoints(transform.position, new Vector3(0,Mathf.Sign(BossPositionInArena().y * -1)*3,0), new Vector3(0,Mathf.Sign(BossPositionInArena().y * -1)*3 - 2,0));
+				iceBossStats.iceBossSpecialPattern = 0;
+				iceBossStats.iceBossSpecialPatternStage = 0;
+			}
+		}
+	}
+
+	void SpecialPatternThree() // Ground Slam Barrage (Spawns platform)
+	{
+		if (!iceBossStats.iceBossPerformingPattern)
+		{
+			iceBossStats.iceBossSpecialPattern = 3; // Set this variable to 3 so the Update() function only does this shit
+			
+			if (iceBossStats.iceBossSpecialPatternStage == 0)
+			{
+				GroundSlamStart("Downwards");
+				iceBossStats.iceBossSpecialPatternStage += 0.5f;
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 0.5f)
+			{
+				Invoke("GroundSlamMiddle", 0.4f);
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 1)
+			{
+				nextPosition = Vector3.MoveTowards(transform.position, fightingZone.transform.position, 20 * Time.deltaTime);
+				if (transform.position == nextPosition)
+					iceBossStats.iceBossSpecialPatternStage += 0.5f;
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 1.5f)
+			{
+				nextPosition = Vector3.MoveTowards(transform.position, fightingZone.transform.position + new Vector3(0.5f,0,0), 25 * Time.deltaTime);
+				if (transform.position == nextPosition)
+					iceBossStats.iceBossSpecialPatternStage += 0.5f;
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 2)
+			{
+				nextPosition = Vector3.MoveTowards(transform.position, fightingZone.transform.position - new Vector3(0.5f,0,0), 25 * Time.deltaTime);
+				if (transform.position == nextPosition)
+					iceBossStats.iceBossSpecialPatternStage += 0.5f;
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 2.5f)
+			{
+				nextPosition = Vector3.MoveTowards(transform.position, fightingZone.transform.position + new Vector3(0.5f,0,0), 25 * Time.deltaTime);
+				if (transform.position == nextPosition)
+					iceBossStats.iceBossSpecialPatternStage += 0.5f;
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 3)
+			{
+				nextPosition = Vector3.MoveTowards(transform.position, fightingZone.transform.position - new Vector3(0.5f,0,0), 25 * Time.deltaTime);
+				if (transform.position == nextPosition)
+					iceBossStats.iceBossSpecialPatternStage += 0.5f;
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 3.5f)
+			{
+				GroundSlamStart("Downwards");
+				iceBossStats.iceBossSpecialPatternStage += 0.5f;
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 4)
+			{
+				Invoke("GroundSlamMiddle", 0.3f);
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 4.5f)
+			{
+				GroundSlamStart("Upwards");
+				iceBossStats.iceBossSpecialPatternStage += 0.5f;
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 5)
+			{
+				Invoke("GroundSlamMiddle", 0.1f);
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 5.5f)
+			{
+				GroundSlamStart("Downwards");
+				iceBossStats.iceBossSpecialPatternStage += 0.5f;
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 6)
+			{
+				Invoke("GroundSlamMiddle", 0.1f);
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 6.5f)
+			{
+				GroundSlamStart("Upwards");
+				iceBossStats.iceBossSpecialPatternStage += 0.5f;
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 7)
+			{
+				Invoke("GroundSlamMiddle", 0.1f);
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 7.5f)
+			{
+				SetNewIdlePositionPoints(transform.position, new Vector3(0,Mathf.Sign(BossPositionInArena().y * -1)*3,0), new Vector3(0,Mathf.Sign(BossPositionInArena().y * -1)*3 - 2,0));
+				iceBossStats.iceBossSpecialPattern = 0;
+				iceBossStats.iceBossSpecialPatternStage = 0;
+			}
+		}
+	}
+
+	void IncreasePatternStage()
+	{
+		iceBossStats.iceBossSpecialPatternStage++;
+	}
 
 	void ActivateAttack()
 	{
