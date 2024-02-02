@@ -186,23 +186,29 @@ public class IceBossBehaviour : MonoBehaviour
 	{
 		iceBossStats.iceBossIdling = false;
 		iceBossStats.iceBossMidSlam = true;
-		
+
 		if (customDirection == default(string) || customDirection == "Downwards")
 		{
 			Vector3 arenaBottom = fightingZone.transform.position - new Vector3(0,fightingZone.transform.localScale.y/2,0);
-			GameObject lightGlint = Instantiate(glintOfLight, iceBossStats.getIceBossJaw.transform.position - new Vector3(0,2.7f,0), Quaternion.Euler(0,0,0));
+			GameObject lightGlint = Instantiate(glintOfLight, iceBossStats.getIceBossJaw.transform.position - new Vector3(-0.2f,2.7f,0), Quaternion.Euler(0,0,0));
 			lightGlint.transform.parent = iceBossStats.getIceBossJaw.transform;
 			slamTarget = arenaBottom;
 		}
 		else if (customDirection == "Upwards")
 		{
 			Vector3 arenaTop = fightingZone.transform.position + new Vector3(0,fightingZone.transform.localScale.y/2,0);
+			GameObject lightGlint = Instantiate(glintOfLight, transform.position + new Vector3(1.3f,3.6f,0), Quaternion.Euler(0,0,0));
+			lightGlint.transform.localScale -= new Vector3(0.3f,0.3f,0.3f);
+			lightGlint.transform.parent = transform;
+			lightGlint = Instantiate(glintOfLight, transform.position + new Vector3(-1.3f,3.6f,0), Quaternion.Euler(0,0,0));
+			lightGlint.transform.localScale -= new Vector3(0.3f,0.3f,0.3f);
+			lightGlint.transform.parent = transform;
 			slamTarget = arenaTop;
 		}
-		
+
 		IceBossEyeStare(slamTarget);
 	}
-	
+
 	void GroundSlamMiddle()
 	{
 		nextPosition = Vector3.MoveTowards(transform.position, slamTarget, slamSpeed * Time.deltaTime);
@@ -246,7 +252,7 @@ public class IceBossBehaviour : MonoBehaviour
 		spikePosition = Mathf.Abs(spikePosition) + 0.6f;
 		spikeGoesBackwards = !spikeGoesBackwards;
 	}
-	
+
 	void ResetSpikePositionVar()
 	{
 		spikePosition = 0;
@@ -331,7 +337,7 @@ public class IceBossBehaviour : MonoBehaviour
 		}
 	}
 
-	
+
 
 	void SpecialPatternOne() // Cancer
 	{
