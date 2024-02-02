@@ -63,16 +63,19 @@ public class IceBossStats : MonoBehaviour
 	void Update()
 	{
 		if (Input.GetKeyDown("m"))
-			iceBossBehaviour.Invoke("ActivateLaser", 0f);
-		
-		if (Input.GetKeyDown("n"))
-			iceBossBehaviour.Invoke("ActivateOrb", 0f);
-		
-		if (Input.GetKeyDown("l"))
 			iceBossBehaviour.Invoke("PatternOne", 0f);
 		
-		if (Input.GetKeyDown("k"))
+		if (Input.GetKeyDown("n"))
 			iceBossBehaviour.Invoke("PatternTwo", 0f);
+		
+		if (Input.GetKeyDown(","))
+			iceBossBehaviour.Invoke("PatternThree", 0f);
+		
+		if (Input.GetKeyDown("l"))
+			iceBossBehaviour.Invoke("SpecialPatternOne", 0f);
+		
+		if (Input.GetKeyDown("k"))
+			iceBossBehaviour.Invoke("SpecialPatternTwo", 0f);
 		
 		if (Input.GetKeyDown("j"))
 			iceBossBehaviour.Invoke("SpecialPatternThree", 0f);

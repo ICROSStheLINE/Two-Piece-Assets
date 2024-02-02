@@ -25,7 +25,7 @@ public class IceBossBehaviour : MonoBehaviour
 
 	// Attacking Variables
 	Vector3 attackingTarget;
-	[SerializeField] float speed = 200f;
+	[SerializeField] float speed = 150;
 
 	// Laser Variables
 	[SerializeField] GameObject laserPrefab;
@@ -36,9 +36,12 @@ public class IceBossBehaviour : MonoBehaviour
 	Vector3 postSlamTarget;
 	[SerializeField] GameObject slamSpike;
 	[SerializeField] GameObject glintOfLight;
+	[SerializeField] GameObject icePlatform;
+	GameObject icePlatform_;
+	Vector3 platformSpawn;
 	float spikePosition = 0;
 	bool spikeGoesBackwards = false;
-	[SerializeField] float slamSpeed = 350f;
+	[SerializeField] float slamSpeed = 60;
 
 	// Energy Orb Variables
 	[SerializeField] GameObject energyOrbPrefab;
@@ -74,7 +77,7 @@ public class IceBossBehaviour : MonoBehaviour
 			if (iceBossStats.iceBossMidAttack && !iceBossStats.iceBossAttemptOrb)
 				Invoke("AttackMiddle", 0.4f);
 			else if (iceBossStats.iceBossMidSlam)
-				Invoke("GroundSlamMiddle", 0.4f);
+				Invoke("GroundSlamMiddle", 0.6f);
 			else if (iceBossStats.iceBossAttemptOrb)
 			{
 				ChargeEnergyOrb();
@@ -123,7 +126,7 @@ public class IceBossBehaviour : MonoBehaviour
 
 	void AttackMiddle()
 	{
-		nextPosition = Vector3.MoveTowards(transform.position, attackingTarget, speed * Time.deltaTime);
+		nextPosition = Vector3.MoveTowards(transform.position, attackingTarget, speed * Time.fixedDeltaTime);
 		if (transform.position == attackingTarget)
 		{
 			AttackFinish();
@@ -149,9 +152,15 @@ public class IceBossBehaviour : MonoBehaviour
 	void Laser(Vector3 customTarget = default(Vector3))
 	{
 		if (customTarget == default(Vector3))
+		{
 			Instantiate(laserPrefab, new Vector3(player.transform.position.x,laserYPosition,0), Quaternion.Euler(0,0,0));
+		}
 		else
+		{
 			Instantiate(laserPrefab, customTarget, Quaternion.Euler(0,0,0));
+		}
+		
+		CheckAttackQueue();
 	}
 
 	void ChargeEnergyOrb(float customChargeTime = default(float))
@@ -190,19 +199,23 @@ public class IceBossBehaviour : MonoBehaviour
 		if (customDirection == default(string) || customDirection == "Downwards")
 		{
 			Vector3 arenaBottom = fightingZone.transform.position - new Vector3(0,fightingZone.transform.localScale.y/2,0);
+			
 			GameObject lightGlint = Instantiate(glintOfLight, iceBossStats.getIceBossJaw.transform.position - new Vector3(-0.2f,2.7f,0), Quaternion.Euler(0,0,0));
 			lightGlint.transform.parent = iceBossStats.getIceBossJaw.transform;
+			
 			slamTarget = arenaBottom;
 		}
 		else if (customDirection == "Upwards")
 		{
 			Vector3 arenaTop = fightingZone.transform.position + new Vector3(0,fightingZone.transform.localScale.y/2,0);
+			
 			GameObject lightGlint = Instantiate(glintOfLight, transform.position + new Vector3(1.3f,3.6f,0), Quaternion.Euler(0,0,0));
 			lightGlint.transform.localScale -= new Vector3(0.3f,0.3f,0.3f);
 			lightGlint.transform.parent = transform;
 			lightGlint = Instantiate(glintOfLight, transform.position + new Vector3(-1.3f,3.6f,0), Quaternion.Euler(0,0,0));
 			lightGlint.transform.localScale -= new Vector3(0.3f,0.3f,0.3f);
 			lightGlint.transform.parent = transform;
+			
 			slamTarget = arenaTop;
 		}
 
@@ -211,7 +224,7 @@ public class IceBossBehaviour : MonoBehaviour
 
 	void GroundSlamMiddle()
 	{
-		nextPosition = Vector3.MoveTowards(transform.position, slamTarget, slamSpeed * Time.deltaTime);
+		nextPosition = Vector3.MoveTowards(transform.position, slamTarget, slamSpeed * Time.fixedDeltaTime);
 		if (transform.position == slamTarget)
 		{
 			GroundSlamFinish();
@@ -260,22 +273,24 @@ public class IceBossBehaviour : MonoBehaviour
 
 	void CheckAttackQueue()
 	{
+		// Corrects the order of the queued attacks (Moves the order down by 1)
+		for (int i = 0; i < queuedAttack.Length - 1; i += 1)
+			queuedAttack[i] = queuedAttack[i + 1];
+		queuedAttack[5] = null;
+		
 		// Checks if any attacks were queued up and activates the next queued attack
 		if (queuedAttack[0] == "Attack")
 			ActivateAttack();
 		else if (queuedAttack[0] == "Orb")
 			ActivateOrb();
+		else if (queuedAttack[0] == "Laser")
+			ActivateLaser();
 		else if (queuedAttack[0] == "CeilingSlam")
 			GroundSlamStart("Upwards");
 		else if (queuedAttack[0] == "GroundSlam")
 			GroundSlamStart("Downwards");
 		else if (queuedAttack[0] == "ResetPatternVar")
 			ResetPatternVar();
-		
-		// Corrects the order of the queued attacks (Moves the order down by 1)
-		for (int i = 0; i < queuedAttack.Length - 1; i += 1)
-			queuedAttack[i] = queuedAttack[i + 1];
-		queuedAttack[5] = null;
 	}
 
 	public void IceBossEyeStare(Vector3 customTarget = default(Vector3))
@@ -306,6 +321,13 @@ public class IceBossBehaviour : MonoBehaviour
 		Vector3 arenaStartPos = fightingZone.transform.position - new Vector3(fightingZone.transform.localScale.x/2,0,0);
 		return (playerPos - arenaStartPos); // If returns (0,y,z) then the player is at the leftmost side of the arena
 	}
+	
+	Vector3 PlayerSideOfArena()
+	{
+		Vector3 playerPos = player.transform.position;
+		Vector3 arenaMiddlePos = fightingZone.transform.position;
+		return (playerPos - arenaMiddlePos); // If returns (-x,y,z) then the player is on the left side of the arena
+	}
 
 	// Attack Patterns
 
@@ -317,9 +339,9 @@ public class IceBossBehaviour : MonoBehaviour
 			iceBossStats.iceBossPerformingPattern = true;
 			
 			ActivateAttack();
-			queuedAttack[0] = "Attack";
 			queuedAttack[1] = "Attack";
-			queuedAttack[2] = "ResetPatternVar";
+			queuedAttack[2] = "Attack";
+			queuedAttack[3] = "ResetPatternVar";
 		}
 	}
 
@@ -331,12 +353,25 @@ public class IceBossBehaviour : MonoBehaviour
 			iceBossStats.iceBossPerformingPattern = true;
 			
 			ActivateAttack();
-			queuedAttack[0] = "Attack";
-			queuedAttack[1] = "Orb";
-			queuedAttack[2] = "ResetPatternVar";
+			queuedAttack[1] = "Attack";
+			queuedAttack[2] = "Orb";
+			queuedAttack[3] = "ResetPatternVar";
 		}
 	}
 
+	void PatternThree()
+	{
+		// Energy Orb + Lighting Combo
+		if (!iceBossStats.iceBossPerformingPattern)
+		{
+			iceBossStats.iceBossPerformingPattern = true;
+			
+			ActivateOrb();
+			queuedAttack[1] = "Orb";
+			queuedAttack[2] = "CeilingSlam";
+			queuedAttack[3] = "ResetPatternVar";
+		}
+	}
 
 
 	void SpecialPatternOne() // Cancer
@@ -485,72 +520,80 @@ public class IceBossBehaviour : MonoBehaviour
 			}
 			else if (iceBossStats.iceBossSpecialPatternStage == 1)
 			{
-				nextPosition = Vector3.MoveTowards(transform.position, fightingZone.transform.position, 20 * Time.deltaTime);
-				if (transform.position == nextPosition)
-					iceBossStats.iceBossSpecialPatternStage += 0.5f;
+				platformSpawn = fightingZone.transform.position + new Vector3(-13*Mathf.Sign(PlayerSideOfArena().x),-fightingZone.transform.localScale.y/2,0);
+				icePlatform_ = Instantiate(icePlatform, platformSpawn, Quaternion.Euler(0,0,0));
+				iceBossStats.iceBossSpecialPatternStage += 0.5f;
 			}
 			else if (iceBossStats.iceBossSpecialPatternStage == 1.5f)
 			{
-				nextPosition = Vector3.MoveTowards(transform.position, fightingZone.transform.position + new Vector3(0.5f,0,0), 25 * Time.deltaTime);
+				icePlatform_.transform.position = Vector3.MoveTowards(icePlatform_.transform.position, platformSpawn + new Vector3(0,fightingZone.transform.localScale.y/2,0), 50 * Time.deltaTime);
+				nextPosition = Vector3.MoveTowards(transform.position, fightingZone.transform.position, 20 * Time.deltaTime);
 				if (transform.position == nextPosition)
 					iceBossStats.iceBossSpecialPatternStage += 0.5f;
 			}
 			else if (iceBossStats.iceBossSpecialPatternStage == 2)
 			{
-				nextPosition = Vector3.MoveTowards(transform.position, fightingZone.transform.position - new Vector3(0.5f,0,0), 25 * Time.deltaTime);
+				nextPosition = Vector3.MoveTowards(transform.position, fightingZone.transform.position + new Vector3(0.5f,0,0), 25 * Time.deltaTime);
 				if (transform.position == nextPosition)
 					iceBossStats.iceBossSpecialPatternStage += 0.5f;
 			}
 			else if (iceBossStats.iceBossSpecialPatternStage == 2.5f)
 			{
-				nextPosition = Vector3.MoveTowards(transform.position, fightingZone.transform.position + new Vector3(0.5f,0,0), 25 * Time.deltaTime);
+				nextPosition = Vector3.MoveTowards(transform.position, fightingZone.transform.position - new Vector3(0.5f,0,0), 25 * Time.deltaTime);
 				if (transform.position == nextPosition)
 					iceBossStats.iceBossSpecialPatternStage += 0.5f;
 			}
 			else if (iceBossStats.iceBossSpecialPatternStage == 3)
 			{
-				nextPosition = Vector3.MoveTowards(transform.position, fightingZone.transform.position - new Vector3(0.5f,0,0), 25 * Time.deltaTime);
+				nextPosition = Vector3.MoveTowards(transform.position, fightingZone.transform.position + new Vector3(0.5f,0,0), 25 * Time.deltaTime);
 				if (transform.position == nextPosition)
 					iceBossStats.iceBossSpecialPatternStage += 0.5f;
 			}
 			else if (iceBossStats.iceBossSpecialPatternStage == 3.5f)
 			{
-				GroundSlamStart("Downwards");
-				iceBossStats.iceBossSpecialPatternStage += 0.5f;
+				nextPosition = Vector3.MoveTowards(transform.position, fightingZone.transform.position - new Vector3(0.5f,0,0), 25 * Time.deltaTime);
+				if (transform.position == nextPosition)
+					iceBossStats.iceBossSpecialPatternStage += 0.5f;
 			}
 			else if (iceBossStats.iceBossSpecialPatternStage == 4)
 			{
-				Invoke("GroundSlamMiddle", 0.3f);
+				GroundSlamStart("Downwards");
+				iceBossStats.iceBossSpecialPatternStage += 0.5f;
 			}
 			else if (iceBossStats.iceBossSpecialPatternStage == 4.5f)
+			{
+				Invoke("GroundSlamMiddle", 0.3f);
+			}
+			else if (iceBossStats.iceBossSpecialPatternStage == 5)
 			{
 				GroundSlamStart("Upwards");
 				iceBossStats.iceBossSpecialPatternStage += 0.5f;
 			}
-			else if (iceBossStats.iceBossSpecialPatternStage == 5)
+			else if (iceBossStats.iceBossSpecialPatternStage == 5.5f)
 			{
 				Invoke("GroundSlamMiddle", 0.1f);
 			}
-			else if (iceBossStats.iceBossSpecialPatternStage == 5.5f)
+			else if (iceBossStats.iceBossSpecialPatternStage == 6)
 			{
 				GroundSlamStart("Downwards");
 				iceBossStats.iceBossSpecialPatternStage += 0.5f;
 			}
-			else if (iceBossStats.iceBossSpecialPatternStage == 6)
+			else if (iceBossStats.iceBossSpecialPatternStage == 6.5f)
 			{
 				Invoke("GroundSlamMiddle", 0.1f);
 			}
-			else if (iceBossStats.iceBossSpecialPatternStage == 6.5f)
+			else if (iceBossStats.iceBossSpecialPatternStage == 7)
 			{
 				GroundSlamStart("Upwards");
 				iceBossStats.iceBossSpecialPatternStage += 0.5f;
 			}
-			else if (iceBossStats.iceBossSpecialPatternStage == 7)
+			else if (iceBossStats.iceBossSpecialPatternStage == 7.5f)
 			{
 				Invoke("GroundSlamMiddle", 0.1f);
 			}
-			else if (iceBossStats.iceBossSpecialPatternStage == 7.5f)
+			else if (iceBossStats.iceBossSpecialPatternStage == 8)
 			{
+				Destroy(icePlatform_.gameObject, 1);
 				SetNewIdlePositionPoints(transform.position, new Vector3(0,Mathf.Sign(BossPositionInArena().y * -1)*3,0), new Vector3(0,Mathf.Sign(BossPositionInArena().y * -1)*3 - 2,0));
 				iceBossStats.iceBossSpecialPattern = 0;
 				iceBossStats.iceBossSpecialPatternStage = 0;
