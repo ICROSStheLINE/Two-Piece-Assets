@@ -19,6 +19,7 @@ public class PlayerStats : MonoBehaviour
 	[HideInInspector] public bool playerMidGravityShift = false;
 	
 	[HideInInspector] public bool playerMidTeleport = false;
+	[HideInInspector] public bool playerQueuingTeleport = false;
 	
 	[HideInInspector] public bool playerMidShielding = false;
 	
@@ -39,7 +40,7 @@ public class PlayerStats : MonoBehaviour
 
 	void Update()
 	{
-		if (playerMidGravityShift || playerMidTeleport || playerMidShielding || playerMidKickingTSO || playerMidLeechBlast || playerMidKickingTSOButForTheCameraGameObject)
+		if (playerMidGravityShift || playerMidTeleport || playerQueuingTeleport || playerMidShielding || playerMidKickingTSO || playerMidLeechBlast || playerMidKickingTSOButForTheCameraGameObject)
 			playerMidActionNoDash = true;
 		else
 			playerMidActionNoDash = false;

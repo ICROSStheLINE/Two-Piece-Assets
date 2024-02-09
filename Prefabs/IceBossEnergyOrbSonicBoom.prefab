@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8457670582597539825}
   - component: {fileID: 6862132917922759510}
   - component: {fileID: 1652307646660387071}
-  - component: {fileID: 7272040563485610533}
+  - component: {fileID: -7591381747690063667}
   m_Layer: 0
   m_Name: IceBossEnergyOrbSonicBoom
   m_TagString: Untagged
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -183134515, guid: 452b5f828ac4b614ea468c421eed1cba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.6666667}
   m_FlipX: 0
@@ -107,7 +107,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7272040563485610533
+--- !u!114 &-7591381747690063667
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,6 +116,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5405237389310735927}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5edc080c761fd574aa7560a652b98f20, type: 3}
+  m_Script: {fileID: 11500000, guid: a0c365a9ef32b22499cf53b934f24751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

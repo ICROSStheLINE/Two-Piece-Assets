@@ -8,6 +8,12 @@ public class PlayerTeleporting : MonoBehaviour
 	Animator anim;
 	PlayerStats playerStats;
 	
+	static readonly float animationDurationSpeedMultiplier = 1.5f;
+	static readonly float animationDuration = 1.083f / animationDurationSpeedMultiplier;
+	static readonly float animationFrames = 13f;
+	static readonly float teleportFrame = 9f;
+	static readonly float secondsUntilTeleport = (teleportFrame / animationFrames) * animationDuration;
+	
 	//[HideInInspector] public bool playerStats.playerMidTeleport = false;
 	[SerializeField] float teleportDistance;
 	
@@ -26,8 +32,8 @@ public class PlayerTeleporting : MonoBehaviour
 			playerStats.ResetPlayerDashCooldown();
 			playerStats.playerMidTeleport = true;
 			playerStats.playerCanMove = false;
-			Invoke("Teleport", (0.75f/2));
-			Invoke("ResetCooldown", (1.083f/2));
+			Invoke("Teleport", secondsUntilTeleport);
+			Invoke("ResetCooldown", animationDuration);
 		}
 
 		anim.SetBool("isTeleporting", playerStats.playerMidTeleport);

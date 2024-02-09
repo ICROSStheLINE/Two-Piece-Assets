@@ -369,7 +369,9 @@ public class IceBossBehaviour : MonoBehaviour
 			ActivateOrb();
 			queuedAttack[1] = "Orb";
 			queuedAttack[2] = "CeilingSlam";
-			queuedAttack[3] = "ResetPatternVar";
+			queuedAttack[3] = "Attack";
+			queuedAttack[4] = "Orb";
+			queuedAttack[5] = "ResetPatternVar";
 		}
 	}
 

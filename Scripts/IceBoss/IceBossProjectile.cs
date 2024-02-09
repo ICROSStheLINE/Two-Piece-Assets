@@ -88,6 +88,6 @@ public class IceBossProjectile : MonoBehaviour
 	
 	void SpawnSonicBoom()
 	{
-		Instantiate(projectileSonicBoom, transform.position + new Vector3(Mathf.Sign(movementSpeed),0,0), transform.rotation);
+		Instantiate(projectileSonicBoom, transform.position + new Vector3(Mathf.Sign(movementSpeed) * 1.5f,0,0), transform.rotation);
 	}
 }

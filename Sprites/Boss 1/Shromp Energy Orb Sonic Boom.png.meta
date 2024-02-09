@@ -277,27 +277,6 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Shromp Energy Orb Sonic Boom_8
-      rect:
-        serializedVersion: 2
-        x: 801
-        y: 0
-        width: 89
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0d6bd761040df56479c5a2d4a769fbac
-      internalID: 190600865
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -317,7 +296,6 @@ TextureImporter:
       Shromp Energy Orb Sonic Boom_5: 336714967
       Shromp Energy Orb Sonic Boom_6: -1825649224
       Shromp Energy Orb Sonic Boom_7: -1953200011
-      Shromp Energy Orb Sonic Boom_8: 190600865
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
