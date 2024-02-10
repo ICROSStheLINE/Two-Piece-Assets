@@ -5478,6 +5478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportDistance: 10
+  teleportIndicatorPrefab: {fileID: 8190373255487213523, guid: 1f3ce27934014f8489390a675a2de501, type: 3}
 --- !u!114 &3586227106769787878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5880,6 +5881,7 @@ MonoBehaviour:
   playerCanDash: 1
   playerMidGravityShift: 0
   playerMidTeleport: 0
+  playerQueuingTeleport: 0
   playerMidShielding: 0
   playerMidKickingTSO: 0
   playerMidKickingTSOButForTheCameraGameObject: 0
