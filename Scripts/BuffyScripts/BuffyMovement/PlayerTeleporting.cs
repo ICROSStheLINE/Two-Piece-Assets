@@ -21,6 +21,7 @@ public class PlayerTeleporting : MonoBehaviour
 	
 	[SerializeField] GameObject teleportIndicatorPrefab;
 	GameObject teleportIndicator;
+	Color purple = new Color(0.688f,0f,1f,1f);
 	
 	
     void Start()
@@ -35,15 +36,6 @@ public class PlayerTeleporting : MonoBehaviour
     {
         if (Input.GetKey("r"))
 		{
-			if (Input.GetKey("w") && Input.GetKey("s"))
-				teleportHeight = 0;
-			else if (Input.GetKey("w"))
-				teleportHeight = teleportDistance/2;
-			else if (Input.GetKey("s"))
-				teleportHeight = teleportDistance/2 * -1;
-			else 
-				teleportHeight = 0;
-			
 			if (!playerStats.playerMidActionNoDash && !playerStats.midCutscene)
 			{
 				playerStats.playerQueuingTeleport = true;
@@ -53,19 +45,52 @@ public class PlayerTeleporting : MonoBehaviour
 					teleportIndicator = Instantiate(teleportIndicatorPrefab, transform.position + new Vector3(teleportDistance * Mathf.Sign(gameObject.transform.localScale.x),teleportHeight,0), transform.rotation);
 			}
 			else if (playerStats.playerQueuingTeleport)
+			{
+				//float indicatorHeightFromPlayer = teleportIndicator.transform.position.y - transform.position.y;
 				teleportIndicator.transform.position = transform.position + new Vector3(teleportDistance * Mathf.Sign(gameObject.transform.localScale.x),teleportHeight,0);
+			}
 			
+			
+			if (Input.GetKey("w") && Input.GetKey("s"))
+			{
+				if (teleportHeight != 0)
+					RemoveIndicator();
+				teleportHeight = 0;
+			}
+			else if (Input.GetKey("w"))
+			{
+				if (teleportHeight != teleportDistance/2)
+					RemoveIndicator();
+				teleportHeight = teleportDistance/2;
+			}
+			else if (Input.GetKey("s"))
+			{
+				if (teleportHeight != teleportDistance/2 * -1)
+					RemoveIndicator();
+				teleportHeight = teleportDistance/2 * -1;
+			}
+			else 
+			{
+				if (teleportHeight != 0)
+					RemoveIndicator();
+				teleportHeight = 0;
+			}
 		}
 		else if (playerStats.playerQueuingTeleport)
 		{
-			playerStats.playerQueuingTeleport = false;
+			if (teleportIndicator.GetComponent<SpriteRenderer>().color == purple)
+			{
+				playerStats.playerQueuingTeleport = false;
 			
-			playerStats.playerCanDash = false;
-			playerStats.ResetPlayerDashCooldown();
-			playerStats.playerMidTeleport = true;
-			playerStats.playerCanMove = false;
-			Invoke("Teleport", secondsUntilTeleport);
-			Invoke("ResetCooldown", animationDuration);
+				playerStats.playerCanDash = false;
+				playerStats.ResetPlayerDashCooldown();
+				playerStats.playerMidTeleport = true;
+				playerStats.playerCanMove = false;
+				Invoke("Teleport", secondsUntilTeleport);
+				Invoke("ResetCooldown", animationDuration);
+			}
+			else
+				RemoveIndicator();
 		}
 
 		anim.SetBool("isTeleporting", playerStats.playerMidTeleport);
@@ -74,12 +99,10 @@ public class PlayerTeleporting : MonoBehaviour
 	void Teleport()
 	{
 		transform.position = teleportIndicator.transform.position;
-		Destroy(teleportIndicator);
-		teleportIndicator = null;
+		rb.velocity = new Vector2(teleportDistance * Mathf.Sign(transform.localScale.x),teleportHeight * 5);
+		RemoveIndicator();
 		/*rb.position = rb.position + new Vector2(teleportDistance * Mathf.Sign(gameObject.transform.localScale.x), 0);
 		gameObject.transform.position = gameObject.transform.position + new Vector3(5 * Mathf.Sign(gameObject.transform.localScale.x),0,0);*/
-		
-		playerSpriteRenderer.color = new Color(1f,1f,1f,1f);
 	}
 
 	void ResetCooldown()
@@ -87,5 +110,14 @@ public class PlayerTeleporting : MonoBehaviour
 		playerStats.playerMidTeleport = false;
 		playerStats.playerCanMove = true;
 		playerStats.playerCanDash = true;
+	}
+	
+	void RemoveIndicator()
+	{
+		Destroy(teleportIndicator);
+		teleportIndicator = null;
+		playerStats.playerQueuingTeleport = false;
+		
+		playerSpriteRenderer.color = new Color(1f,1f,1f,1f);
 	}
 }
