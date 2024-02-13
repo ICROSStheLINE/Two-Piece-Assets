@@ -8,11 +8,14 @@ public class BuffyLeechBlast : MonoBehaviour
 	TSOBasicAttack tsoBasicAttack;
 	PlayerStats playerStats;
 	
+	[SerializeField] GameObject textPrefab;
+	GameObject existingText;
 	[SerializeField] GameObject projectilePrefab;
 
 	static readonly float animationDurationMultiplier = 1f;
 	static readonly float animationDuration = 2.25f / animationDurationMultiplier;
 	static readonly float animationFrames = 27f;
+	static readonly float textSpawnFrame = (2f / animationFrames) * animationDuration;
 	static readonly float blastProjectileSpawn = (27f / animationFrames) * animationDuration;
 	static readonly float animationWDurationMultiplier = 1f;
 	static readonly float animationWDuration = 0.917f / animationWDurationMultiplier;
@@ -39,12 +42,20 @@ public class BuffyLeechBlast : MonoBehaviour
 			playerStats.playerMidLeechBlast = true;
 			anim.SetBool("isLeechBlasting", true);
 			
+			Invoke("SpawnText", textSpawnFrame);
 			Invoke("SpawnProjectile", blastProjectileSpawn);
 		}
     }
+	
+	void SpawnText()
+	{
+		float spawnDistance = Mathf.Sign(transform.localScale.x) * 3;
+		existingText = Instantiate(textPrefab, (gameObject.transform.position + new Vector3(spawnDistance,0,0)), Quaternion.Euler(0,0,0));
+	}
 
 	void SpawnProjectile()
 	{
+		Destroy(existingText);
 		if (Mathf.Sign(gameObject.transform.localScale.x) == 1)
 		{
 			Instantiate(projectilePrefab, (gameObject.transform.position + new Vector3(0,0,0)), Quaternion.Euler(0,0,0));

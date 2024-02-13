@@ -16,6 +16,7 @@ public class IceBossProjectile : MonoBehaviour
 	[SerializeField] GameObject projectileTrail;
 	[SerializeField] GameObject projectileSonicBoom;
 	GameObject trail;
+	GameObject sonicBoom;
 	
 	float movementSpeed = 35f;
 	
@@ -58,6 +59,7 @@ public class IceBossProjectile : MonoBehaviour
 	void KILLYOURSELF()
 	{
 		CancelInvoke("SpawnSonicBoom");
+		Destroy(sonicBoom);
 		Destroy(trail);
 		Destroy(gameObject);
 	}
@@ -88,6 +90,6 @@ public class IceBossProjectile : MonoBehaviour
 	
 	void SpawnSonicBoom()
 	{
-		Instantiate(projectileSonicBoom, transform.position + new Vector3(Mathf.Sign(movementSpeed) * 1.5f,0,0), transform.rotation);
+		sonicBoom = Instantiate(projectileSonicBoom, transform.position + new Vector3(Mathf.Sign(movementSpeed) * 1.5f,0,0), transform.rotation);
 	}
 }

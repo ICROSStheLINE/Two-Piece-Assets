@@ -25,6 +25,11 @@ public class TeleportIndicatorScript : MonoBehaviour
     
     void FixedUpdate()
     {
+		if (Mathf.Sign(player.transform.localScale.x) == -1)
+			transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
+		else
+			transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+		
 		if (!insideWall)
 			spriteRenderer.color = purple;
     }

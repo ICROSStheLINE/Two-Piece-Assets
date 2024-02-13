@@ -62,13 +62,13 @@ public class IceBossStats : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKeyDown("m"))
+		if (Input.GetKeyDown(","))
 			iceBossBehaviour.Invoke("PatternOne", 0f);
 		
-		if (Input.GetKeyDown("n"))
+		if (Input.GetKeyDown("m"))
 			iceBossBehaviour.Invoke("PatternTwo", 0f);
 		
-		if (Input.GetKeyDown(","))
+		if (Input.GetKeyDown("n"))
 			iceBossBehaviour.Invoke("PatternThree", 0f);
 		
 		if (Input.GetKeyDown("l"))

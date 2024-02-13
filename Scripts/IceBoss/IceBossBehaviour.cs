@@ -331,9 +331,8 @@ public class IceBossBehaviour : MonoBehaviour
 
 	// Attack Patterns
 
-	void PatternOne()
+	void PatternOne() // Just charging at the player
 	{
-		// Just charging at the player
 		if (!iceBossStats.iceBossPerformingPattern)
 		{
 			iceBossStats.iceBossPerformingPattern = true;
@@ -345,9 +344,8 @@ public class IceBossBehaviour : MonoBehaviour
 		}
 	}
 
-	void PatternTwo()
+	void PatternTwo() // Charging twice then energy orb
 	{
-		// Charging twice then energy orb
 		if (!iceBossStats.iceBossPerformingPattern)
 		{
 			iceBossStats.iceBossPerformingPattern = true;
@@ -359,9 +357,8 @@ public class IceBossBehaviour : MonoBehaviour
 		}
 	}
 
-	void PatternThree()
+	void PatternThree() // Energy Orb + Ground Slam Combo
 	{
-		// Energy Orb + Lighting Combo
 		if (!iceBossStats.iceBossPerformingPattern)
 		{
 			iceBossStats.iceBossPerformingPattern = true;
@@ -601,6 +598,11 @@ public class IceBossBehaviour : MonoBehaviour
 				iceBossStats.iceBossSpecialPatternStage = 0;
 			}
 		}
+	}
+
+	void SpecialPatternFour()
+	{
+		
 	}
 
 	void IncreasePatternStage()

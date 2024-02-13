@@ -99,7 +99,7 @@ public class PlayerTeleporting : MonoBehaviour
 	void Teleport()
 	{
 		transform.position = teleportIndicator.transform.position;
-		rb.velocity = new Vector2(teleportDistance * Mathf.Sign(transform.localScale.x),teleportHeight * 5);
+		rb.velocity = new Vector2(Mathf.Abs(teleportHeight)/2 * Mathf.Sign(transform.localScale.x),teleportHeight * 5);
 		RemoveIndicator();
 		/*rb.position = rb.position + new Vector2(teleportDistance * Mathf.Sign(gameObject.transform.localScale.x), 0);
 		gameObject.transform.position = gameObject.transform.position + new Vector3(5 * Mathf.Sign(gameObject.transform.localScale.x),0,0);*/

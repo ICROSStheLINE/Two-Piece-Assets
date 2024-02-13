@@ -15,7 +15,7 @@ public class IceBossProjectileSonicBoom : MonoBehaviour
 		destination = transform.position + (transform.right * 8);
 		
         Invoke("KILLYOURSELF", animationDuration);
-		Invoke("MakeTranslucent", (animationDuration*2)/4);
+		//Invoke("MakeTranslucent", (animationDuration*2)/4);
 		Invoke("MakeTranslucenter", (animationDuration*3)/4);
     }
 	
