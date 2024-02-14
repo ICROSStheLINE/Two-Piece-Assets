@@ -56,6 +56,7 @@ public class LeechBlastProjectile : MonoBehaviour
 		{
 			iceBossStats.IceBossLoseHealthBy(1);
 			CancelInvoke("KILLYOURSELF");
+			buffyLeechBlast.Invoke("AnimateW", 0f);
 			Destroy(gameObject);
 		}
 	}

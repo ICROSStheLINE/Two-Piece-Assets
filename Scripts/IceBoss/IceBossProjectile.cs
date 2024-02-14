@@ -12,6 +12,7 @@ public class IceBossProjectile : MonoBehaviour
 	BoxCollider2D boxCollider;
 	IceBossStats iceBossStats;
 	GameObject iceBossHead;
+	GameObject iceBossJaw;
 	
 	[SerializeField] GameObject projectileTrail;
 	[SerializeField] GameObject projectileSonicBoom;
@@ -37,13 +38,15 @@ public class IceBossProjectile : MonoBehaviour
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		boxCollider = GetComponent<BoxCollider2D>();
 		iceBossHead = GameObject.FindWithTag("Ice Boss").transform.GetChild(0).gameObject;
+		iceBossJaw = GameObject.FindWithTag("Ice Boss").GetComponent<IceBossStats>().getIceBossJaw;
 		
 		if (gameObject.transform.rotation.z != 0)
 		{
 			movementSpeed = movementSpeed * -1;
 			spriteRenderer.flipY = !spriteRenderer.flipY;
 		}
-
+		
+		
 		Invoke("Fire", chargeTime);
 		InvokeRepeating("SpawnSonicBoom", chargeTime, 0.2f);
     }
