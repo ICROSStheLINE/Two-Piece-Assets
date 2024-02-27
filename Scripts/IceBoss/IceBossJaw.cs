@@ -6,6 +6,7 @@ public class IceBossJaw : MonoBehaviour
 {
     IceBossStats iceBossStats;
 	GameObject bossHead;
+	GameObject player;
 	
 	Vector3 velocity = Vector3.zero; // This variable exists for a stupid reason LOL
 	float followSpeed = 0.1f;
@@ -14,6 +15,7 @@ public class IceBossJaw : MonoBehaviour
     {
         iceBossStats = transform.parent.GetComponent<IceBossStats>();
 		bossHead = gameObject.transform.parent.transform.GetChild(0).gameObject;
+		player = GameObject.FindWithTag("Player");
     }
 
     void Update()
@@ -33,8 +35,7 @@ public class IceBossJaw : MonoBehaviour
 		
 		if (iceBossStats.iceBossAttemptOrb && !iceBossStats.iceBossMidOrb)
 		{
-			
-			//ShakeRetardedly();
+			Invoke("TiltBasedOffDirection", 0.25f);
 		}
     }
 	
@@ -62,5 +63,19 @@ public class IceBossJaw : MonoBehaviour
 	void TiltReset()
 	{
 		transform.rotation = Quaternion.Euler(0,0,0);
+	}
+
+	void TiltBasedOffDirection()
+	{
+		if (Mathf.Sign(player.transform.position.x - bossHead.transform.position.x) == -1)
+		{
+			TiltReset();
+			TiltLeft();
+		}
+		else
+		{
+			TiltReset();
+			TiltRight();
+		}
 	}
 }

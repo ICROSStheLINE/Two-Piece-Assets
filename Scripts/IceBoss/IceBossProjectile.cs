@@ -12,10 +12,12 @@ public class IceBossProjectile : MonoBehaviour
 	BoxCollider2D boxCollider;
 	IceBossStats iceBossStats;
 	GameObject iceBossHead;
+	GameObject iceBossJaw;
 	
 	[SerializeField] GameObject projectileTrail;
 	[SerializeField] GameObject projectileSonicBoom;
 	GameObject trail;
+	GameObject sonicBoom;
 	
 	float movementSpeed = 35f;
 	
@@ -36,13 +38,15 @@ public class IceBossProjectile : MonoBehaviour
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		boxCollider = GetComponent<BoxCollider2D>();
 		iceBossHead = GameObject.FindWithTag("Ice Boss").transform.GetChild(0).gameObject;
+		iceBossJaw = GameObject.FindWithTag("Ice Boss").GetComponent<IceBossStats>().getIceBossJaw;
 		
 		if (gameObject.transform.rotation.z != 0)
 		{
 			movementSpeed = movementSpeed * -1;
 			spriteRenderer.flipY = !spriteRenderer.flipY;
 		}
-
+		
+		
 		Invoke("Fire", chargeTime);
 		InvokeRepeating("SpawnSonicBoom", chargeTime, 0.2f);
     }
@@ -58,6 +62,7 @@ public class IceBossProjectile : MonoBehaviour
 	void KILLYOURSELF()
 	{
 		CancelInvoke("SpawnSonicBoom");
+		Destroy(sonicBoom);
 		Destroy(trail);
 		Destroy(gameObject);
 	}
@@ -88,6 +93,6 @@ public class IceBossProjectile : MonoBehaviour
 	
 	void SpawnSonicBoom()
 	{
-		Instantiate(projectileSonicBoom, transform.position + new Vector3(Mathf.Sign(movementSpeed) * 1.5f,0,0), transform.rotation);
+		sonicBoom = Instantiate(projectileSonicBoom, transform.position + new Vector3(Mathf.Sign(movementSpeed) * 1.5f,0,0), transform.rotation);
 	}
 }

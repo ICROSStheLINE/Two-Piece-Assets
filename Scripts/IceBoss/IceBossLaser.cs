@@ -7,6 +7,9 @@ public class IceBossLaser : MonoBehaviour
     BoxCollider2D boxCollider;
 	GameObject healthBar;
 	HealthScript healthScript;
+	GameObject bossEye;
+	
+	[SerializeField] GameObject laserIndicatorPrefab;
 	
 	static readonly float animationDurationSpeedMultiplier = 1.5f;
 	static readonly float animationDuration = 2.5f / animationDurationSpeedMultiplier;
@@ -18,6 +21,9 @@ public class IceBossLaser : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
 		healthBar = GameObject.FindWithTag("HealthBar");
 		healthScript = healthBar.GetComponent<HealthScript>();
+		bossEye = GameObject.FindWithTag("Ice Boss").transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject;
+		GameObject laserIndicator = Instantiate(laserIndicatorPrefab, bossEye.transform.position, Quaternion.Euler(0,0,0));
+		laserIndicator.transform.parent = bossEye.transform;
 		
 		Invoke("Extend", laserSpawnFrame);
 		Invoke("Extend", (12 / animationFrames) * animationDuration);

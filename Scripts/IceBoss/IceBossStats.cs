@@ -37,6 +37,9 @@ public class IceBossStats : MonoBehaviour
 	[HideInInspector] public bool iceBossPerformingPattern = false;
 	[HideInInspector] public int iceBossSpecialPattern = 0;
 	[HideInInspector] public float iceBossSpecialPatternStage = 0;
+	
+	bool oldPerformingPattern;
+	int oldSpecialPattern = 99;
 
 
 
@@ -62,13 +65,25 @@ public class IceBossStats : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKeyDown("m"))
+		if (iceBossIsAwake)
+		{
+			if (!iceBossPerformingPattern && iceBossSpecialPattern == 0 && (oldPerformingPattern != iceBossPerformingPattern || oldSpecialPattern != iceBossSpecialPattern))
+			{
+				Invoke("PerformRandomPattern", iceBossTimeBetweenPatterns);
+			}
+			
+			oldPerformingPattern = iceBossPerformingPattern;
+			oldSpecialPattern = iceBossSpecialPattern;
+		}
+
+
+		if (Input.GetKeyDown(","))
 			iceBossBehaviour.Invoke("PatternOne", 0f);
 		
-		if (Input.GetKeyDown("n"))
+		if (Input.GetKeyDown("m"))
 			iceBossBehaviour.Invoke("PatternTwo", 0f);
 		
-		if (Input.GetKeyDown(","))
+		if (Input.GetKeyDown("n"))
 			iceBossBehaviour.Invoke("PatternThree", 0f);
 		
 		if (Input.GetKeyDown("l"))
@@ -80,6 +95,24 @@ public class IceBossStats : MonoBehaviour
 		if (Input.GetKeyDown("j"))
 			iceBossBehaviour.Invoke("SpecialPatternThree", 0f);
 		
+	}
+	
+	void PerformRandomPattern()
+	{
+		int randomNumber = Random.Range(1,7);
+		
+		if (randomNumber == 1)
+			iceBossBehaviour.Invoke("PatternOne", 0f);
+		else if (randomNumber == 2)
+			iceBossBehaviour.Invoke("PatternTwo", 0f);
+		else if (randomNumber == 3)
+			iceBossBehaviour.Invoke("PatternThree", 0f);
+		else if (randomNumber == 4)
+			iceBossBehaviour.Invoke("SpecialPatternOne", 0f);
+		else if (randomNumber == 5)
+			iceBossBehaviour.Invoke("SpecialPatternTwo", 0f);
+		else if (randomNumber == 6)
+			iceBossBehaviour.Invoke("SpecialPatternThree", 0f);
 	}
 	
 	public void IceBossLoseHealthBy(int amount)
