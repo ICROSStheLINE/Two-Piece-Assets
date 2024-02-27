@@ -1604,6 +1604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
+  chompingPrefab: {fileID: 8971873148653219874, guid: 2558397e1b2a9214c889d1154a2e772b, type: 3}
   laserPrefab: {fileID: 1373013945480252318, guid: b59437400b531b944b2d136842e6cb57, type: 3}
   slamSpike: {fileID: 1122975018925192516, guid: 823a01e828fbde44390ca3c6de97e2de, type: 3}
   glintOfLight: {fileID: 4170442415542491314, guid: 302d49ca94d87974d853341cbd1f4797, type: 3}
@@ -5528,7 +5529,7 @@ Transform:
   m_GameObject: {fileID: 7757015839854483422}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 98.1, y: 2.5, z: 0}
+  m_LocalPosition: {x: 98.8, y: 3, z: 0}
   m_LocalScale: {x: 0.5245, y: 0.5245, z: 0.5245}
   m_ConstrainProportionsScale: 0
   m_Children: []

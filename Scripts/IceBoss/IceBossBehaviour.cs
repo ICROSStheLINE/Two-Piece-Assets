@@ -26,6 +26,7 @@ public class IceBossBehaviour : MonoBehaviour
 	// Attacking Variables
 	Vector3 attackingTarget;
 	[SerializeField] float speed = 150;
+	[SerializeField] GameObject chompingPrefab;
 
 	// Laser Variables
 	[SerializeField] GameObject laserPrefab;
@@ -115,7 +116,10 @@ public class IceBossBehaviour : MonoBehaviour
 	{
 		iceBossStats.iceBossIdling = false;
 		if (customTarget == default(Vector3))
+		{
 			attackingTarget = player.transform.position + new Vector3(0,3,0);
+			Instantiate(chompingPrefab, transform.position + Vector3.Normalize(player.transform.position - transform.position)*7 - new Vector3(0,1.7f,0), Quaternion.Euler(0,0,0));
+		}
 		else
 			attackingTarget = customTarget;
 		
@@ -515,7 +519,7 @@ public class IceBossBehaviour : MonoBehaviour
 			}
 			else if (iceBossStats.iceBossSpecialPatternStage == 0.5f)
 			{
-				Invoke("GroundSlamMiddle", 0.4f);
+				Invoke("GroundSlamMiddle", 1.0f);
 			}
 			else if (iceBossStats.iceBossSpecialPatternStage == 1)
 			{

@@ -45,10 +45,10 @@ public class PlayerTracker : MonoBehaviour
 	// Used in "EnterBossArena.cs" script
 	void ActivateCutsceneMode()
 	{
-		playerStats.playerCanDash = false;
+		/*playerStats.playerCanDash = false;
 		playerStats.ResetPlayerDashCooldown();
 		playerStats.playerCanMove = false;
-		playerStats.midCutscene = true;
+		playerStats.midCutscene = true;*/
 	}
 	// Used in "EnterBossArena.cs" script
 	void DeactivateCutsceneMode()
