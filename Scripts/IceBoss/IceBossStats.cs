@@ -39,7 +39,7 @@ public class IceBossStats : MonoBehaviour
 	[HideInInspector] public float iceBossSpecialPatternStage = 0;
 	
 	bool oldPerformingPattern;
-	int oldSpecialPattern = 99;
+	int oldSpecialPattern = 69420;
 
 
 
