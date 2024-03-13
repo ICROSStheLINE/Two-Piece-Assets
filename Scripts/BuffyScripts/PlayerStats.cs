@@ -7,6 +7,11 @@ public class PlayerStats : MonoBehaviour
 	Rigidbody2D rb;
 	Animator anim;
 	
+	MonoBehaviour[] allComponents;
+	
+	static readonly float deathZeroAnimationDurationSpeedMultiplier = 0.5f;
+	static readonly float deathZeroAnimationDuration = 0.75f / deathZeroAnimationDurationSpeedMultiplier;
+	
 	[HideInInspector] public bool playerMidActionNoDash = false;
 	
 	[HideInInspector] public float playerMovementSpeed = 7f;
@@ -36,6 +41,7 @@ public class PlayerStats : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
+		allComponents = GetComponents<MonoBehaviour>();
 	}
 
 	void Update()
@@ -64,5 +70,22 @@ public class PlayerStats : MonoBehaviour
 		playerMidKickingTSOButForTheCameraGameObject = false;
 	}
 	
+	public void Die(int deathType = default(int))
+	{
+		anim.SetBool("isDying" + deathType, true);
+		DeactivateAllFunction();
+		anim.enabled = true;
+		Invoke("DeactivateAllFunction", deathZeroAnimationDuration);
+	}
 	
+	void DeactivateAllFunction() // Deactivates all the SCRIPTS plus extra stuff
+	{
+		anim.enabled = false;
+		rb.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
+		foreach(MonoBehaviour i in allComponents)
+		{
+			if (i != GetComponent<PlayerStats>())
+				i.enabled = false;
+		}
+	}
 }

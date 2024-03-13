@@ -15,7 +15,7 @@ public class IceBossStats : MonoBehaviour
 	// Basic Stats
 	public float iceBossTimeBetweenPatterns = 1.6f;
 	public float iceBossOrbChargeTime = 1f;
-	float currentHealth = 15f;
+	float currentHealth = 12f;
 
 	// Idle Variables
 	public bool iceBossIsAwake = false;
@@ -39,7 +39,7 @@ public class IceBossStats : MonoBehaviour
 	[HideInInspector] public float iceBossSpecialPatternStage = 0;
 	
 	bool oldPerformingPattern;
-	int oldSpecialPattern = 99;
+	int oldSpecialPattern = 69420;
 
 
 

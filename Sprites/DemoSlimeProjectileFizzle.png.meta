@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: deafbd76509a0594fac08caff8e2540c
+guid: da706973d6783f440b7513532bc6515f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -45,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 10
@@ -110,55 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Level1BackgroundLayers_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 790
-        width: 1422
-        height: 395
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f511b46a67f1fe54aae79682c6463aea
-      internalID: 2050101411
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Level1BackgroundLayers_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 395
-        width: 1422
-        height: 395
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7061bc1fb1d6c254493ec3eaebf071e7
-      internalID: 1424636154
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Level1BackgroundLayers_2
+      name: DemoSlimeProjectileFizzle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1422
-        height: 395
+        width: 24
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,8 +124,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ae92257f26f4ad4d9d8c6e209cd2bc2
-      internalID: -430518975
+      spriteID: 7d86c6410b7a16541941fa54037fc112
+      internalID: -464437882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DemoSlimeProjectileFizzle_1
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eeffad6c2fe597d4e90a6a5b80bee164
+      internalID: -461730422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DemoSlimeProjectileFizzle_2
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afa36b44edc82e245855973e6e263d1c
+      internalID: 185968067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DemoSlimeProjectileFizzle_3
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 0
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52bf1edb944b0a440a3149d0d2a5b505
+      internalID: -1849416795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DemoSlimeProjectileFizzle_4
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51c24fa62c9ec7f49a085ff9c97c9c2e
+      internalID: -254579686
       vertices: []
       indices: 
       edges: []
@@ -183,9 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Level1BackgroundLayers_0: 2050101411
-      Level1BackgroundLayers_1: 1424636154
-      Level1BackgroundLayers_2: -430518975
+      DemoSlimeProjectileFizzle_0: -464437882
+      DemoSlimeProjectileFizzle_1: -461730422
+      DemoSlimeProjectileFizzle_2: 185968067
+      DemoSlimeProjectileFizzle_3: -1849416795
+      DemoSlimeProjectileFizzle_4: -254579686
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

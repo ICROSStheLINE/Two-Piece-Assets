@@ -41,6 +41,8 @@ public class PlayerTracker : MonoBehaviour
 		{
 			cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, targetZoom, ref velocity, 1.2f);
 		}
+		
+		//Debug.Log(cam.velocity);
     }
 	// Used in "EnterBossArena.cs" script
 	void ActivateCutsceneMode()

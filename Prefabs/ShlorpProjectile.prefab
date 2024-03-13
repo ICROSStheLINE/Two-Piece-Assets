@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4596265439446563799}
+  - component: {fileID: 8223249704523416563}
   - component: {fileID: 2730403222598534104}
   - component: {fileID: 3897475620926495547}
   - component: {fileID: 8487179139031078551}
   - component: {fileID: 4427753042229855544}
-  - component: {fileID: 8223249704523416563}
   m_Layer: 0
   m_Name: ShlorpProjectile
   m_TagString: Untagged
@@ -36,6 +36,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8223249704523416563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4199191217119012919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdfd8d0f2f4206446a256c99911d4cc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &2730403222598534104
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -181,15 +193,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &8223249704523416563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4199191217119012919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdfd8d0f2f4206446a256c99911d4cc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
