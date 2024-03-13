@@ -9,8 +9,15 @@ public class GlorpProjectileScript : MonoBehaviour
 	SpriteRenderer spriteRenderer;
 	GameObject healthBar;
 	HealthScript healthScript;
+	Animator anim;
 	
 	float movementSpeed = 22f;
+	
+	static readonly float animationDurationSpeedMultiplier = 1f;
+	static readonly float animationDuration = 0.833f / animationDurationSpeedMultiplier;
+	
+	static readonly float fizzleAnimationDurationSpeedMultiplier = 1f;
+	static readonly float fizzleAnimationDuration = 0.417f / fizzleAnimationDurationSpeedMultiplier;
 	
     void Start()
     {
@@ -18,18 +25,19 @@ public class GlorpProjectileScript : MonoBehaviour
 		healthScript = healthBar.GetComponent<HealthScript>();
         rb = GetComponent<Rigidbody2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
+		anim = GetComponent<Animator>();
 		
 		if (gameObject.transform.rotation.z != 0)
 		{
 			movementSpeed = movementSpeed * -1;
 			spriteRenderer.flipY = !spriteRenderer.flipY;
 		}
+		Invoke("KILLYOURSELF", animationDuration);
     }
 
     void FixedUpdate()
     {
 		rb.position += new Vector2(movementSpeed * Time.deltaTime,0);
-		Invoke("KILLYOURSELF", 0.833f);
     }
 	
 	void KILLYOURSELF()
@@ -41,12 +49,22 @@ public class GlorpProjectileScript : MonoBehaviour
 	{
 		if (collision.gameObject.tag == "PlayerShieldHitbox")
 		{
-			Destroy(gameObject);
+			Fizzle();
 		}
 		else if (collision.gameObject.tag == "Player")
 		{
 			healthScript.LoseHealthBy(1);
-			Destroy(gameObject);
+			Fizzle();
 		}
 	}
+	
+	
+	void Fizzle()
+	{
+		CancelInvoke("KILLYOURSELF");
+		Invoke("KILLYOURSELF", fizzleAnimationDuration);
+		movementSpeed = movementSpeed / 3;
+		anim.SetBool("Fizzle", true);
+	}
+	
 }
