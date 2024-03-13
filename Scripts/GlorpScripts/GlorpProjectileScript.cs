@@ -12,6 +12,7 @@ public class GlorpProjectileScript : MonoBehaviour
 	Animator anim;
 	
 	float movementSpeed = 22f;
+	bool isFizzling = false;
 	
 	static readonly float animationDurationSpeedMultiplier = 1f;
 	static readonly float animationDuration = 0.833f / animationDurationSpeedMultiplier;
@@ -47,14 +48,17 @@ public class GlorpProjectileScript : MonoBehaviour
 	
 	void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.tag == "PlayerShieldHitbox")
+		if (!isFizzling)
 		{
-			Fizzle();
-		}
-		else if (collision.gameObject.tag == "Player")
-		{
-			healthScript.LoseHealthBy(1);
-			Fizzle();
+			if (collision.gameObject.tag == "PlayerShieldHitbox")
+			{
+				Fizzle();
+			}
+			else if (collision.gameObject.tag == "Player")
+			{
+				healthScript.LoseHealthBy(1);
+				Fizzle();
+			}
 		}
 	}
 	
@@ -65,6 +69,6 @@ public class GlorpProjectileScript : MonoBehaviour
 		Invoke("KILLYOURSELF", fizzleAnimationDuration);
 		movementSpeed = movementSpeed / 3;
 		anim.SetBool("Fizzle", true);
+		isFizzling = true;
 	}
-	
 }
