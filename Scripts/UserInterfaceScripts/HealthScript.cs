@@ -7,7 +7,7 @@ using TMPro;
 public class HealthScript : MonoBehaviour
 {
 	[SerializeField] Image healthBar;
-	[SerializeField] Image healthChunk; // This will be used to make the healthbar aesthetically pleasing when lowering
+	//[SerializeField] Image healthChunk; // This will be used to make the healthbar aesthetically pleasing when lowering
 	
 	GameObject player;
 	Animator playerAnim;
@@ -18,7 +18,7 @@ public class HealthScript : MonoBehaviour
 	[SerializeField] GameObject damageStatic;
 	SpriteRenderer playerSpriteRenderer;
 	float currentHealth = 3f;
-	int healthChunkPosition = 15;
+	//int healthChunkPosition = 15;
 
     void Start()
     {
@@ -26,32 +26,32 @@ public class HealthScript : MonoBehaviour
 		playerAnim = player.GetComponent<Animator>();
 		playerStats = player.GetComponent<PlayerStats>();
 		playerSpriteRenderer = player.GetComponent<SpriteRenderer>();
-		healthChunkRectTransform = healthChunk.GetComponent<RectTransform>();
+		//healthChunkRectTransform = healthChunk.GetComponent<RectTransform>();
 		healthBarRectTransform = healthBar.GetComponent<RectTransform>();
 
 		//healthChunk.transform.position = healthBar.transform.position + new Vector3(4.15f,0f,0f) + new Vector3(((healthChunkRectTransform.rect.width / 2) * (healthChunkPosition - 1)) - (3.84f * (healthChunkPosition - 1)),0,0); // 3.84 is the magic number to keep the healthchunk in the exact perfect spot
 
         healthBar.fillAmount = (currentHealth / 15f);
-		if (currentHealth != 15)
+		/*if (currentHealth != 15)
 		{
 			for (int i = 0; i < Mathf.Abs(15 - currentHealth); i += 1)
 				healthChunk.transform.position -= new Vector3(((healthChunkRectTransform.rect.width / 2) + (healthBarRectTransform.rect.width / 250)),0,0);
-		}
+		}*/
     }
 
 	public void LoseHealthBy(int amount)
 	{
 		currentHealth -= amount;
-		healthBar.fillAmount = (currentHealth / 16f);
+		healthBar.fillAmount = (currentHealth / 15f);
 		if (currentHealth > 0)
 		{
-			healthChunkPosition -= amount;
-			healthChunk.transform.position -= new Vector3(((healthChunkRectTransform.rect.width / 2) + (healthBarRectTransform.rect.width / 250)),0,0);
+			//healthChunkPosition -= amount;
+			//healthChunk.transform.position -= new Vector3(((healthChunkRectTransform.rect.width / 2) + (healthBarRectTransform.rect.width / 250)),0,0);
 			SwitchColorsRetardedly();
 		}
 		else if (currentHealth == 0)
 		{
-			Destroy(healthChunk);
+			//Destroy(healthChunk);
 			playerStats.Die();
 		}
 	}
