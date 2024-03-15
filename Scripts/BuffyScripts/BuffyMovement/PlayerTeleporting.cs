@@ -48,6 +48,7 @@ public class PlayerTeleporting : MonoBehaviour
 			{
 				//float indicatorHeightFromPlayer = teleportIndicator.transform.position.y - transform.position.y;
 				teleportIndicator.transform.position = transform.position + new Vector3(teleportDistance * Mathf.Sign(gameObject.transform.localScale.x),teleportHeight,0);
+				teleportIndicator.transform.localScale = new Vector3(Mathf.Sign(transform.localScale.x), Mathf.Sign(transform.localScale.y), Mathf.Sign(transform.localScale.z));
 			}
 			
 			

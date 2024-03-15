@@ -72,6 +72,7 @@ public class PlayerStats : MonoBehaviour
 	
 	public void Die(int deathType = default(int))
 	{
+		ResetPlayerDashCooldown();
 		anim.SetBool("isDying" + deathType, true);
 		DeactivateAllFunction();
 		anim.enabled = true;
