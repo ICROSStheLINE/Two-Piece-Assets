@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8345003436428967726}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -50.37, y: 7.09, z: 0}
   m_LocalScale: {x: 0.5191933, y: 0.5191933, z: 0.5191933}
   m_ConstrainProportionsScale: 0
@@ -121,7 +121,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theHitbox: {fileID: 5673456162402560797, guid: 761904432acf3d64d86704df2ddfda6b, type: 3}
-  isTSOBasicAttacking: 0
 --- !u!114 &375972588779790664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,3 +133,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e2432e06293f504197c9abd174314cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  oldCode: 1

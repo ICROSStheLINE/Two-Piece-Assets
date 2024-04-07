@@ -75,26 +75,6 @@ public class IceBossStats : MonoBehaviour
 			oldPerformingPattern = iceBossPerformingPattern;
 			oldSpecialPattern = iceBossSpecialPattern;
 		}
-
-
-		if (Input.GetKeyDown(","))
-			iceBossBehaviour.Invoke("PatternOne", 0f);
-		
-		if (Input.GetKeyDown("m"))
-			iceBossBehaviour.Invoke("PatternTwo", 0f);
-		
-		if (Input.GetKeyDown("n"))
-			iceBossBehaviour.Invoke("PatternThree", 0f);
-		
-		if (Input.GetKeyDown("l"))
-			iceBossBehaviour.Invoke("SpecialPatternOne", 0f);
-		
-		if (Input.GetKeyDown("k"))
-			iceBossBehaviour.Invoke("SpecialPatternTwo", 0f);
-		
-		if (Input.GetKeyDown("j"))
-			iceBossBehaviour.Invoke("SpecialPatternThree", 0f);
-		
 	}
 	
 	void PerformRandomPattern()

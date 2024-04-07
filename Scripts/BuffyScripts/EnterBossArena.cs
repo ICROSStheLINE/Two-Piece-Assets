@@ -28,7 +28,7 @@ public class EnterBossArena : MonoBehaviour
 			if (!alreadyInIceArena)
 			{
 				iceArenaScript.CloseIceArenaEntranceGate();
-				cameraPlayerTracker.InvokeRepeating("ActivateCutsceneMode", 0f, 0.1f);
+				cameraPlayerTracker.InvokeRepeating("ActivateCutsceneMode", 0f, 0.3f);
 				cameraPlayerTracker.Invoke("DeactivateCutsceneMode", 5f);
 				alreadyInIceArena = true;
 				iceBossStats.WakeUpIceBoss();

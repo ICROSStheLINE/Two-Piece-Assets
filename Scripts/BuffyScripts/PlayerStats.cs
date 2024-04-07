@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -73,10 +74,26 @@ public class PlayerStats : MonoBehaviour
 	public void Die(int deathType = default(int))
 	{
 		ResetPlayerDashCooldown();
+		anim.SetBool("isAttacking", false);
+		anim.SetBool("isDashing", false);
+		anim.SetBool("isGravityShifting", false);
+		anim.SetBool("isTeleporting", false);
+		anim.SetBool("kickingTSO", false);
+		anim.SetBool("kickingTSOP2", false);
+		anim.SetBool("isLeechBlasting", false);
+		anim.SetBool("isLeechBlastingW", false);
+		anim.SetBool("isLeechBlastingL", false);
 		anim.SetBool("isDying" + deathType, true);
 		DeactivateAllFunction();
 		anim.enabled = true;
 		Invoke("DeactivateAllFunction", deathZeroAnimationDuration);
+
+		Invoke("SwitchToMainMenu", deathZeroAnimationDuration + 2);
+	}
+	
+	void SwitchToMainMenu()
+	{
+		SceneManager.LoadScene(0);
 	}
 	
 	void DeactivateAllFunction() // Deactivates all the SCRIPTS plus extra stuff
@@ -86,7 +103,10 @@ public class PlayerStats : MonoBehaviour
 		foreach(MonoBehaviour i in allComponents)
 		{
 			if (i != GetComponent<PlayerStats>())
+			{
+				i.CancelInvoke();
 				i.enabled = false;
+			}
 		}
 	}
 }

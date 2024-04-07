@@ -17,7 +17,7 @@ public class HealthScript : MonoBehaviour
 	
 	[SerializeField] GameObject damageStatic;
 	SpriteRenderer playerSpriteRenderer;
-	float currentHealth = 3f;
+	float currentHealth = 15f;
 	//int healthChunkPosition = 15;
 
     void Start()

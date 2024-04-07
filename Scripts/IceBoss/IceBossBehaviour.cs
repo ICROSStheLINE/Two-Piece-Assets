@@ -30,7 +30,7 @@ public class IceBossBehaviour : MonoBehaviour
 
 	// Laser Variables
 	[SerializeField] GameObject laserPrefab;
-	readonly float laserYPosition = 11.27313f;
+	readonly float laserYPosition = 8.5f;
 	
 	// Ground Slam Variables
 	Vector3 slamTarget;
