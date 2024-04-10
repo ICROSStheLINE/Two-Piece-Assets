@@ -1558,6 +1558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5e1b6e1dc97534899ec0db57667c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorName: Icicle Door
 --- !u!1 &7898016031652146239
 GameObject:
   m_ObjectHideFlags: 0

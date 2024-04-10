@@ -2,18 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IceArenaScript : MonoBehaviour
+public class AllPurposeDoorMovement : MonoBehaviour
 {
-	GameObject[] arenaEntranceGates = new GameObject[9];
+	[SerializeField] int numberOfDoors;
+	
+	GameObject[] arenaEntranceGates;
 
 	bool gateMustBeClosed = false;
 
-	Vector3[] gateTargetPoses = new Vector3[9];
+	Vector3[] gateTargetPoses;
 	
 	[SerializeField] string doorName;
 
     void Start()
     {
+		arenaEntranceGates = new GameObject[numberOfDoors];
+		gateTargetPoses = new Vector3[numberOfDoors];
+		
 		for (int i = 0; i < arenaEntranceGates.Length; i++)
 		{
 			arenaEntranceGates[i] = gameObject.transform.Find(doorName + (i+1)).gameObject;
@@ -28,14 +33,16 @@ public class IceArenaScript : MonoBehaviour
 			for (int i = 0; i < arenaEntranceGates.Length; i++)
 			{
 				Vector3 gateCurrentPos = arenaEntranceGates[i].transform.position;
-				arenaEntranceGates[i].transform.position = Vector3.MoveTowards(gateCurrentPos, gateTargetPoses[i], 2f * Time.deltaTime);
+				arenaEntranceGates[i].transform.position = Vector3.MoveTowards(gateCurrentPos, gateTargetPoses[i], 5f * Time.deltaTime);
 			}
 		}
 	}
 	
-	// Used by "EnterBossArena.cs" script
-    public void CloseIceArenaEntranceGate()
+	void OnTriggerEnter2D(Collider2D collision)
 	{
-		gateMustBeClosed = true;
+		if (collision.gameObject.tag == "Player")
+		{
+			gateMustBeClosed = true;
+		}
 	}
 }
