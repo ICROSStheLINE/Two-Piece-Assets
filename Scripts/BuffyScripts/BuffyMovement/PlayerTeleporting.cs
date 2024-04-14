@@ -22,6 +22,7 @@ public class PlayerTeleporting : MonoBehaviour
 	[SerializeField] GameObject teleportIndicatorPrefab;
 	GameObject teleportIndicator;
 	Color purple = new Color(0.688f,0f,1f,1f);
+	Color red = new Color(1f,0f,0f,1f);
 	
 	
     void Start()
@@ -92,6 +93,19 @@ public class PlayerTeleporting : MonoBehaviour
 			}
 			else
 				RemoveIndicator();
+		}
+		else if ((playerStats.playerMidTeleport) && teleportIndicator != null)
+		{
+			if (teleportIndicator.GetComponent<SpriteRenderer>().color == red)
+			{
+				// This if statement exists because there's a small bug where someone can teleport when they're not supposed to.
+				// This happens when the player turns while having the indicator out.
+				// If the indicator is purple before they turned, the indicator will be purple for a split second before turning red (if it's supposed to).
+				CancelInvoke("Teleport");
+				CancelInvoke("ResetCooldown");
+				ResetCooldown();
+				RemoveIndicator();
+			}
 		}
 
 		anim.SetBool("isTeleporting", playerStats.playerMidTeleport);

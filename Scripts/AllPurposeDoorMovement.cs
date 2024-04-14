@@ -13,6 +13,8 @@ public class AllPurposeDoorMovement : MonoBehaviour
 	Vector3[] gateTargetPoses;
 	
 	[SerializeField] string doorName;
+	
+	[SerializeField] float doorSpeed;
 
     void Start()
     {
@@ -33,16 +35,13 @@ public class AllPurposeDoorMovement : MonoBehaviour
 			for (int i = 0; i < arenaEntranceGates.Length; i++)
 			{
 				Vector3 gateCurrentPos = arenaEntranceGates[i].transform.position;
-				arenaEntranceGates[i].transform.position = Vector3.MoveTowards(gateCurrentPos, gateTargetPoses[i], 5f * Time.deltaTime);
+				arenaEntranceGates[i].transform.position = Vector3.MoveTowards(gateCurrentPos, gateTargetPoses[i], doorSpeed * Time.deltaTime);
 			}
 		}
 	}
-	
-	void OnTriggerEnter2D(Collider2D collision)
+
+	public void CloseGate()
 	{
-		if (collision.gameObject.tag == "Player")
-		{
-			gateMustBeClosed = true;
-		}
+		gateMustBeClosed = true;
 	}
 }

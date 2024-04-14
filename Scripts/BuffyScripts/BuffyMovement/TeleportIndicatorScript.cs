@@ -47,7 +47,7 @@ public class TeleportIndicatorScript : MonoBehaviour
 
 			
 			insideWall = true;
-			
+			spriteRenderer.color = red;
 			
 			if (Input.GetKey("s"))
 			{
@@ -55,8 +55,8 @@ public class TeleportIndicatorScript : MonoBehaviour
 				{
 					transform.position = new Vector3(transform.position.x, objectUpCoord + 1.3f, transform.position.z);
 				}
-				else
-					spriteRenderer.color = red;
+				//else
+					//spriteRenderer.color = red;
 			}
 			else if (Input.GetKey("w"))
 			{
@@ -64,11 +64,11 @@ public class TeleportIndicatorScript : MonoBehaviour
 				{
 					transform.position = new Vector3(transform.position.x, objectDownCoord - 1.3f, transform.position.z);
 				}
-				else
-					spriteRenderer.color = red;
+				//else
+					//spriteRenderer.color = red;
 			}
-			else
-				spriteRenderer.color = red;
+			//else
+				//spriteRenderer.color = red;
 		}
 	}
 	
