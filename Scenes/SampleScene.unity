@@ -237,7 +237,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8791633787510331875, guid: dab2e901495dbe143bf198e9571edc3b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.17152736
+      value: 0.3754305
       objectReference: {fileID: 0}
     - target: {fileID: 8791633787510331875, guid: dab2e901495dbe143bf198e9571edc3b, type: 3}
       propertyPath: m_LocalScale.y
@@ -245,7 +245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8791633787510331875, guid: dab2e901495dbe143bf198e9571edc3b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -35.17
+      value: -37.61
       objectReference: {fileID: 0}
     - target: {fileID: 8791633787510331875, guid: dab2e901495dbe143bf198e9571edc3b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9936,8 +9936,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5184981780932412855, guid: ea980633638e7e949a81b3f0150e3f29, type: 3}
       propertyPath: lines.Array.data[1]
-      value: '"I''m sure your goldfish brain forgot how to function in a Lucidmare"
-        ("Lucidmare" is a placeholder name)'
+      value: '"I''m sure your goldfish brain forgot how to function in a Lucidmare"'
       objectReference: {fileID: 0}
     - target: {fileID: 5184981780932412855, guid: ea980633638e7e949a81b3f0150e3f29, type: 3}
       propertyPath: lines.Array.data[2]

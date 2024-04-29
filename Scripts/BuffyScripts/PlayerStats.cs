@@ -14,6 +14,9 @@ public class PlayerStats : MonoBehaviour
 	public KeyCode gravityShiftKey = KeyCode.Q;
 	public KeyCode teleportKey = KeyCode.E;
 	public KeyCode basicAttackKey = KeyCode.J;
+	public KeyCode orbKick = KeyCode.K;
+	public KeyCode orbShield = KeyCode.H;
+	public KeyCode interactButton = KeyCode.Space;
 	
 	
 	

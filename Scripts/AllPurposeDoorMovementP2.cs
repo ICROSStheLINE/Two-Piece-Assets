@@ -34,7 +34,7 @@ public class AllPurposeDoorMovementP2 : MonoBehaviour
 			if (allPurposeDoorMovement.gateMustBeClosed == false)
 			{
 				allPurposeDoorMovement.gateMustBeClosed = true;
-				playerStats.ResetPlayerDashCooldown();
+				//playerStats.ResetPlayerDashCooldown();
 				if (activateDialogue)
 				{
 					dialogue.SetActive(true);
