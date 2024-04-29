@@ -5,14 +5,24 @@ using TMPro;
 
 public class SpeechBubbleScript : MonoBehaviour
 {
+	GameObject player;
+	PlayerStats playerStats;
+	
 	public TextMeshProUGUI textComponent;
 	public string[] lines;
 	public float textSpeed;
+	
+	public string preDialogueAction;
+	public string postDialogueAction;
 	
 	int index;
 	
     void Start()
     {
+		player = GameObject.FindWithTag("Player");
+		if (player)
+			playerStats = player.GetComponent<PlayerStats>();
+		
         textComponent.text = string.Empty;
 		StartDialogue();
     }
@@ -34,8 +44,9 @@ public class SpeechBubbleScript : MonoBehaviour
 		}
     }
 	
-	void StartDialogue()
+	public void StartDialogue()
 	{
+		CheckPreDialogueAction();
 		index = 0;
 		StartCoroutine(TypeLine());
 	}
@@ -58,9 +69,34 @@ public class SpeechBubbleScript : MonoBehaviour
 			textComponent.text = string.Empty;
 			StartCoroutine(TypeLine());
 		}
-		else
+		else // AT THE END OF THE DIALOGUE
 		{
 			gameObject.SetActive(false);
+			if (player)
+			{
+				playerStats.midCutscene = false;
+				playerStats.playerCanMove = true;
+				playerStats.playerCanDash = true;
+			}
+			CheckPostDialogueAction();
+		}
+	}
+
+	void CheckPreDialogueAction()
+	{
+		if (preDialogueAction == "Cutscene Mode")
+		{
+			playerStats.midCutscene = true;
+			playerStats.playerCanMove = false;
+			playerStats.playerCanDash = false;
+		}
+	}
+
+	void CheckPostDialogueAction()
+	{
+		if (postDialogueAction == "Next Scene")
+		{
+			GetComponent<MenuManager>().SwitchScene();
 		}
 	}
 }

@@ -46,7 +46,7 @@ public class TSOBeingKicked : MonoBehaviour
 		if (collision.gameObject.tag == "Floor or Wall")
 		{
 			playerKickingTSO.CancelInvoke("SpawnTSOPrefab");
-			playerKickingTSO.Invoke("SpawnTSOPrefab", 0f);
+			playerKickingTSO.SpawnTSOPrefab();
 			playerKickingTSO.Invoke("ResetAbilityToTPCooldown", 0f);
 			Destroy(gameObject);
 		}

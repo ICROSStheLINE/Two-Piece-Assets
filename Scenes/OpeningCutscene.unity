@@ -408,6 +408,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5184981780932412855, guid: ea980633638e7e949a81b3f0150e3f29, type: 3}
+      propertyPath: postDialogueAction
+      value: Next Scene
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184981780932412855, guid: ea980633638e7e949a81b3f0150e3f29, type: 3}
       propertyPath: lines.Array.data[0]
       value: '"Mmmmm..."'
       objectReference: {fileID: 0}
@@ -438,13 +442,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2604288492095944194, guid: ea980633638e7e949a81b3f0150e3f29, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1811761088}
   m_SourcePrefab: {fileID: 100100000, guid: ea980633638e7e949a81b3f0150e3f29, type: 3}
 --- !u!224 &1811761086 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5158324112433077556, guid: ea980633638e7e949a81b3f0150e3f29, type: 3}
   m_PrefabInstance: {fileID: 1811761085}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1811761087 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2604288492095944194, guid: ea980633638e7e949a81b3f0150e3f29, type: 3}
+  m_PrefabInstance: {fileID: 1811761085}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1811761088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811761087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b1e842d1811a2f42b8534ce5818e9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetScene: 2
 --- !u!1 &2097131789
 GameObject:
   m_ObjectHideFlags: 0

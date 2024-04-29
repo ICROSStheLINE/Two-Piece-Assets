@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 5184981780932412855}
   m_Layer: 5
   m_Name: SpeechBubble
-  m_TagString: Untagged
+  m_TagString: Dialogue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -229,3 +229,5 @@ MonoBehaviour:
   - I'm thinking of xue hua piao piao bei fong xiao xiao tian di ii pian cang mao
   - I'll check it out...
   textSpeed: 0.05
+  preDialogueAction: 
+  postDialogueAction: 

@@ -8,12 +8,22 @@ public class PlayerStats : MonoBehaviour
 	Rigidbody2D rb;
 	Animator anim;
 	
+	// Controls
+	
+	public KeyCode dashKey = KeyCode.LeftShift;
+	public KeyCode gravityShiftKey = KeyCode.Q;
+	public KeyCode teleportKey = KeyCode.E;
+	public KeyCode basicAttackKey = KeyCode.J;
+	
+	
+	
 	MonoBehaviour[] allComponents;
 	
 	static readonly float deathZeroAnimationDurationSpeedMultiplier = 0.5f;
 	static readonly float deathZeroAnimationDuration = 0.75f / deathZeroAnimationDurationSpeedMultiplier;
 	
 	[HideInInspector] public bool playerMidActionNoDash = false;
+	[HideInInspector] public bool playerMidTSOAttack = false;
 	
 	[HideInInspector] public float playerMovementSpeed = 7f;
 	[HideInInspector] public bool playerCanMove = true;
@@ -51,6 +61,11 @@ public class PlayerStats : MonoBehaviour
 			playerMidActionNoDash = true;
 		else
 			playerMidActionNoDash = false;
+		
+		if (isTSOBasicAttacking || playerMidKickingTSO)
+			playerMidTSOAttack = true;
+		else
+			playerMidTSOAttack = false;
 	}
 
 	// PlayerDashing

@@ -85,8 +85,9 @@ public class PlayerKickingTSO : MonoBehaviour
 		}
     }
 
-	void SpawnTSOPrefab()
+	public void SpawnTSOPrefab()
 	{
+		Destroy(truthSeekingOrb);
 		truthSeekingOrb = Instantiate(truthSeekingOrbPrefab, tsoBeingKicked.transform.position, Quaternion.Euler(0,0,0));
 	}
 

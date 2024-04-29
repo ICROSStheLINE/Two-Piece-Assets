@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theHitbox: {fileID: 5673456162402560797, guid: 761904432acf3d64d86704df2ddfda6b, type: 3}
+  isAttacking: 0
 --- !u!114 &375972588779790664
 MonoBehaviour:
   m_ObjectHideFlags: 0

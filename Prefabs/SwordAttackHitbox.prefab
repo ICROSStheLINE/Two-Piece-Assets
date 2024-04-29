@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 617823654628267653}
   m_Layer: 0
   m_Name: SwordAttackHitbox
-  m_TagString: Untagged
+  m_TagString: Truth Seeking Orb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
