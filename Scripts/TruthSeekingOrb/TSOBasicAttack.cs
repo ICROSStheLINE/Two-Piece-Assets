@@ -27,7 +27,7 @@ public class TSOBasicAttack : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetKeyDown("g")) && (!playerStats.isTSOBasicAttacking) && (!isTSOBasicAttackOnCooldown))
+        if ((Input.GetKeyDown(playerStats.basicAttackKey)) && (!playerStats.isTSOBasicAttacking) && (!isTSOBasicAttackOnCooldown))
 		{
 			anim.SetBool("basicAttacking", true);
 			playerStats.isTSOBasicAttacking = true;

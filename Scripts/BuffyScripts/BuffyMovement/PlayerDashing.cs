@@ -17,7 +17,7 @@ public class PlayerDashing : MonoBehaviour
 
     void Update()
     {
-		if (Input.GetKeyDown("e") && (playerStats.playerIsDashing == false) && (playerStats.playerCanDash == true))
+		if (Input.GetKeyDown(playerStats.dashKey) && (playerStats.playerIsDashing == false) && (playerStats.playerCanDash == true))
 		{
 			rb.velocity = new Vector2(40 * Mathf.Sign(gameObject.transform.localScale.x),0);
 			anim.SetBool("isDashing", true);

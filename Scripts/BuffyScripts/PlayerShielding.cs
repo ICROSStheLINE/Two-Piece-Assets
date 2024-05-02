@@ -26,7 +26,7 @@ public class PlayerShielding : MonoBehaviour
 
     void Update()
     {
-		if ((Input.GetKey("v")) && !playerStats.playerMidActionNoDash && !playerStats.midCutscene)
+		if ((Input.GetKey(playerStats.orbShieldKey)) && !playerStats.playerMidActionNoDash && !playerStats.midCutscene)
 		{
 			playerStats.playerCanDash = false;
 			playerStats.ResetPlayerDashCooldown();
@@ -36,7 +36,7 @@ public class PlayerShielding : MonoBehaviour
 			ShieldStartup();
 			Invoke("ShieldMiddle", shieldingStageOneSpeed);
 		}
-		else if ((!Input.GetKey("v")) && (!playerStats.playerMidGravityShift) && (!playerStats.playerMidTeleport) && (playerShieldIsUp))
+		else if ((!Input.GetKey(playerStats.orbShieldKey)) && (!playerStats.playerMidGravityShift) && (!playerStats.playerMidTeleport) && (playerShieldIsUp))
 		{
 			ShieldEnd();
 			Invoke("FinishShielding", shieldingStageTwoSpeed);

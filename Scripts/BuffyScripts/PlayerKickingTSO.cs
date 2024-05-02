@@ -41,7 +41,7 @@ public class PlayerKickingTSO : MonoBehaviour
     void Update()
     {
 		// Kick out ball
-        if ((Input.GetKeyDown("h")) && !playerStats.playerMidActionNoDash && !playerStats.midCutscene && !playerStats.isTSOBasicAttacking && (anim.GetFloat("verticalVelocity") == 0f) && (!ableToTeleport))
+        if ((Input.GetKeyDown(playerStats.orbKickKey)) && !playerStats.playerMidActionNoDash && !playerStats.midCutscene && !playerStats.isTSOBasicAttacking && (anim.GetFloat("verticalVelocity") == 0f) && (!ableToTeleport))
 		{
 			Destroy(truthSeekingOrb);
 			
@@ -61,7 +61,7 @@ public class PlayerKickingTSO : MonoBehaviour
 			Invoke("ResetCooldown", kickingAnimationDuration);
 		}
 		// Teleport to ball
-		else if ((Input.GetKeyDown("h")) && (!playerStats.playerMidGravityShift) && (!playerStats.playerMidTeleport) && (!playerStats.playerMidShielding) && (!playerStats.isTSOBasicAttacking) && (anim.GetFloat("verticalVelocity") == 0f) && (ableToTeleport) && (tsoBeingKicked != null))
+		else if ((Input.GetKeyDown(playerStats.orbKickKey)) && (!playerStats.playerMidGravityShift) && (!playerStats.playerMidTeleport) && (!playerStats.playerMidShielding) && (!playerStats.isTSOBasicAttacking) && (anim.GetFloat("verticalVelocity") == 0f) && (ableToTeleport) && (tsoBeingKicked != null))
 		{
 			CancelInvoke("SpawnTSOPrefab");
 			// Cancel Movement

@@ -35,7 +35,7 @@ public class PlayerTeleporting : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetKey("r"))
+        if (Input.GetKey(playerStats.teleportKey))
 		{
 			if (!playerStats.playerMidActionNoDash && !playerStats.midCutscene)
 			{
@@ -53,19 +53,19 @@ public class PlayerTeleporting : MonoBehaviour
 			}
 			
 			
-			if (Input.GetKey("w") && Input.GetKey("s"))
+			if (Input.GetKey(playerStats.aimUpKey) && Input.GetKey(playerStats.aimDownKey))
 			{
 				if (teleportHeight != 0)
 					RemoveIndicator();
 				teleportHeight = 0;
 			}
-			else if (Input.GetKey("w"))
+			else if (Input.GetKey(playerStats.aimUpKey))
 			{
 				if (teleportHeight != teleportDistance/2)
 					RemoveIndicator();
 				teleportHeight = teleportDistance/2;
 			}
-			else if (Input.GetKey("s"))
+			else if (Input.GetKey(playerStats.aimDownKey))
 			{
 				if (teleportHeight != teleportDistance/2 * -1)
 					RemoveIndicator();

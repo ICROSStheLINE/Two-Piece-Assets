@@ -10,13 +10,18 @@ public class PlayerStats : MonoBehaviour
 	
 	// Controls
 	
+	public KeyCode moveRightKey = KeyCode.D;
+	public KeyCode moveLeftKey = KeyCode.A;
+	public KeyCode aimUpKey = KeyCode.W;
+	public KeyCode aimDownKey = KeyCode.S;
 	public KeyCode dashKey = KeyCode.LeftShift;
-	public KeyCode gravityShiftKey = KeyCode.Q;
-	public KeyCode teleportKey = KeyCode.E;
+	public KeyCode gravityShiftKey = KeyCode.I;
+	public KeyCode teleportKey = KeyCode.U;
 	public KeyCode basicAttackKey = KeyCode.J;
-	public KeyCode orbKick = KeyCode.K;
-	public KeyCode orbShield = KeyCode.H;
-	public KeyCode interactButton = KeyCode.Space;
+	public KeyCode orbKickKey = KeyCode.K;
+	public KeyCode leechBlastKey = KeyCode.L;
+	public KeyCode orbShieldKey = KeyCode.N;
+	public KeyCode interactKey = KeyCode.Space;
 	
 	
 	

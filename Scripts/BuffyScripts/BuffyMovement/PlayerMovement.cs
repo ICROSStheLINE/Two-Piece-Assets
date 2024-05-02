@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (playerStats.playerCanMove)
 		{
-			if (Input.GetKey("d"))
+			if (Input.GetKey(playerStats.moveRightKey))
 			{
 				force += playerStats.playerMovementSpeed * Time.deltaTime;
 				if (!playerStats.playerIsDashingButResets1MillisecondEarlier)
@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
 					gameObject.transform.localScale = new Vector3(playerXScale,gameObject.transform.localScale.y,playerXScale);
 				}
 			}
-			if (Input.GetKey("a"))
+			if (Input.GetKey(playerStats.moveLeftKey))
 			{
 				force -= playerStats.playerMovementSpeed * Time.deltaTime;
 				if (!playerStats.playerIsDashingButResets1MillisecondEarlier)

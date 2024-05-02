@@ -25,12 +25,23 @@ public class SpeechBubbleScript : MonoBehaviour
 		
         textComponent.text = string.Empty;
 		StartDialogue();
+		//Invoke("Retardation", 0);
     }
 
-    
+    void Retardation()
+	{
+		gameObject.SetActive(false);
+		if (player)
+		{
+			playerStats.midCutscene = false;
+			playerStats.playerCanMove = true;
+			playerStats.playerCanDash = true;
+		}
+	}
+	
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown(playerStats.interactKey))
 		{
 			if (textComponent.text == lines[index])
 			{
@@ -86,9 +97,14 @@ public class SpeechBubbleScript : MonoBehaviour
 	{
 		if (preDialogueAction == "Cutscene Mode")
 		{
+			playerStats.ResetPlayerDashCooldown();
 			playerStats.midCutscene = true;
 			playerStats.playerCanMove = false;
 			playerStats.playerCanDash = false;
+		}
+		else if (preDialogueAction == "StopDash")
+		{
+			playerStats.ResetPlayerDashCooldown();
 		}
 	}
 

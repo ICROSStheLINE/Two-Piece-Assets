@@ -33,7 +33,7 @@ public class BuffyLeechBlast : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetKeyDown("b")) && !playerStats.playerMidActionNoDash && (anim.GetFloat("verticalVelocity") == 0f))
+        if ((Input.GetKeyDown(playerStats.leechBlastKey)) && !playerStats.playerMidActionNoDash && (anim.GetFloat("verticalVelocity") == 0f))
 		{
 			playerStats.playerCanDash = false;
 			playerStats.ResetPlayerDashCooldown();

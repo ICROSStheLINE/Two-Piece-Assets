@@ -19,7 +19,7 @@ public class BuffyGravityFlip : MonoBehaviour
 
     void Update()
     {
-		if (Input.GetKeyDown("f") && !playerStats.playerMidActionNoDash && !playerStats.midCutscene)
+		if (Input.GetKeyDown(playerStats.gravityShiftKey) && !playerStats.playerMidActionNoDash && !playerStats.midCutscene)
 		{
 			playerStats.playerCanDash = false;
 			playerStats.ResetPlayerDashCooldown();

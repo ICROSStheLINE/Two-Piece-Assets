@@ -5,6 +5,7 @@ using UnityEngine;
 public class TeleportIndicatorScript : MonoBehaviour
 {
     GameObject player;
+	PlayerStats playerStats;
 	SpriteRenderer playerSpriteRenderer;
 	SpriteRenderer spriteRenderer;
 	
@@ -17,6 +18,7 @@ public class TeleportIndicatorScript : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+		playerStats = player.GetComponent<PlayerStats>();
 		playerSpriteRenderer = player.GetComponent<SpriteRenderer>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		//spriteRenderer.color = purple;
@@ -49,7 +51,7 @@ public class TeleportIndicatorScript : MonoBehaviour
 			insideWall = true;
 			spriteRenderer.color = red;
 			
-			if (Input.GetKey("s"))
+			if (Input.GetKey(playerStats.aimDownKey))
 			{
 				if (objectUpCoord <= player.transform.position.y)
 				{
@@ -58,7 +60,7 @@ public class TeleportIndicatorScript : MonoBehaviour
 				//else
 					//spriteRenderer.color = red;
 			}
-			else if (Input.GetKey("w"))
+			else if (Input.GetKey(playerStats.aimUpKey))
 			{
 				if (objectDownCoord >= player.transform.position.y)
 				{
