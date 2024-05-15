@@ -7,6 +7,8 @@ public class PlayerStats : MonoBehaviour
 {
 	Rigidbody2D rb;
 	Animator anim;
+	BoxCollider2D boxCollider;
+	
 	
 	// Controls
 	
@@ -60,6 +62,7 @@ public class PlayerStats : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
+		boxCollider = GetComponent<BoxCollider2D>();
 		allComponents = GetComponents<MonoBehaviour>();
 	}
 
@@ -74,6 +77,16 @@ public class PlayerStats : MonoBehaviour
 			playerMidTSOAttack = true;
 		else
 			playerMidTSOAttack = false;
+	}
+
+
+
+	public void IgnoreEnemyCollisions(bool so = default(bool))
+	{
+		if (so)
+			boxCollider.excludeLayers = 01000000;
+		else
+			boxCollider.excludeLayers = 00000000;
 	}
 
 	// PlayerDashing

@@ -15,6 +15,7 @@ public class AllPurposeDoorMovementP2 : MonoBehaviour
 	[SerializeField] string[] potentialDialogue;
 	[SerializeField] float textSpeed;
 	[SerializeField] string preDialogueAction;
+	[SerializeField] bool stopDash;
 	[SerializeField] string postDialogueAction;
 	
 	void Start()
@@ -43,6 +44,7 @@ public class AllPurposeDoorMovementP2 : MonoBehaviour
 					speechBubbleScript.lines = potentialDialogue;
 					speechBubbleScript.textSpeed = textSpeed;
 					speechBubbleScript.preDialogueAction = preDialogueAction;
+					speechBubbleScript.stopDash = stopDash;
 					speechBubbleScript.postDialogueAction = postDialogueAction;
 					speechBubbleScript.StartDialogue();
 				}
