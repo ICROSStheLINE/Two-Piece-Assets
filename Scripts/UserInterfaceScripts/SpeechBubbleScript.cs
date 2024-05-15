@@ -13,6 +13,7 @@ public class SpeechBubbleScript : MonoBehaviour
 	public float textSpeed;
 	
 	public string preDialogueAction;
+	public bool stopDash;
 	public string postDialogueAction;
 	
 	int index;
@@ -97,12 +98,11 @@ public class SpeechBubbleScript : MonoBehaviour
 	{
 		if (preDialogueAction == "Cutscene Mode")
 		{
-			playerStats.ResetPlayerDashCooldown();
 			playerStats.midCutscene = true;
 			playerStats.playerCanMove = false;
 			playerStats.playerCanDash = false;
 		}
-		else if (preDialogueAction == "StopDash")
+		if (stopDash)
 		{
 			playerStats.ResetPlayerDashCooldown();
 		}

@@ -72,7 +72,7 @@ public class AllPurposeDoorMovement : MonoBehaviour
 	{
 		if (doorOpeningCondition == "Killing All Enemies")
 		{
-			Collider2D hitCollider = Physics2D.OverlapCircle(transform.position, 20, 01000000);
+			Collider2D hitCollider = Physics2D.OverlapCircle(transform.position, 35, 01000000);
 			if (hitCollider == null)
 			{
 				gateMustBeOpened = true;

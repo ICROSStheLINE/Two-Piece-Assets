@@ -21,6 +21,7 @@ public class BuffyGravityFlip : MonoBehaviour
     {
 		if (Input.GetKeyDown(playerStats.gravityShiftKey) && !playerStats.playerMidActionNoDash && !playerStats.midCutscene)
 		{
+			playerStats.IgnoreEnemyCollisions(true);
 			playerStats.playerCanDash = false;
 			playerStats.ResetPlayerDashCooldown();
 			playerStats.playerMidGravityShift = true;
@@ -34,7 +35,7 @@ public class BuffyGravityFlip : MonoBehaviour
 
 	void GravityInverse()
 	{
-		rb.gravityScale *= -100;
+		rb.gravityScale *= -80;
 		gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x,gameObject.transform.localScale.y * -1,gameObject.transform.localScale.z);
 		spriteRenderer.flipY = !spriteRenderer.flipY;
 		Invoke("GravityReset", 0.1f);
@@ -47,6 +48,7 @@ public class BuffyGravityFlip : MonoBehaviour
 
 	void ResetCooldown()
 	{
+		playerStats.IgnoreEnemyCollisions(false);
 		playerStats.playerMidGravityShift = false;
 		spriteRenderer.flipY = !spriteRenderer.flipY;
 		playerStats.playerCanMove = true;
