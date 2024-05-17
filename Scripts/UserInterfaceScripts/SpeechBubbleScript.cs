@@ -42,7 +42,7 @@ public class SpeechBubbleScript : MonoBehaviour
 	
     void Update()
     {
-        if (Input.GetKeyDown(playerStats.interactKey))
+		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			if (textComponent.text == lines[index])
 			{
