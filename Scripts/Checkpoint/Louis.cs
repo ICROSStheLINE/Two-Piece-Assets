@@ -17,7 +17,7 @@ public class Louis : MonoBehaviour
 	[SerializeField] bool stopDash;
 	[SerializeField] string postDialogueAction;
 	
-	static readonly float louisTurningDurationSpeedMultiplier = 0.3f;
+	static readonly float louisTurningDurationSpeedMultiplier = 0.5f;
 	static readonly float louisTurningAnimationDuration = 0.25f / louisTurningDurationSpeedMultiplier;
 	//static readonly float louisTurningAnimationFrames = 3;
 	static readonly float louisWalkingDurationSpeedMultiplier = 0.5f;
@@ -66,6 +66,7 @@ public class Louis : MonoBehaviour
 		yield return new WaitForSeconds(louisWalkingAnimationDuration * Mathf.Abs(stepCount) / 2); // (Dividing by 2 here since he takes 2 steps in the animation)
 		anim.SetBool("Walking", false);
 		movement = 0;
+		yield return new WaitForSeconds(louisTurningAnimationDuration);
 		transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
 	}
 
