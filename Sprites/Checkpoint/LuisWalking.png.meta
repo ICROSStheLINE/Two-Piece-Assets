@@ -172,6 +172,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: LuisWalking_3
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 0
+        width: 47
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9851184a62fb6b64b898626fa3dbc0e1
+      internalID: -1486192330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -186,6 +207,7 @@ TextureImporter:
       LuisWalking_0: -310003926
       LuisWalking_1: 681371697
       LuisWalking_2: -293138335
+      LuisWalking_3: -1486192330
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
