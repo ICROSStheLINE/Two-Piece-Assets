@@ -35,7 +35,7 @@ public class BuffyGravityFlip : MonoBehaviour
 
 	void GravityInverse()
 	{
-		rb.gravityScale *= -80;
+		rb.gravityScale *= -100;
 		gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x,gameObject.transform.localScale.y * -1,gameObject.transform.localScale.z);
 		spriteRenderer.flipY = !spriteRenderer.flipY;
 		Invoke("GravityReset", 0.1f);
