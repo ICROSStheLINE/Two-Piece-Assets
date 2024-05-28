@@ -3454,6 +3454,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6028475237893017660, guid: 94b7830e1e8affc4880e39d140f93e28, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6028475237893017660, guid: 94b7830e1e8affc4880e39d140f93e28, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.155
+      objectReference: {fileID: 0}
+    - target: {fileID: 6028475237893017660, guid: 94b7830e1e8affc4880e39d140f93e28, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.107
+      objectReference: {fileID: 0}
     - target: {fileID: 9043844265984478826, guid: 94b7830e1e8affc4880e39d140f93e28, type: 3}
       propertyPath: m_Name
       value: Luis
@@ -3810,8 +3822,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.7, y: 4.6}
+    pivot: {x: 0.478, y: 0.5}
+    oldSize: {x: 4.6, y: 4.6}
     newSize: {x: 4.7, y: 4.6}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -3839,6 +3851,7 @@ MonoBehaviour:
   preDialogueAction: 
   stopDash: 1
   postDialogueAction: 
+  movementSpeed: 0.1
 --- !u!1 &738199407
 GameObject:
   m_ObjectHideFlags: 0
