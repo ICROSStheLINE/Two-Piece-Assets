@@ -17,7 +17,7 @@ public class Louis : MonoBehaviour
 	[SerializeField] bool stopDash;
 	[SerializeField] string postDialogueAction;
 	
-	static readonly float louisTurningDurationSpeedMultiplier = 0.5f;
+	static readonly float louisTurningDurationSpeedMultiplier = 0.7f;
 	static readonly float louisTurningAnimationDuration = 0.25f / louisTurningDurationSpeedMultiplier;
 	//static readonly float louisTurningAnimationFrames = 3;
 	static readonly float louisWalkingDurationSpeedMultiplier = 0.5f;
@@ -43,11 +43,11 @@ public class Louis : MonoBehaviour
 	{
 		if (Input.GetKeyDown("/"))
 		{
-			StartCoroutine(MoveSteps(2));
+			StartCoroutine(MoveSteps(8));
 		}
 		if (Input.GetKeyDown("."))
 		{
-			StartCoroutine(MoveSteps(-2));
+			StartCoroutine(MoveSteps(-8));
 		}
 	}
 
@@ -56,7 +56,7 @@ public class Louis : MonoBehaviour
 		transform.position += new Vector3(movement,0,0);
     }
 	
-	IEnumerator MoveSteps(int stepCount = default(int))
+	IEnumerator MoveSteps(int stepCount = default(int)) // Keep stepCount a multiple of 2 lol
 	{
 		transform.localScale = new Vector3(transform.localScale.x * Mathf.Sign(stepCount), transform.localScale.y, transform.localScale.z);
 		anim.SetTrigger("Turning");
@@ -84,6 +84,9 @@ public class Louis : MonoBehaviour
 			speechBubbleScript.postDialogueAction = postDialogueAction;
 			speechBubbleScript.StartDialogue();
 			waitForInteraction = false;
+			
+			anim.SetTrigger("Waving");
 		}
 	}
 }
+
