@@ -114,5 +114,9 @@ public class SpeechBubbleScript : MonoBehaviour
 		{
 			GetComponent<MenuManager>().SwitchScene();
 		}
+		if (postDialogueAction == "Save Game")
+		{
+			
+		}
 	}
 }
