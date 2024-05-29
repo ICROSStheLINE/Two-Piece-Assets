@@ -56,7 +56,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859fec860f9ad3e4094ad82e6e64509c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveRightKey: 100
+  moveLeftKey: 97
+  aimUpKey: 119
+  aimDownKey: 115
+  dashKey: 304
+  gravityShiftKey: 105
+  teleportKey: 117
+  basicAttackKey: 106
+  orbKickKey: 107
+  leechBlastKey: 108
+  orbShieldKey: 104
+  interactKey: 32
   playerMidActionNoDash: 0
+  playerMidTSOAttack: 0
   playerMovementSpeed: 7
   playerCanMove: 1
   playerIsDashing: 0

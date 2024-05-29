@@ -3845,12 +3845,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   potentialDialogue:
-  - '"Hi, Buffy."'
-  - '"Would you like to save the game here?"'
+  - '"Good evening, Buffy."'
+  - '"Saving......."'
   textSpeed: 0.06
-  preDialogueAction: 
+  preDialogueAction: Cutscene Mode
   stopDash: 1
-  postDialogueAction: 
+  postDialogueAction: Save Game
   movementSpeed: 0.1
 --- !u!1 &738199407
 GameObject:
@@ -8530,14 +8530,6 @@ PrefabInstance:
     - target: {fileID: 483098987263352929, guid: 695eb9862c3c41545b7825c364ea0b95, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1794994974955514808, guid: 695eb9862c3c41545b7825c364ea0b95, type: 3}
-      propertyPath: teleportKey
-      value: 117
-      objectReference: {fileID: 0}
-    - target: {fileID: 1794994974955514808, guid: 695eb9862c3c41545b7825c364ea0b95, type: 3}
-      propertyPath: gravityShiftKey
-      value: 105
       objectReference: {fileID: 0}
     - target: {fileID: 5012311676560863495, guid: 695eb9862c3c41545b7825c364ea0b95, type: 3}
       propertyPath: m_Name
