@@ -404,6 +404,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5184981780932412855, guid: ea980633638e7e949a81b3f0150e3f29, type: 3}
+      propertyPath: stopDash
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184981780932412855, guid: ea980633638e7e949a81b3f0150e3f29, type: 3}
       propertyPath: lines.Array.size
       value: 5
       objectReference: {fileID: 0}

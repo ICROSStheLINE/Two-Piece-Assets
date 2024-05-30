@@ -16,6 +16,11 @@ public class Bissbiss : MonoBehaviour
         InvokeRepeating("TailWag", 1, tailWagAnimationDuration + 4);
     }
 
+	void Update()
+	{
+		
+	}
+
 	void TailWag()
 	{
 		anim.SetBool("WagTail", true);
