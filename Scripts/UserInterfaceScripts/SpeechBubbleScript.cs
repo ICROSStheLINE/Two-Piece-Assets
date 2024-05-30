@@ -7,6 +7,7 @@ public class SpeechBubbleScript : MonoBehaviour
 {
 	GameObject player;
 	PlayerStats playerStats;
+	SaveData saveData;
 	
 	public TextMeshProUGUI textComponent;
 	public string[] lines;
@@ -22,26 +23,32 @@ public class SpeechBubbleScript : MonoBehaviour
     {
 		player = GameObject.FindWithTag("Player");
 		if (player)
+		{
 			playerStats = player.GetComponent<PlayerStats>();
+			saveData = player.GetComponent<SaveData>();
+		}
 		
         textComponent.text = string.Empty;
-		StartDialogue();
-		//Invoke("Retardation", 0);
+		//StartDialogue();
+		Invoke("Retardation", 0.1f);
     }
 
     void Retardation()
 	{
 		gameObject.SetActive(false);
-		if (player)
+		/*if (player)
 		{
 			playerStats.midCutscene = false;
 			playerStats.playerCanMove = true;
 			playerStats.playerCanDash = true;
-		}
+		}*/
 	}
 	
     void Update()
     {
+		if (stopDash == true)
+			CancelInvoke("Retardation");
+		
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			if (textComponent.text == lines[index])
@@ -116,7 +123,7 @@ public class SpeechBubbleScript : MonoBehaviour
 		}
 		if (postDialogueAction == "Save Game")
 		{
-			
+			saveData.SaveToJson();
 		}
 	}
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8076529829897230403}
   - component: {fileID: 3714413760632516152}
   - component: {fileID: 7993767282003701376}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShlorpSoulLaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}

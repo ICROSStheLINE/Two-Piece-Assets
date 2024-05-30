@@ -43,11 +43,11 @@ public class Louis : MonoBehaviour
 	{
 		if (Input.GetKeyDown("/"))
 		{
-			StartCoroutine(MoveSteps(8));
+			StartCoroutine(MoveSteps(2));
 		}
 		if (Input.GetKeyDown("."))
 		{
-			StartCoroutine(MoveSteps(-8));
+			StartCoroutine(MoveSteps(-2));
 		}
 	}
 
