@@ -8,9 +8,12 @@ public class SaveData : MonoBehaviour
 	PlayerStats playerStats;
     public PlayerPosition playerPosition = new PlayerPosition();
 	
-	static readonly float pettingDurationSpeedMultiplier = 0.5f;
+	static readonly float pettingDurationSpeedMultiplier = 0.4f;
 	static readonly float pettingAnimationDuration = 0.833f / pettingDurationSpeedMultiplier;
 	//static readonly float pettingAnimationFrames = 10;
+	static readonly float drinkingDurationSpeedMultiplier = 0.4f;
+	static readonly float drinkingAnimationDuration = 1.333f / drinkingDurationSpeedMultiplier;
+	//static readonly float drinkingAnimationFrames = 16;
 	
 	void Start()
 	{
@@ -42,7 +45,7 @@ public class SaveData : MonoBehaviour
 		Debug.Log(filePath);
 		System.IO.File.WriteAllText(filePath, positionData);
 		Debug.Log("Save Completed");
-		StartCoroutine(PetCat());
+		StartCoroutine(DrinkThenPetCat());
 	}
 	
 	public void LoadFromJson()
@@ -56,12 +59,15 @@ public class SaveData : MonoBehaviour
 		transform.position = new Vector3(playerPosition.xPosition, playerPosition.yPosition, playerPosition.zPosition);
 	}
 	
-	IEnumerator PetCat()
+	IEnumerator DrinkThenPetCat()
 	{
-		anim.SetBool("isPetting", true);
 		playerStats.midCutscene = true;
 		playerStats.playerCanMove = false;
 		playerStats.playerCanDash = false;
+		anim.SetBool("isDrinking", true);
+		yield return new WaitForSeconds(drinkingAnimationDuration);
+		anim.SetBool("isDrinking", false);
+		anim.SetBool("isPetting", true);
 		yield return new WaitForSeconds(pettingAnimationDuration);
 		playerStats.midCutscene = false;
 		playerStats.playerCanMove = true;
