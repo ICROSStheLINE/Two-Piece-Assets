@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class IceArenaScript : MonoBehaviour
 {
-	GameObject[] arenaEntranceGates = new GameObject[9];
+	GameObject[] arenaEntranceGates = new GameObject[10];
 
 	bool gateMustBeClosed = false;
 
-	Vector3[] gateTargetPoses = new Vector3[9];
+	Vector3[] gateTargetPoses = new Vector3[10];
 	
 	[SerializeField] string doorName;
 
