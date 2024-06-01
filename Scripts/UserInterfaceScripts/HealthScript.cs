@@ -43,15 +43,16 @@ public class HealthScript : MonoBehaviour
 	{
 		currentHealth -= amount;
 		healthBar.fillAmount = (currentHealth / 15f);
-		if (currentHealth > 0)
+		if (Mathf.Sign(amount) == 1)
 		{
-			//healthChunkPosition -= amount;
-			//healthChunk.transform.position -= new Vector3(((healthChunkRectTransform.rect.width / 2) + (healthBarRectTransform.rect.width / 250)),0,0);
+			return;
+		}
+		else if (currentHealth > 0)
+		{
 			SwitchColorsRetardedly();
 		}
 		else if (currentHealth == 0)
 		{
-			//Destroy(healthChunk);
 			playerStats.Die();
 		}
 	}

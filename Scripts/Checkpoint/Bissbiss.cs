@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bissbiss : MonoBehaviour
 {
+	GameObject player;
+	
 	static readonly float tailWagAnimationDurationSpeedMultiplier = 0.5f;
 	static readonly float tailWagAnimationDuration = 1f / tailWagAnimationDurationSpeedMultiplier;
 	static readonly float gettingUpDurationSpeedMultiplier = 0.3f;
@@ -17,6 +19,7 @@ public class Bissbiss : MonoBehaviour
     void Start()
     {
 		anim = GetComponent<Animator>();
+		player = GameObject.FindWithTag("Player");
 		
         InvokeRepeating("TailWag", 1, tailWagAnimationDuration + 4);
     }
@@ -50,8 +53,13 @@ public class Bissbiss : MonoBehaviour
 	{
 		anim.SetBool("isSittingDown", true);
 		anim.SetBool("isWalking", false);
-		yield return new WaitForSeconds(gettingUpAnimationDuration);
+		yield return new WaitForSeconds(gettingUpAnimationDuration/2);
+		transform.localScale = new Vector3(transform.localScale.x * Mathf.Sign(player.transform.localScale.x),transform.localScale.y,transform.localScale.z);
+		yield return new WaitForSeconds(gettingUpAnimationDuration/2);
 		anim.SetBool("isSittingDown", false);
+		anim.SetBool("isBeingPet", true);
+		yield return new WaitForSeconds(2);
+		anim.SetBool("isBeingPet", false);
 	}
 
 	void TailWag()
