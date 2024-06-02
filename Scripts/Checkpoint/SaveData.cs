@@ -15,6 +15,8 @@ public class SaveData : MonoBehaviour
 	static readonly float drinkingAnimationDuration = 1.333f / drinkingDurationSpeedMultiplier;
 	//static readonly float drinkingAnimationFrames = 16;
 	
+	Transform nearestBissbiss;
+	
 	void Start()
 	{
 		anim = GetComponent<Animator>();
@@ -47,7 +49,7 @@ public class SaveData : MonoBehaviour
 		Debug.Log("Save Completed");
 		StartCoroutine(DrinkThenPetCat());
 	}
-	
+
 	public void LoadFromJson()
 	{
 		string filePath = Application.persistentDataPath + "/playerPositionData.json";
@@ -58,14 +60,20 @@ public class SaveData : MonoBehaviour
 		
 		transform.position = new Vector3(playerPosition.xPosition, playerPosition.yPosition, playerPosition.zPosition);
 	}
-	
+
 	IEnumerator DrinkThenPetCat()
 	{
 		playerStats.midCutscene = true;
 		playerStats.playerCanMove = false;
 		playerStats.playerCanDash = false;
+		
+		StartCoroutine(nearestBissbiss.gameObject.GetComponent<Bissbiss>().WalkToPosition(transform.position + new Vector3(1.5f*Mathf.Sign(transform.localScale.x),0,0)));
+		
 		anim.SetBool("isDrinking", true);
+		SpriteRenderer tso = GameObject.FindWithTag("Truth Seeking Orb").GetComponent<SpriteRenderer>();
+		tso.color = new Color(1,1,1,0);
 		yield return new WaitForSeconds(drinkingAnimationDuration);
+		tso.color = new Color(1,1,1,1);
 		anim.SetBool("isDrinking", false);
 		anim.SetBool("isPetting", true);
 		yield return new WaitForSeconds(pettingAnimationDuration);
@@ -73,6 +81,14 @@ public class SaveData : MonoBehaviour
 		playerStats.playerCanMove = true;
 		playerStats.playerCanDash = true;
 		anim.SetBool("isPetting", false);
+	}
+
+	void OnTriggerEnter2D(Collider2D collision)
+	{
+		if ((collision.gameObject.tag == "Checkpoint"))
+		{
+			nearestBissbiss = collision.transform.Find("Bissbiss");
+		}
 	}
 }
 
