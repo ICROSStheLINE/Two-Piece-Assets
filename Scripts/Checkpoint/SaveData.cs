@@ -6,6 +6,8 @@ public class SaveData : MonoBehaviour
 {
 	Animator anim;
 	PlayerStats playerStats;
+	GameObject healthBar;
+	HealthScript healthScript;
     public PlayerPosition playerPosition = new PlayerPosition();
 	
 	static readonly float pettingDurationSpeedMultiplier = 0.4f;
@@ -21,6 +23,8 @@ public class SaveData : MonoBehaviour
 	{
 		anim = GetComponent<Animator>();
 		playerStats = GetComponent<PlayerStats>();
+		healthBar = GameObject.FindWithTag("HealthBar");
+		healthScript = healthBar.GetComponent<HealthScript>();
 		LoadFromJson();
 	}
 	
@@ -44,9 +48,9 @@ public class SaveData : MonoBehaviour
 		
 		string positionData = JsonUtility.ToJson(playerPosition);
 		string filePath = Application.persistentDataPath + "/playerPositionData.json";
-		Debug.Log(filePath);
+		//Debug.Log(filePath);
 		System.IO.File.WriteAllText(filePath, positionData);
-		Debug.Log("Save Completed");
+		//Debug.Log("Save Completed");
 		StartCoroutine(DrinkThenPetCat());
 	}
 
@@ -56,7 +60,7 @@ public class SaveData : MonoBehaviour
 		string positionData = System.IO.File.ReadAllText(filePath);
 		
 		playerPosition = JsonUtility.FromJson<PlayerPosition>(positionData);
-		Debug.Log("Save Loaded");
+		//Debug.Log("Save Loaded");
 		
 		transform.position = new Vector3(playerPosition.xPosition, playerPosition.yPosition, playerPosition.zPosition);
 	}
@@ -72,7 +76,9 @@ public class SaveData : MonoBehaviour
 		anim.SetBool("isDrinking", true);
 		SpriteRenderer tso = GameObject.FindWithTag("Truth Seeking Orb").GetComponent<SpriteRenderer>();
 		tso.color = new Color(1,1,1,0);
-		yield return new WaitForSeconds(drinkingAnimationDuration);
+		yield return new WaitForSeconds(drinkingAnimationDuration/2);
+		healthScript.LoseHealthBy(-1);
+		yield return new WaitForSeconds(drinkingAnimationDuration/2);
 		tso.color = new Color(1,1,1,1);
 		anim.SetBool("isDrinking", false);
 		anim.SetBool("isPetting", true);

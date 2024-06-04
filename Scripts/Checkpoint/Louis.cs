@@ -41,14 +41,14 @@ public class Louis : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKeyDown("/"))
+		/*if (Input.GetKeyDown("/"))
 		{
 			StartCoroutine(MoveSteps(2));
 		}
 		if (Input.GetKeyDown("."))
 		{
 			StartCoroutine(MoveSteps(-2));
-		}
+		}*/
 	}
 
     void FixedUpdate()

@@ -30,7 +30,7 @@ public class IceBossBehaviour : MonoBehaviour
 
 	// Laser Variables
 	[SerializeField] GameObject laserPrefab;
-	readonly float laserYPosition = 8.5f;
+	float laserYPosition = 8.5f;
 	
 	// Ground Slam Variables
 	Vector3 slamTarget;
@@ -60,6 +60,7 @@ public class IceBossBehaviour : MonoBehaviour
         iceBossStats = transform.parent.GetComponent<IceBossStats>();
 		player = GameObject.FindWithTag("Player");
 		fightingZone = GameObject.FindWithTag("Ice Arena Fighting Zone");
+		laserYPosition = fightingZone.transform.position.y;
 		Vector3 arenaStartPos = fightingZone.transform.position - new Vector3(fightingZone.transform.localScale.x/2,0,0);
 		fleeingDestination = new Vector3(arenaStartPos.x + fightingZone.transform.localScale.x/3,fightingZone.transform.position.y + 2,fightingZone.transform.position.z);
 		playerStats = player.GetComponent<PlayerStats>();
