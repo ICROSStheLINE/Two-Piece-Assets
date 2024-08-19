@@ -7,6 +7,8 @@ public class BuffyLeechBlast : MonoBehaviour
 	Animator anim;
 	TSOBasicAttack tsoBasicAttack;
 	PlayerStats playerStats;
+	GameObject healthBar;
+	HealthScript healthScript;
 	
 	[SerializeField] GameObject textPrefab;
 	GameObject existingText;
@@ -29,6 +31,8 @@ public class BuffyLeechBlast : MonoBehaviour
     {
         anim = GetComponent<Animator>();
 		playerStats = GetComponent<PlayerStats>();
+		healthBar = GameObject.FindWithTag("HealthBar");
+		healthScript = healthBar.GetComponent<HealthScript>();
     }
 
     void Update()
@@ -46,7 +50,7 @@ public class BuffyLeechBlast : MonoBehaviour
 			Invoke("SpawnProjectile", blastProjectileSpawn);
 		}
     }
-	
+
 	void SpawnText()
 	{
 		float spawnDistance = Mathf.Sign(transform.localScale.x) * 3;
@@ -77,6 +81,7 @@ public class BuffyLeechBlast : MonoBehaviour
 	{
 		anim.SetBool("isLeechBlastingW", true);
 		anim.SetBool("isLeechBlasting", false);
+		healthScript.LoseHealthBy(-1);
 		Invoke("ResetCooldown", animationWDuration);
 	}
 

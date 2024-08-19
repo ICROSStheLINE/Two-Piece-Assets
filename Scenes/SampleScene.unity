@@ -9422,6 +9422,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 60100711}
   damageStatic: {fileID: 8404582308466721107, guid: 257531908bf730d499b4e403af52f464, type: 3}
+  maxHealth: 15
+  currentHealth: 15
 --- !u!4 &1187022164
 Transform:
   m_ObjectHideFlags: 0

@@ -17,7 +17,8 @@ public class HealthScript : MonoBehaviour
 	
 	[SerializeField] GameObject damageStatic;
 	SpriteRenderer playerSpriteRenderer;
-	float currentHealth = 15f;
+	public float maxHealth = 15f;
+	public float currentHealth = 15f;
 	//int healthChunkPosition = 15;
 
     void Start()
@@ -38,12 +39,20 @@ public class HealthScript : MonoBehaviour
 				healthChunk.transform.position -= new Vector3(((healthChunkRectTransform.rect.width / 2) + (healthBarRectTransform.rect.width / 250)),0,0);
 		}*/
     }
+	
+	void Update()
+	{
+		if (currentHealth > maxHealth)
+		{
+			currentHealth = maxHealth;
+		}
+	}
 
 	public void LoseHealthBy(int amount)
 	{
 		currentHealth -= amount;
 		healthBar.fillAmount = (currentHealth / 15f);
-		if (Mathf.Sign(amount) == 1)
+		if (Mathf.Sign(amount) == -1)
 		{
 			return;
 		}
